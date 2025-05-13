@@ -547,7 +547,7 @@ void CInitialDlg::OnBnClickedMesTest4()
 	pDX3->iNGTray2Check = TRUE;
 
 	pDX1->iLS_Load1FCheck = TRUE;
-	pDX6->iUS_Load1FCheck = TRUE;
+	pDX6->iEnd_Unload1FCheck = TRUE;
 	pDX0->iMainDoor1Close = TRUE;
 	pDY0->oTowerRed = TRUE;
 	pDY0->oTowerGreen = TRUE;

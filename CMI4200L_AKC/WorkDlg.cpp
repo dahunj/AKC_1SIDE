@@ -615,7 +615,7 @@ BOOL CWorkDlg::Check_Start()
 		pCommon->Show_MsgBox(1, "Load Tray를 확인해 주세요.");
 		return FALSE;
 	}
-	if(!pDX6->iUS_Load1FCheck && gData.nLoadTrayCount == 0) {
+	if(!pDX6->iEnd_Load1FCheck && gData.nLoadTrayCount == 0) {
 		m_rdoWorkStart.SetCheck(FALSE);
 		pCommon->Show_MsgBox(1, "Unload Tray(양품 Tray)를 확인해 주세요.");
 		return FALSE;

@@ -217,7 +217,7 @@ BOOL CSequenceInit::Initial_MainRun()
 		}
 		break;
 	case 123:
-		if (!m_pDX6->iUS_UnloadFullCheck) {
+		if (!m_pDX6->iEnd_LoadFullCheck) {
 			m_nInitMainCase = 124;
 			m_pCommon->Set_LoopTime(INITIAL_MAIN, 5000);
 		}
@@ -522,8 +522,8 @@ BOOL CSequenceInit::Initial_Unload1Run()
 		break;
 
 	case 111:
-			m_pDY6->oUS_LoadSupport12In = TRUE;
-			m_pDY6->oUS_LoadSupport12Out = FALSE;
+			m_pDY6->oEnd_LoadSupport12In = TRUE;
+			m_pDY6->oEnd_LoadSupport12Out = FALSE;
 					 
 			m_pDY6->oUS_Z1AlignS12In = FALSE;
 			m_pDY6->oUS_Z1AlignS12Out = TRUE;
@@ -535,7 +535,7 @@ BOOL CSequenceInit::Initial_Unload1Run()
 			m_pCommon->Set_LoopTime(INITIAL_UNLOAD1, 5000);
 		break;
 	case 112:
-		if (m_pDX6->iUS_LoadSupport1In && !m_pDX6->iUS_LoadSupport1Out && m_pDX6->iUS_LoadSupport2In && !m_pDX6->iUS_LoadSupport2Out) {
+		if (m_pDX6->iEnd_LoadSupport1In && !m_pDX6->iEnd_LoadSupport1Out && m_pDX6->iEnd_LoadSupport2In && !m_pDX6->iEnd_LoadSupport2Out) {
 			m_nInitUnload1Case = 113;
 			m_pCommon->Set_LoopTime(INITIAL_UNLOAD1, 5000);
 		}
@@ -652,8 +652,8 @@ BOOL CSequenceInit::Initial_Unload2Run()
 		break;
 
 	case 111:
-			m_pDY6->oUS_UnloadSupport12In = TRUE;
-			m_pDY6->oUS_UnloadSupport12Out = FALSE;
+			m_pDY6->oEnd_LoadSupport12In = TRUE;
+			m_pDY6->oEnd_LoadSupport12Out = FALSE;
 					 
 			m_pDY6->oUS_Z2AlignS12In = FALSE;
 			m_pDY6->oUS_Z2AlignS12Out = TRUE;
@@ -665,7 +665,7 @@ BOOL CSequenceInit::Initial_Unload2Run()
 			m_pCommon->Set_LoopTime(INITIAL_UNLOAD2, 5000);
 		break;
 	case 112:
-		if (m_pDX6->iUS_UnloadSupport1In && !m_pDX6->iUS_UnloadSupport1Out && m_pDX6->iUS_UnloadSupport2In && !m_pDX6->iUS_UnloadSupport2Out) {
+		if (m_pDX6->iEnd_LoadSupport1In && !m_pDX6->iEnd_LoadSupport1Out && m_pDX6->iEnd_LoadSupport2In && !m_pDX6->iEnd_LoadSupport2Out) {
 			m_nInitUnload2Case = 113;
 			m_pCommon->Set_LoopTime(INITIAL_UNLOAD2, 5000);
 		}
@@ -1798,7 +1798,8 @@ BOOL CSequenceInit::Initial_Simulation()
 	if (m_nInitInspectCase == 0) { }
 	
 	if (m_nInitNGTrayCase == 111) { pDX3->iNGTray1Check = TRUE; pDX3->iNGTray2Check = TRUE;
-									pDX1->iLS_Load1FCheck = TRUE; pDX6->iUS_Load1FCheck = TRUE;
+									pDX1->iLS_Load1FCheck = TRUE; pDX6->iEnd_Load1FCheck = TRUE;
+									
 									pDX0->iMainDoor1Close = TRUE; pDX0->iMainDoor2Close = TRUE; pDX0->iMainDoor3Close = TRUE; pDX0->iMainDoor4Close = TRUE; 
 									pDX0->iMainDoor5Close = TRUE; pDX0->iMainDoor6Close = TRUE; pDX0->iMainDoor7Close = TRUE; pDX0->iMainDoor8Close = TRUE; }
 

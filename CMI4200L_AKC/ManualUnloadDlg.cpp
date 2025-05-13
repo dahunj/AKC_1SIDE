@@ -225,30 +225,30 @@ void CManualUnloadDlg::Display_Status()
 	if (pDX6->iUS_Z2Check2) m_ledTR2[5].Set_On(TRUE);
 	else m_ledTR2[5].Set_On(FALSE);
 
-	if (pDX6->iUS_LoadSupport1In) m_ledShuttle[0].Set_On(TRUE);
+	if (pDX6->iEnd_UnloadSupport1In) m_ledShuttle[0].Set_On(TRUE);
 	else m_ledShuttle[0].Set_On(FALSE);
-	if (pDX6->iUS_LoadSupport2In) m_ledShuttle[1].Set_On(TRUE);
+	if (pDX6->iEnd_UnloadSupport2In) m_ledShuttle[1].Set_On(TRUE);
 	else m_ledShuttle[1].Set_On(FALSE);
-	if (pDX6->iUS_LoadSupport1Out) m_ledShuttle[2].Set_On(TRUE);
+	if (pDX6->iEnd_UnloadSupport1Out) m_ledShuttle[2].Set_On(TRUE);
 	else m_ledShuttle[2].Set_On(FALSE);
-	if (pDX6->iUS_LoadSupport2Out) m_ledShuttle[3].Set_On(TRUE);
+	if (pDX6->iEnd_UnloadSupport2Out) m_ledShuttle[3].Set_On(TRUE);
 	else m_ledShuttle[3].Set_On(FALSE);
-	if (pDX6->iUS_Load1FCheck) m_ledShuttle[4].Set_On(TRUE);
+	if (pDX6->iEnd_Unload1FCheck) m_ledShuttle[4].Set_On(TRUE);
 	else m_ledShuttle[4].Set_On(FALSE);
-	if (pDX6->iUS_LoadFullCheck) m_ledShuttle[5].Set_On(TRUE);
+	if (pDX6->iEnd_UnloadFullCheck) m_ledShuttle[5].Set_On(TRUE);
 	else m_ledShuttle[5].Set_On(FALSE);
 
-	if (pDX6->iUS_UnloadSupport1In) m_ledShuttle2[0].Set_On(TRUE);
+	if (pDX6->iEnd_LoadSupport1In) m_ledShuttle2[0].Set_On(TRUE);
 	else m_ledShuttle2[0].Set_On(FALSE);
-	if (pDX6->iUS_UnloadSupport2In) m_ledShuttle2[1].Set_On(TRUE);
+	if (pDX6->iEnd_LoadSupport2In) m_ledShuttle2[1].Set_On(TRUE);
 	else m_ledShuttle2[1].Set_On(FALSE);
-	if (pDX6->iUS_UnloadSupport1Out) m_ledShuttle2[2].Set_On(TRUE);
+	if (pDX6->iEnd_LoadSupport1Out) m_ledShuttle2[2].Set_On(TRUE);
 	else m_ledShuttle2[2].Set_On(FALSE);
-	if (pDX6->iUS_UnloadSupport2Out) m_ledShuttle2[3].Set_On(TRUE);
+	if (pDX6->iEnd_LoadSupport2Out) m_ledShuttle2[3].Set_On(TRUE);
 	else m_ledShuttle2[3].Set_On(FALSE);
-	if (pDX6->iUS_Unload1FCheck) m_ledShuttle2[4].Set_On(TRUE);
+	if (pDX6->iEnd_Load1FCheck) m_ledShuttle2[4].Set_On(TRUE);
 	else m_ledShuttle2[4].Set_On(FALSE);
-	if (pDX6->iUS_UnloadFullCheck) m_ledShuttle2[5].Set_On(TRUE);
+	if (pDX6->iEnd_LoadFullCheck) m_ledShuttle2[5].Set_On(TRUE);
 	else m_ledShuttle2[5].Set_On(FALSE);
 
 	CDataManager *pDataManager = CDataManager::Get_Instance();
@@ -279,11 +279,11 @@ void CManualUnloadDlg::OnBtnShuttleIOClick(UINT nID)
 	pManualDlg->MainDoor_Lock();
 
 	if (nID == IDC_BTN_LD_TRAY_IO_0) {
-		pDY6->oUS_LoadSupport12In = TRUE;
-		pDY6->oUS_LoadSupport12Out = FALSE;
+		pDY6->oEnd_UnloadSupport12In = TRUE;
+		pDY6->oEnd_UnloadSupport12Out = FALSE;
 	} else if (nID == IDC_BTN_LD_TRAY_IO_1) {
-		pDY6->oUS_LoadSupport12In = FALSE;
-		pDY6->oUS_LoadSupport12Out = TRUE;
+		pDY6->oEnd_UnloadSupport12In = FALSE;
+		pDY6->oEnd_UnloadSupport12Out = TRUE;
 	}
 	pAJinAXL->Write_Output(6);
 }
@@ -300,11 +300,11 @@ void CManualUnloadDlg::OnBtnShuttleIO2Click(UINT nID)
 	pManualDlg->MainDoor_Lock();
 
 	if (nID == IDC_BTN_UN_TRAY_IO_0) {
-		pDY6->oUS_UnloadSupport12In = TRUE;
-		pDY6->oUS_UnloadSupport12Out = FALSE;
+		pDY6->oEnd_LoadSupport12In = TRUE;
+		pDY6->oEnd_LoadSupport12Out = FALSE;
 	} else if (nID == IDC_BTN_UN_TRAY_IO_1) {
-		pDY6->oUS_UnloadSupport12In = FALSE;
-		pDY6->oUS_UnloadSupport12Out = TRUE;
+		pDY6->oEnd_LoadSupport12In = FALSE;
+		pDY6->oEnd_LoadSupport12Out = TRUE;
 	}
 	pAJinAXL->Write_Output(6);
 }
@@ -358,11 +358,11 @@ void CManualUnloadDlg::OnBtnTR1ZClick(UINT nID)
 	} else if (nID == IDC_BTN_TR1_Z_1) {
 		pCommon->Move_Position(AX_UNLOAD_TRAY_Z1, 1);
 	} else if (nID == IDC_BTN_TR1_Z_2) {
-		if (pDX6->iUS_Z1Check1 && pCommon->Check_Position(AX_UNLOAD_TRAY_Y1, 0) && pDX6->iUS_LoadSupport1In) {
+		if (pDX6->iUS_Z1Check1 && pCommon->Check_Position(AX_UNLOAD_TRAY_Y1, 0) && pDX6->iEnd_UnloadSupport1In) {
 			AfxMessageBox(_T("Can not Move (Unoad Tray 1 = Tray Exist and Load Support = In)"));
 			return;
 		}
-		if (pDX6->iUS_Z1Check1 && pCommon->Check_Position(AX_UNLOAD_TRAY_Y1, 3) && pDX6->iUS_UnloadSupport1In) {
+		if (pDX6->iUS_Z1Check1 && pCommon->Check_Position(AX_UNLOAD_TRAY_Y1, 3) && pDX6->iEnd_LoadSupport1In) {
 			AfxMessageBox(_T("Can not Move (Unoad Tray 1 = Tray Exist and Unload Support = In)"));
 			return;
 		}
@@ -483,11 +483,11 @@ void CManualUnloadDlg::OnBtnTR2ZClick(UINT nID)
 	} else if (nID == IDC_BTN_TR2_Z_1) {
 		pCommon->Move_Position(AX_UNLOAD_TRAY_Z2, 1);
 	} else if (nID == IDC_BTN_TR2_Z_2) {
-		if (pDX6->iUS_Z2Check1 && pCommon->Check_Position(AX_UNLOAD_TRAY_Y2, 0) && pDX6->iUS_LoadSupport1In) {
+		if (pDX6->iUS_Z2Check1 && pCommon->Check_Position(AX_UNLOAD_TRAY_Y2, 0) && pDX6->iEnd_UnloadSupport1In) {
 			AfxMessageBox(_T("Can not Move (Unoad Tray 2 = Tray Exist and Load Support = In)"));
 			return;
 		}
-		if (pDX6->iUS_Z2Check1 && pCommon->Check_Position(AX_UNLOAD_TRAY_Y2, 3) && pDX6->iUS_UnloadSupport1In) {
+		if (pDX6->iUS_Z2Check1 && pCommon->Check_Position(AX_UNLOAD_TRAY_Y2, 3) && pDX6->iEnd_LoadSupport1In) {
 			AfxMessageBox(_T("Can not Move (Unoad Tray 2 = Tray Exist and Unload Support = In)"));
 			return;
 		}

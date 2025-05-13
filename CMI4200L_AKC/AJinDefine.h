@@ -332,22 +332,22 @@ typedef union tag_DX_DATA_5 {
 typedef union tag_DX_DATA_6 {
 	DWORD nValue;
 	struct {
-		DWORD iUS_UnloadSupport1In: 1;		// X600
-		DWORD iUS_UnloadSupport1Out: 1;		// X601
-		DWORD iUS_Unload1FEmitter: 1;		// X602
-		DWORD iUS_UnloadSupport2In: 1;		// X603
-		DWORD iUS_UnloadSupport2Out: 1;		// X604
-		DWORD iUS_Unload1FCheck: 1;			// X605
-		DWORD iUS_UnloadFullCheck: 1;		// X606
+		DWORD iEnd_LoadSupport1In: 1;		// X600
+		DWORD iEnd_LoadSupport1Out: 1;		// X601
+		DWORD iEnd_Load1FEmitter: 1;		// X602
+		DWORD iEnd_LoadSupport2In: 1;		// X603
+		DWORD iEnd_LoadSupport2Out: 1;		// X604
+		DWORD iEnd_Load1FCheck: 1;			// X605
+		DWORD iEnd_LoadFullCheck: 1;		// X606
 		DWORD i607: 1;						// X607
 				                               
-		DWORD iUS_LoadSupport1In: 1;		// X608
-		DWORD iUS_LoadSupport1Out: 1;		// X609
-		DWORD iUS_Load1FEmitter: 1;			// X610
-		DWORD iUS_LoadSupport2In: 1;		// X611
-		DWORD iUS_LoadSupport2Out: 1;		// X612
-		DWORD iUS_Load1FCheck: 1;			// X613
-		DWORD iUS_LoadFullCheck: 1;			// X614
+		DWORD iEnd_UnloadSupport1In: 1;		// X608
+		DWORD iEnd_UnloadSupport1Out: 1;		// X609
+		DWORD iEnd_Unload1FEmitter: 1;			// X610
+		DWORD iEnd_UnloadSupport2In: 1;		// X611
+		DWORD iEnd_UnloadSupport2Out: 1;		// X612
+		DWORD iEnd_Unload1FCheck: 1;			// X613
+		DWORD iEnd_UnloadFullCheck: 1;			// X614
 		DWORD i615: 1;						// X615
                                                
 		DWORD iUS_Z1Check1: 1;				// X616
@@ -656,8 +656,8 @@ typedef union tag_DY_DATA_5 {
 typedef union tag_DY_DATA_6 {
 	DWORD nValue;
 	struct {
-		DWORD oUS_UnloadSupport12In: 1;		// Y600
-		DWORD oUS_UnloadSupport12Out: 1;	// Y601
+		DWORD oEnd_LoadSupport12In: 1;		// Y600
+		DWORD oEnd_LoadSupport12Out: 1;	// Y601
 		DWORD o602: 1;						// Y602
 		DWORD o603: 1;						// Y603
 		DWORD o604: 1;						// Y604
@@ -665,8 +665,8 @@ typedef union tag_DY_DATA_6 {
 		DWORD o606: 1;						// Y606
 		DWORD o607: 1;						// Y607
                
-		DWORD oUS_LoadSupport12In: 1;		// Y608
-		DWORD oUS_LoadSupport12Out: 1;		// Y609
+		DWORD oEnd_UnloadSupport12In: 1;		// Y608
+		DWORD oEnd_UnloadSupport12Out: 1;		// Y609
 		DWORD o610: 1;						// Y610
 		DWORD o611: 1;						// Y611
 		DWORD o612: 1;						// Y612

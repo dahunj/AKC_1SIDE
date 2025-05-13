@@ -1358,7 +1358,7 @@ BOOL CSequenceMain::Unload1_Run()
 	case 100:
 		if (Check_IndexEmpty(9)==FALSE || Check_PickerEmpty()==FALSE) {
 			if (m_pCommon->Check_Position(AX_UNLOAD_TRAY_Y1, 0) && m_pCommon->Check_Position(AX_UNLOAD_TRAY_Z1, 0)) {
-				if (m_pDX6->iUS_Load1FCheck) {
+				if (m_pDX6->iEnd_Load1FCheck) {
 					m_nUnload1Case = 110;
 					m_pCommon->Set_LoopTime(AUTO_UNLOAD1, 5000);
 				}
@@ -1387,15 +1387,18 @@ BOOL CSequenceMain::Unload1_Run()
 		break;
 	case 120:
 		if (m_pCommon->Check_Position(AX_UNLOAD_TRAY_Z1, 2)) {
-			m_pDY6->oUS_LoadSupport12In = FALSE;
-			m_pDY6->oUS_LoadSupport12Out = TRUE;
+			m_pDY6->oEnd_LoadSupport12In = FALSE;
+			m_pDY6->oEnd_LoadSupport12Out = TRUE;
+			//m_pDY6->oEnd_UnloadSupport12In = FALSE;
+			//m_pDY6->oEnd_UnloadSupport12Out = TRUE;
+			m_sLog.Format("m_nUnload1Case,%d support Out",m_nUnload1Case); pLogFile->Save_MCCLog(m_sLog);
 			m_pAJinAXL->Write_Output(6);
 			m_nUnload1Case = 130;
 			m_pCommon->Set_LoopTime(AUTO_UNLOAD1, 5000);
 		}
 		break;
 	case 130:
-		if (!m_pDX6->iUS_LoadSupport1In && m_pDX6->iUS_LoadSupport1Out && !m_pDX6->iUS_LoadSupport2In && m_pDX6->iUS_LoadSupport2Out) {
+		if (!m_pDX6->iEnd_LoadSupport1In && m_pDX6->iEnd_LoadSupport1Out && !m_pDX6->iEnd_LoadSupport2In && m_pDX6->iEnd_LoadSupport2Out) {
 			if (!m_pCommon->Delay_LoopTime(AUTO_UNLOAD1, 300)) break;
 			m_pCommon->Move_Position(AX_UNLOAD_TRAY_Z1, 3);	//Support Up
 			m_nUnload1Case = 140;
@@ -1404,15 +1407,16 @@ BOOL CSequenceMain::Unload1_Run()
 		break;
 	case 140:
 		if (m_pCommon->Check_Position(AX_UNLOAD_TRAY_Z1, 3)) {
-			m_pDY6->oUS_LoadSupport12In = TRUE;
-			m_pDY6->oUS_LoadSupport12Out = FALSE;
+			m_pDY6->oEnd_LoadSupport12In = TRUE;//m_pDY6->oEnd_UnloadSupport12In = TRUE;
+			m_pDY6->oEnd_LoadSupport12Out = FALSE;//m_pDY6->oEnd_UnloadSupport12Out = FALSE;
+			m_sLog.Format("m_nUnload1Case,%d support In",m_nUnload1Case); pLogFile->Save_MCCLog(m_sLog);
 			m_pAJinAXL->Write_Output(6);
 			m_nUnload1Case = 150;
 			m_pCommon->Set_LoopTime(AUTO_UNLOAD1, 5000);
 		}
 		break;
 	case 150:
-		if (m_pDX6->iUS_LoadSupport1In && !m_pDX6->iUS_LoadSupport1Out && m_pDX6->iUS_LoadSupport2In && !m_pDX6->iUS_LoadSupport2Out) {
+		if (m_pDX6->iEnd_LoadSupport1In && !m_pDX6->iEnd_LoadSupport1Out && m_pDX6->iEnd_LoadSupport2In && !m_pDX6->iEnd_LoadSupport2Out) {
 			if (!m_pCommon->Delay_LoopTime(AUTO_UNLOAD1, 300)) break;
 			m_pCommon->Move_Position(AX_UNLOAD_TRAY_Z1, 0);	// Move Up
 			m_nUnload1Case = 160;
@@ -1468,44 +1472,12 @@ BOOL CSequenceMain::Unload1_Run()
 		break;
 
 	case 200:
-// 		if (gData.nTrayPos[3] > 0) {
-// 			if (m_nUnload2Case < 200 || m_nUnload2Case > 260) {
-// 				m_pCommon->Move_Position(AX_UNLOAD_TRAY_Y1, 1);	// Wait Position
-// 				m_nUnload1Case = 210;
-// 				m_pCommon->Set_LoopTime(AUTO_UNLOAD1, 30000);
-// 			}
-// 		} else {
-			if (m_nUnload2Case < 200 || m_nUnload2Case > 350) {
-				m_pCommon->Move_Position(AX_UNLOAD_TRAY_Y1, 2);
-				m_nUnload1Case = 290;
-				m_pCommon->Set_LoopTime(AUTO_UNLOAD1, 30000);
-			}
-// 		}
+		if (m_nUnload2Case < 200 || m_nUnload2Case > 350) {
+			m_pCommon->Move_Position(AX_UNLOAD_TRAY_Y1, 2);
+			m_nUnload1Case = 290;
+			m_pCommon->Set_LoopTime(AUTO_UNLOAD1, 30000);
+		}
 		return TRUE;
-// 	case 210:
-// 		if (m_pCommon->Check_Position(AX_UNLOAD_TRAY_Y1, 1)) {
-// 			m_nUnload1Case = 250;
-// 			m_pCommon->Set_LoopTime(AUTO_UNLOAD1, 5000);
-// 		}
-// 		break;
-// 	case 250:	// Waiting
-// 		if (m_nUnload2Case <= 200 || m_nUnload2Case > 350) {
-// 			m_nUnload1Case = 260;
-// 		}
-// 			m_pCommon->Set_LoopTime(AUTO_UNLOAD1, 15000);
-// 		break;
-// 	case 260:
-// 		if (gData.nTrayPos[3] > 0) {
-// 			m_nUnload1Case = 250;
-// 			m_pCommon->Set_LoopTime(AUTO_UNLOAD1, 30000);
-// 		} else {
-// 			if (m_nUnload2Case <= 200 || m_nUnload2Case > 350) {
-// 				m_pCommon->Move_Position(AX_UNLOAD_TRAY_Y1, 2);
-// 				m_nUnload1Case = 290;
-// 				m_pCommon->Set_LoopTime(AUTO_UNLOAD1, 30000);
-// 			}
-// 		}
-// 		break;
 
 	case 290:
 		if (m_pCommon->Check_Position(AX_UNLOAD_TRAY_Y1, 2)) {
@@ -1551,8 +1523,8 @@ BOOL CSequenceMain::Unload1_Run()
 		if (!m_pCommon->Check_Position(AX_UNLOAD_TRAY_Y1, 3) || m_pCommon->Check_Position(AX_UNLOAD_TRAY_Y1, 3)) {
 			pStatus = m_pAJinAXL->Get_pStatus(AX_UNLOAD_TRAY_Y1);
 			dPosY1 = pStatus->dPos;
-			double dPos = m_pMoveData->dUnloadTrayY1[2];
-			if (dPosY1 <= dPos) {
+			double dPos = m_pMoveData->dUnloadTrayY1[2]; //job position 
+			if (dPosY1 >= dPos) {
 				gData.nTrayPos[3] = 0;
 				if (Check_GoodTrayEmpty(0)==TRUE) {
 					m_nUnload1Case = 420;
@@ -1569,18 +1541,18 @@ BOOL CSequenceMain::Unload1_Run()
 		}
 		break;
 	case 351:
-		if (m_pDX6->iUS_Unload1FCheck)
+		if (m_pDX6->iEnd_Unload1FCheck)
 		{
-			m_sLog.Format("m_nUnload1Case,%d, %d",m_nUnload1Case,m_pDX6->iUS_Unload1FCheck); pLogFile->Save_MCCLog(m_sLog);
+			m_sLog.Format("m_nUnload1Case,%d, %d",m_nUnload1Case,m_pDX6->iEnd_Unload1FCheck); pLogFile->Save_MCCLog(m_sLog);
 			break;
 		}
 		else 
 		{
-			m_sLog.Format("m_nUnload1Case,%d, %d",m_nUnload1Case,m_pDX6->iUS_Unload1FCheck); pLogFile->Save_MCCLog(m_sLog);
+			m_sLog.Format("m_nUnload1Case,%d, %d",m_nUnload1Case,m_pDX6->iEnd_Unload1FCheck); pLogFile->Save_MCCLog(m_sLog);
 			nSenseCnt++;
 			if(nSenseCnt > 100)
 			{
-				m_sLog.Format("m_nUnload1Case,%d, %d",m_nUnload1Case,m_pDX6->iUS_Unload1FCheck); pLogFile->Save_MCCLog(m_sLog);
+				m_sLog.Format("m_nUnload1Case,%d, %d",m_nUnload1Case,m_pDX6->iEnd_Unload1FCheck); pLogFile->Save_MCCLog(m_sLog);
 				nSenseCnt = 0;
 				m_nUnload1Case = 360;
 				m_pCommon->Set_LoopTime(AUTO_UNLOAD1, 35000);
@@ -1593,10 +1565,10 @@ BOOL CSequenceMain::Unload1_Run()
 		if (m_pCommon->Check_Position(AX_UNLOAD_TRAY_Y1, 3)) {
 			if (m_pEquipData->bUseInlineMode) {
 				if (gData.bCapTrayLoad) break;
-				if ( m_pDX6->iUS_Unload1FCheck ) break;
+				if ( m_pDX6->iEnd_Unload1FCheck ) break;
 				if (!m_pCommon->Delay_LoopTime(AUTO_UNLOAD1, 1000)) break;
-				m_pDY6->oUS_UnloadSupport12In = FALSE;
-				m_pDY6->oUS_UnloadSupport12Out = TRUE;
+				m_pDY6->oEnd_UnloadSupport12In = FALSE;
+				m_pDY6->oEnd_UnloadSupport12Out = TRUE;
 				m_pAJinAXL->Write_Output(6);
 				m_nUnload1Case = 400;
 				m_pCommon->Set_LoopTime(AUTO_UNLOAD1, 35000);
@@ -1630,20 +1602,20 @@ BOOL CSequenceMain::Unload1_Run()
 		break;
 	case 390:
 		if (m_pCommon->Check_Position(AX_UNLOAD_TRAY_Z1, 3)) {
-			m_pDY6->oUS_UnloadSupport12In = FALSE;
-			m_pDY6->oUS_UnloadSupport12Out = TRUE;
+			m_pDY6->oEnd_UnloadSupport12In = FALSE;
+			m_pDY6->oEnd_UnloadSupport12Out = TRUE;
 			m_pAJinAXL->Write_Output(6);
 			m_nUnload1Case = 400;
 			m_pCommon->Set_LoopTime(AUTO_UNLOAD1, 5000);
 		}
 		break;
 	case 400:
-		if (!m_pDX6->iUS_UnloadSupport1In && m_pDX6->iUS_UnloadSupport1Out && !m_pDX6->iUS_UnloadSupport2In && m_pDX6->iUS_UnloadSupport2Out)
+		if (!m_pDX6->iEnd_UnloadSupport1In && m_pDX6->iEnd_UnloadSupport1Out && !m_pDX6->iEnd_UnloadSupport2In && m_pDX6->iEnd_UnloadSupport2Out)
 		{
 			if (m_pEquipData->bUseInlineMode)
 			{
 				if (!m_pCommon->Delay_LoopTime(AUTO_UNLOAD1, 300)) break;
-				if ( m_pDX6->iUS_Unload1FCheck ) break;
+				if ( m_pDX6->iEnd_Unload1FCheck ) break;
 				if (!m_pCommon->Delay_LoopTime(AUTO_UNLOAD1, 300)) break;
 				m_pCommon->Move_Position(AX_UNLOAD_TRAY_Z1, 2);	// Tray Up
 				m_nUnload1Case = 401;
@@ -1687,15 +1659,15 @@ BOOL CSequenceMain::Unload1_Run()
 
 	case 410:
 		if (m_pCommon->Check_Position(AX_UNLOAD_TRAY_Z1, 2)) {
-			m_pDY6->oUS_UnloadSupport12In = TRUE;
-			m_pDY6->oUS_UnloadSupport12Out = FALSE;
+			m_pDY6->oEnd_UnloadSupport12In = TRUE;
+			m_pDY6->oEnd_UnloadSupport12Out = FALSE;
 			m_pAJinAXL->Write_Output(6);
 			m_nUnload1Case = 411;
 			m_pCommon->Set_LoopTime(AUTO_UNLOAD1, 5000);
 		}
 		break;
 	case 411:
-		if (m_pDX6->iUS_UnloadSupport1In && !m_pDX6->iUS_UnloadSupport1Out && m_pDX6->iUS_UnloadSupport2In && !m_pDX6->iUS_UnloadSupport2Out) {
+		if (m_pDX6->iEnd_UnloadSupport1In && !m_pDX6->iEnd_UnloadSupport1Out && m_pDX6->iEnd_UnloadSupport2In && !m_pDX6->iEnd_UnloadSupport2Out) {
 			if (!m_pCommon->Delay_LoopTime(AUTO_UNLOAD1, 1000)) break;
 			m_pCommon->Move_Position(AX_UNLOAD_TRAY_Z1, 1);	// Move Down
 			m_nUnload1Case = 412;
@@ -1721,7 +1693,7 @@ BOOL CSequenceMain::Unload1_Run()
 		break;
 
 	case 420:
-		if (m_pDX6->iUS_UnloadSupport1In && !m_pDX6->iUS_UnloadSupport1Out && m_pDX6->iUS_UnloadSupport2In && !m_pDX6->iUS_UnloadSupport2Out) {
+		if (m_pDX6->iEnd_UnloadSupport1In && !m_pDX6->iEnd_UnloadSupport1Out && m_pDX6->iEnd_UnloadSupport2In && !m_pDX6->iEnd_UnloadSupport2Out) {
 			if (!m_pCommon->Delay_LoopTime(AUTO_UNLOAD1, 500)) break;
 			m_pCommon->Move_Position(AX_UNLOAD_TRAY_Z1, 1);	// Move Down
 			m_nUnload1Case = 430;
@@ -1765,7 +1737,7 @@ BOOL CSequenceMain::Unload1_Run()
 			if (gData.bUnloadSortFront)  dPos = m_pMoveData->dUnloadTrayY2[2];
 			else						 dPos = m_pMoveData->dUnloadTrayY2[2] - (gData.nArrayW * gData.dTrayPitchW);
 
-			if (m_nUnload2Case > 350 && dPosY2 <= dPos)
+			if (m_nUnload2Case > 350 && dPosY2 >= dPos)
 			{
 				m_pCommon->Move_Position(AX_UNLOAD_TRAY_Z1, 0);
 				m_nUnload1Case = 460;
@@ -1883,15 +1855,17 @@ BOOL CSequenceMain::Unload1_Run()
 		break;
 	case 490:
 		if (m_pCommon->Check_Position(AX_UNLOAD_TRAY_Z1, 3)) {
-			m_pDY6->oUS_LoadSupport12In = FALSE;
-			m_pDY6->oUS_LoadSupport12Out = TRUE;
+			m_pDY6->oEnd_LoadSupport12In = FALSE;
+			m_pDY6->oEnd_LoadSupport12Out = TRUE;
 			m_pAJinAXL->Write_Output(6);
+			m_sLog.Format("m_nUnload1Case,%d support Out",m_nUnload1Case); pLogFile->Save_MCCLog(m_sLog);
 			m_nUnload1Case = 491;
 			m_pCommon->Set_LoopTime(AUTO_UNLOAD1, 5000);
 		}
 		break;
 	case 491:
-		if (!m_pDX6->iUS_LoadSupport1In && m_pDX6->iUS_LoadSupport1Out && !m_pDX6->iUS_LoadSupport2In && m_pDX6->iUS_LoadSupport2Out) {
+		if (!m_pDX6->iEnd_LoadSupport1In && m_pDX6->iEnd_LoadSupport1Out && !m_pDX6->iEnd_LoadSupport2In && m_pDX6->iEnd_LoadSupport2Out) 
+		{
 			if (!m_pCommon->Delay_LoopTime(AUTO_UNLOAD1, 1000)) break;
 			m_pCommon->Move_Position(AX_UNLOAD_TRAY_Z1, 2);
 			m_nUnload1Case = 492;
@@ -1899,16 +1873,18 @@ BOOL CSequenceMain::Unload1_Run()
 		}
 		break;
 	case 492:
-		if (m_pCommon->Check_Position(AX_UNLOAD_TRAY_Z1, 2)) {
-			m_pDY6->oUS_LoadSupport12In = TRUE;
-			m_pDY6->oUS_LoadSupport12Out = FALSE;
+		if (m_pCommon->Check_Position(AX_UNLOAD_TRAY_Z1, 2)) 
+		{
+			m_pDY6->oEnd_LoadSupport12In = TRUE;
+			m_pDY6->oEnd_LoadSupport12Out = FALSE;
 			m_pAJinAXL->Write_Output(6);
+			m_sLog.Format("m_nUnload1Case,%d support In",m_nUnload1Case); pLogFile->Save_MCCLog(m_sLog);
 			m_nUnload1Case = 493;
 			m_pCommon->Set_LoopTime(AUTO_UNLOAD1, 5000);
 		}
 		break;
 	case 493:
-		if (m_pDX6->iUS_LoadSupport1In && !m_pDX6->iUS_LoadSupport1Out && m_pDX6->iUS_LoadSupport2In && !m_pDX6->iUS_LoadSupport2Out) {
+		if (m_pDX6->iEnd_LoadSupport1In && !m_pDX6->iEnd_LoadSupport1Out && m_pDX6->iEnd_LoadSupport2In && !m_pDX6->iEnd_LoadSupport2Out) {
 			if (!m_pCommon->Delay_LoopTime(AUTO_UNLOAD1, 1000)) break;
 			m_pCommon->Move_Position(AX_UNLOAD_TRAY_Z1, 0);
 			m_nUnload1Case = 494;
@@ -1959,15 +1935,15 @@ BOOL CSequenceMain::Unload1_Run()
 		break;
 	case 503:
 		if (m_pCommon->Check_Position(AX_UNLOAD_TRAY_Z2, 3)) {
-			m_pDY6->oUS_LoadSupport12In = FALSE;
-			m_pDY6->oUS_LoadSupport12Out = TRUE;
+			m_pDY6->oEnd_UnloadSupport12In = FALSE;
+			m_pDY6->oEnd_UnloadSupport12Out = TRUE;
 			m_pAJinAXL->Write_Output(6);
 			m_nUnload1Case = 504;
 			m_pCommon->Set_LoopTime(AUTO_UNLOAD1, 5000);
 		}
 		break;
 	case 504:
-		if (!m_pDX6->iUS_LoadSupport1In && m_pDX6->iUS_LoadSupport1Out && !m_pDX6->iUS_LoadSupport2In && m_pDX6->iUS_LoadSupport2Out) {
+		if (!m_pDX6->iEnd_UnloadSupport1In && m_pDX6->iEnd_UnloadSupport1Out && !m_pDX6->iEnd_UnloadSupport2In && m_pDX6->iEnd_UnloadSupport2Out) {
 			if (!m_pCommon->Delay_LoopTime(AUTO_UNLOAD1, 1000)) break;
 			m_pCommon->Move_Position(AX_UNLOAD_TRAY_Z2, 2);
 			m_nUnload1Case = 505;
@@ -1976,15 +1952,16 @@ BOOL CSequenceMain::Unload1_Run()
 		break;
 	case 505:
 		if (m_pCommon->Check_Position(AX_UNLOAD_TRAY_Z2, 2)) {
-			m_pDY6->oUS_LoadSupport12In = TRUE;
-			m_pDY6->oUS_LoadSupport12Out = FALSE;
+			m_pDY6->oEnd_LoadSupport12In = TRUE;
+			m_pDY6->oEnd_LoadSupport12Out = FALSE;
+			m_sLog.Format("m_nUnload1Case,%d support In",m_nUnload1Case); pLogFile->Save_MCCLog(m_sLog);
 			m_pAJinAXL->Write_Output(6);
 			m_nUnload1Case = 506;
 			m_pCommon->Set_LoopTime(AUTO_UNLOAD1, 5000);
 		}
 		break;
 	case 506:
-		if (m_pDX6->iUS_LoadSupport1In && !m_pDX6->iUS_LoadSupport1Out && m_pDX6->iUS_LoadSupport2In && !m_pDX6->iUS_LoadSupport2Out) {
+		if (m_pDX6->iEnd_LoadSupport1In && !m_pDX6->iEnd_LoadSupport1Out && m_pDX6->iEnd_LoadSupport2In && !m_pDX6->iEnd_LoadSupport2Out) {
 			if (!m_pCommon->Delay_LoopTime(AUTO_UNLOAD1, 1000)) break;
 			m_pCommon->Move_Position(AX_UNLOAD_TRAY_Z2, 0);
 			m_nUnload1Case = 507;
@@ -2094,7 +2071,7 @@ BOOL CSequenceMain::Unload2_Run()
 		}
 	}
 
-// 	if (m_pDX1->iLS_Load1FCheck && !m_pDX6->iUS_Load1FCheck) {
+// 	if (m_pDX1->iLS_Load1FCheck && !m_pDX6->iEnd_Unload1FCheck) {
 // 		m_pCommon->Show_Error(3600);
 // 		return FALSE;
 // 	}
@@ -2103,7 +2080,7 @@ BOOL CSequenceMain::Unload2_Run()
 	case 100:
 		if (Check_IndexEmpty(9)==FALSE || Check_PickerEmpty()==FALSE) {
 			if (m_pCommon->Check_Position(AX_UNLOAD_TRAY_Y2, 0) && m_pCommon->Check_Position(AX_UNLOAD_TRAY_Z2, 0)) {
-				if (m_pDX6->iUS_Load1FCheck && m_nUnload1Case < 460) {
+				if (m_pDX6->iEnd_Load1FCheck && m_nUnload1Case < 460) {
 					m_nUnload2Case = 110;
 					m_pCommon->Set_LoopTime(AUTO_UNLOAD2, 5000);
 				}
@@ -2132,15 +2109,16 @@ BOOL CSequenceMain::Unload2_Run()
 		break;
 	case 120:
 		if (m_pCommon->Check_Position(AX_UNLOAD_TRAY_Z2, 2)) {
-			m_pDY6->oUS_LoadSupport12In = FALSE;
-			m_pDY6->oUS_LoadSupport12Out = TRUE;
+			m_pDY6->oEnd_LoadSupport12In = FALSE;
+			m_pDY6->oEnd_LoadSupport12Out = TRUE;
 			m_pAJinAXL->Write_Output(6);
-			m_nUnload2Case = 130;
+			m_sLog.Format("m_nUnload2Case,%d support Out",m_nUnload2Case); pLogFile->Save_MCCLog(m_sLog);
+			m_nUnload2Case = 130;			
 			m_pCommon->Set_LoopTime(AUTO_UNLOAD2, 5000);
 		}
 		break;
 	case 130:
-		if (!m_pDX6->iUS_LoadSupport1In && m_pDX6->iUS_LoadSupport1Out && !m_pDX6->iUS_LoadSupport2In && m_pDX6->iUS_LoadSupport2Out) {
+		if (!m_pDX6->iEnd_LoadSupport1In && m_pDX6->iEnd_LoadSupport1Out && !m_pDX6->iEnd_LoadSupport2In && m_pDX6->iEnd_LoadSupport2Out) {
 			if (!m_pCommon->Delay_LoopTime(AUTO_UNLOAD2, 500)) break;
 			m_pCommon->Move_Position(AX_UNLOAD_TRAY_Z2, 3);
 			m_nUnload2Case = 140;
@@ -2149,15 +2127,16 @@ BOOL CSequenceMain::Unload2_Run()
 		break;
 	case 140:
 		if (m_pCommon->Check_Position(AX_UNLOAD_TRAY_Z2, 3)) {
-			m_pDY6->oUS_LoadSupport12In = TRUE;
-			m_pDY6->oUS_LoadSupport12Out = FALSE;
+			m_pDY6->oEnd_LoadSupport12In = TRUE;
+			m_pDY6->oEnd_LoadSupport12Out = FALSE;
+			m_sLog.Format("m_nUnload2Case,%d support In",m_nUnload2Case); pLogFile->Save_MCCLog(m_sLog);
 			m_pAJinAXL->Write_Output(6);
 			m_nUnload2Case = 150;
 			m_pCommon->Set_LoopTime(AUTO_UNLOAD2, 5000);
 		}
 		break;
 	case 150:
-		if (m_pDX6->iUS_LoadSupport1In && !m_pDX6->iUS_LoadSupport1Out && m_pDX6->iUS_LoadSupport2In && !m_pDX6->iUS_LoadSupport2Out) {
+		if (m_pDX6->iEnd_LoadSupport1In && !m_pDX6->iEnd_LoadSupport1Out && m_pDX6->iEnd_LoadSupport2In && !m_pDX6->iEnd_LoadSupport2Out) {
 			if (!m_pCommon->Delay_LoopTime(AUTO_UNLOAD2, 500)) break;
 			m_pCommon->Move_Position(AX_UNLOAD_TRAY_Z2, 0);
 			m_nUnload2Case = 160;
@@ -2213,45 +2192,12 @@ BOOL CSequenceMain::Unload2_Run()
 		break;
 
 	case 200:
-// 		if (gData.nTrayPos[3] > 0) {
-// 			if (m_nUnload1Case < 200 || m_nUnload1Case > 260) {
-// 				m_pCommon->Move_Position(AX_UNLOAD_TRAY_Y2, 1);
-// 				m_nUnload2Case = 210;
-// 				m_pCommon->Set_LoopTime(AUTO_UNLOAD2, 30000);
-// 			}
-// 		} else {
-			if (m_nUnload1Case < 200 || m_nUnload1Case > 350) {
-				m_pCommon->Move_Position(AX_UNLOAD_TRAY_Y2, 2);
-				m_nUnload2Case = 290;
-				m_pCommon->Set_LoopTime(AUTO_UNLOAD2, 30000);
-			}
-// 		}
+		if (m_nUnload1Case < 200 || m_nUnload1Case > 350) {
+			m_pCommon->Move_Position(AX_UNLOAD_TRAY_Y2, 2);
+			m_nUnload2Case = 290;
+			m_pCommon->Set_LoopTime(AUTO_UNLOAD2, 30000);
+		}
 		return TRUE;
-// 	case 210:
-// 		if (m_pCommon->Check_Position(AX_UNLOAD_TRAY_Y2, 1)) {
-// 			m_nUnload2Case = 250;
-// 			m_pCommon->Set_LoopTime(AUTO_UNLOAD2, 5000);
-// 		}
-// 		break;
-// 	case 250:
-// 		if (m_nUnload1Case <= 200 || m_nUnload1Case > 430) { 
-// 			m_nUnload2Case = 260;
-// 		}
-// 			m_pCommon->Set_LoopTime(AUTO_UNLOAD2, 15000);
-// 		break;
-// 	case 260:
-// 		if (gData.nTrayPos[3] > 0) {
-// 			m_nUnload2Case = 250;
-// 			m_pCommon->Set_LoopTime(AUTO_UNLOAD2, 30000);
-// 		} else {
-// 			if (m_nUnload1Case <= 200 || m_nUnload1Case > 430) {
-// 				m_pCommon->Move_Position(AX_UNLOAD_TRAY_Y2, 2);
-// 				m_nUnload2Case = 290;
-// 				m_pCommon->Set_LoopTime(AUTO_UNLOAD2, 30000);
-// 			}
-// 		}
-// 		break;
-
 	case 290:
 		if (m_pCommon->Check_Position(AX_UNLOAD_TRAY_Y2, 2)) {
 			gData.nTrayPos[3] = 1;
@@ -2297,7 +2243,7 @@ BOOL CSequenceMain::Unload2_Run()
 			pStatus = m_pAJinAXL->Get_pStatus(AX_UNLOAD_TRAY_Y2);
 			dPosY2 = pStatus->dPos;
 			double dPos = m_pMoveData->dUnloadTrayY2[2];
-			if (dPosY2 <= dPos) {
+			if (dPosY2 >= dPos) {
 				gData.nTrayPos[3] = 0;
 				if (Check_GoodTrayEmpty(0)==TRUE) {
 					m_nUnload2Case = 420;
@@ -2313,14 +2259,14 @@ BOOL CSequenceMain::Unload2_Run()
 		}
 		break;
 	case 351:
-		if (m_pDX6->iUS_Unload1FCheck)
+		if (m_pDX6->iEnd_Unload1FCheck)
 		{
-			m_sLog.Format("m_nUnload2Case,%d, %d",m_nUnload2Case,m_pDX6->iUS_Unload1FCheck); pLogFile->Save_MCCLog(m_sLog);
+			m_sLog.Format("m_nUnload2Case,%d, %d",m_nUnload2Case,m_pDX6->iEnd_Unload1FCheck); pLogFile->Save_MCCLog(m_sLog);
 			break;
 		}
 		else 
 		{
-			m_sLog.Format("m_nUnload2Case,%d, %d",m_nUnload2Case,m_pDX6->iUS_Unload1FCheck); pLogFile->Save_MCCLog(m_sLog);
+			m_sLog.Format("m_nUnload2Case,%d, %d",m_nUnload2Case,m_pDX6->iEnd_Unload1FCheck); pLogFile->Save_MCCLog(m_sLog);
 			nSenseCnt++;
 			if(nSenseCnt > 100)
 			{
@@ -2335,10 +2281,10 @@ BOOL CSequenceMain::Unload2_Run()
 		if (m_pCommon->Check_Position(AX_UNLOAD_TRAY_Y2, 3)) {
 			if (m_pEquipData->bUseInlineMode) {
 				if (gData.bCapTrayLoad ) break;
-				if(m_pDX6->iUS_Unload1FCheck ) break;
+				if(m_pDX6->iEnd_Unload1FCheck ) break;
 				if (!m_pCommon->Delay_LoopTime(AUTO_UNLOAD2, 300)) break;
-				m_pDY6->oUS_UnloadSupport12In = FALSE;
-				m_pDY6->oUS_UnloadSupport12Out = TRUE;
+				m_pDY6->oEnd_UnloadSupport12In = FALSE;
+				m_pDY6->oEnd_UnloadSupport12Out = TRUE;
 				m_pAJinAXL->Write_Output(6);
 				m_nUnload2Case = 400;
 				m_pCommon->Set_LoopTime(AUTO_UNLOAD2, 40000);
@@ -2371,20 +2317,20 @@ BOOL CSequenceMain::Unload2_Run()
 		break;
 	case 390:
 		if (m_pCommon->Check_Position(AX_UNLOAD_TRAY_Z2, 3)) {
-			m_pDY6->oUS_UnloadSupport12In = FALSE;
-			m_pDY6->oUS_UnloadSupport12Out = TRUE;
+			m_pDY6->oEnd_UnloadSupport12In = FALSE;
+			m_pDY6->oEnd_UnloadSupport12Out = TRUE;
 			m_pAJinAXL->Write_Output(6);
 			m_nUnload2Case = 400;
 			m_pCommon->Set_LoopTime(AUTO_UNLOAD2, 5000);
 		}
 		break;
 	case 400:
-		if (!m_pDX6->iUS_UnloadSupport1In && m_pDX6->iUS_UnloadSupport1Out && !m_pDX6->iUS_UnloadSupport2In && m_pDX6->iUS_UnloadSupport2Out) 
+		if (!m_pDX6->iEnd_UnloadSupport1In && m_pDX6->iEnd_UnloadSupport1Out && !m_pDX6->iEnd_UnloadSupport2In && m_pDX6->iEnd_UnloadSupport2Out) 
 		{
 			if (m_pEquipData->bUseInlineMode)
 			{
 				if (!m_pCommon->Delay_LoopTime(AUTO_UNLOAD2, 300)) break;
-				if( m_pDX6->iUS_Unload1FCheck ) break;
+				if( m_pDX6->iEnd_Unload1FCheck ) break;
 				if (!m_pCommon->Delay_LoopTime(AUTO_UNLOAD2, 300)) break;
 				m_pCommon->Move_Position(AX_UNLOAD_TRAY_Z2, 2);
 				m_nUnload2Case = 401;
@@ -2427,15 +2373,15 @@ BOOL CSequenceMain::Unload2_Run()
 
 	case 410:
 		if (m_pCommon->Check_Position(AX_UNLOAD_TRAY_Z2, 2)) {
-			m_pDY6->oUS_UnloadSupport12In = TRUE;
-			m_pDY6->oUS_UnloadSupport12Out = FALSE;
+			m_pDY6->oEnd_UnloadSupport12In = TRUE;
+			m_pDY6->oEnd_UnloadSupport12Out = FALSE;
 			m_pAJinAXL->Write_Output(6);
 			m_nUnload2Case = 411;
 			m_pCommon->Set_LoopTime(AUTO_UNLOAD2, 5000);
 		}
 		break;
 	case 411:
-		if (m_pDX6->iUS_UnloadSupport1In && !m_pDX6->iUS_UnloadSupport1Out && m_pDX6->iUS_UnloadSupport2In && !m_pDX6->iUS_UnloadSupport2Out) {
+		if (m_pDX6->iEnd_UnloadSupport1In && !m_pDX6->iEnd_UnloadSupport1Out && m_pDX6->iEnd_UnloadSupport2In && !m_pDX6->iEnd_UnloadSupport2Out) {
 			if (!m_pCommon->Delay_LoopTime(AUTO_UNLOAD2, 1000)) break;
 			m_pCommon->Move_Position(AX_UNLOAD_TRAY_Z2, 1);
 			m_nUnload2Case = 412;
@@ -2461,7 +2407,7 @@ BOOL CSequenceMain::Unload2_Run()
 		break;
 
 	case 420:
-		if (m_pDX6->iUS_UnloadSupport1In && !m_pDX6->iUS_UnloadSupport1Out && m_pDX6->iUS_UnloadSupport2In && !m_pDX6->iUS_UnloadSupport2Out) {
+		if (m_pDX6->iEnd_UnloadSupport1In && !m_pDX6->iEnd_UnloadSupport1Out && m_pDX6->iEnd_UnloadSupport2In && !m_pDX6->iEnd_UnloadSupport2Out) {
 			if (!m_pCommon->Delay_LoopTime(AUTO_UNLOAD2, 300)) break;
 			m_pCommon->Move_Position(AX_UNLOAD_TRAY_Z2, 1);
 			m_nUnload2Case = 430;
@@ -2503,7 +2449,7 @@ BOOL CSequenceMain::Unload2_Run()
 			if (gData.bUnloadSortFront) dPos = m_pMoveData->dUnloadTrayY1[2];
 			else						dPos = m_pMoveData->dUnloadTrayY1[2] - (gData.nArrayW * gData.dTrayPitchW);
 
-			if (m_nUnload1Case > 350 && dPosY1 <= dPos)
+			if (m_nUnload1Case > 350 && dPosY1 >= dPos)
 			{
 				m_pCommon->Move_Position(AX_UNLOAD_TRAY_Z2, 0);
 				m_nUnload2Case = 460;
@@ -2560,15 +2506,15 @@ BOOL CSequenceMain::Unload2_Run()
 		break;
 	case 490:
 		if (m_pCommon->Check_Position(AX_UNLOAD_TRAY_Z2, 3)) {
-			m_pDY6->oUS_UnloadSupport12In = FALSE;
-			m_pDY6->oUS_UnloadSupport12Out = TRUE;
+			m_pDY6->oEnd_UnloadSupport12In = FALSE;
+			m_pDY6->oEnd_UnloadSupport12Out = TRUE;
 			m_pAJinAXL->Write_Output(6);
 			m_nUnload2Case = 491;
 			m_pCommon->Set_LoopTime(AUTO_UNLOAD2, 5000);
 		}
 		break;
 	case 491:
-		if (!m_pDX6->iUS_UnloadSupport1In && m_pDX6->iUS_UnloadSupport1Out && !m_pDX6->iUS_UnloadSupport2In && m_pDX6->iUS_UnloadSupport2Out) {
+		if (!m_pDX6->iEnd_UnloadSupport1In && m_pDX6->iEnd_UnloadSupport1Out && !m_pDX6->iEnd_UnloadSupport2In && m_pDX6->iEnd_UnloadSupport2Out) {
 			if (!m_pCommon->Delay_LoopTime(AUTO_UNLOAD2, 1000)) break;
 			m_pCommon->Move_Position(AX_UNLOAD_TRAY_Z2, 2);
 			m_nUnload2Case = 492;
@@ -2577,15 +2523,15 @@ BOOL CSequenceMain::Unload2_Run()
 		break;
 	case 492:
 		if (m_pCommon->Check_Position(AX_UNLOAD_TRAY_Z2, 2)) {
-			m_pDY6->oUS_UnloadSupport12In = TRUE;
-			m_pDY6->oUS_UnloadSupport12Out = FALSE;
+			m_pDY6->oEnd_UnloadSupport12In = TRUE;
+			m_pDY6->oEnd_UnloadSupport12Out = FALSE;
 			m_pAJinAXL->Write_Output(6);
 			m_nUnload2Case = 493;
 			m_pCommon->Set_LoopTime(AUTO_UNLOAD2, 5000);
 		}
 		break;
 	case 493:
-		if (m_pDX6->iUS_UnloadSupport1In && !m_pDX6->iUS_UnloadSupport1Out && m_pDX6->iUS_UnloadSupport2In && !m_pDX6->iUS_UnloadSupport2Out) {
+		if (m_pDX6->iEnd_UnloadSupport1In && !m_pDX6->iEnd_UnloadSupport1Out && m_pDX6->iEnd_UnloadSupport2In && !m_pDX6->iEnd_UnloadSupport2Out) {
 			if (!m_pCommon->Delay_LoopTime(AUTO_UNLOAD2, 1000)) break;
 			m_pCommon->Move_Position(AX_UNLOAD_TRAY_Z2, 1);
 			m_nUnload2Case = 494;
@@ -5195,17 +5141,10 @@ BOOL CSequenceMain::IndexT_Run()
 		break;
 	case 140:
 		if (m_pDX2->iInspCMAlign1In && !m_pDX2->iInspCMAlign1Out) {
-//			if((!m_pEquipData->bUseVacuumCheck) ||
-			if((gData.bUseDryRun) ||
-			   (((gData.IndexInfo[0][0]>0 && m_pDX3->iInspVacuumPad1Check) || gData.IndexInfo[0][0]==0) &&
-				((gData.IndexInfo[0][1]>0 && m_pDX3->iInspVacuumPad2Check) || gData.IndexInfo[0][1]==0) &&
-				((gData.IndexInfo[0][2]>0 && m_pDX3->iInspVacuumPad3Check) || gData.IndexInfo[0][2]==0) &&
-				((gData.IndexInfo[0][3]>0 && m_pDX3->iInspVacuumPad4Check) || gData.IndexInfo[0][3]==0) &&
-				((gData.IndexInfo[0][4]>0 && m_pDX3->iInspVacuumPad5Check) || gData.IndexInfo[0][4]==0))) 
-			{
-				m_nIndexTCase = 150;
-				m_pCommon->Set_LoopTime(AUTO_INDEXT, 5000);
-			}
+
+			m_nIndexTCase = 150;
+			m_pCommon->Set_LoopTime(AUTO_INDEXT, 5000);
+
 		}
 		break;
 
@@ -5227,26 +5166,11 @@ BOOL CSequenceMain::IndexT_Run()
 		}
 		break;
 	case 143:
-		if (m_pDX2->iInspCMAlign1In && !m_pDX2->iInspCMAlign1Out) {
-//			if((!m_pEquipData->bUseVacuumCheck) ||
-			if((gData.bUseDryRun) ||
-			   (((gData.IndexInfo[0][0]>0 && m_pDX3->iInspVacuumPad1Check) || gData.IndexInfo[0][0]==0) &&
-				((gData.IndexInfo[0][1]>0 && m_pDX3->iInspVacuumPad2Check) || gData.IndexInfo[0][1]==0) &&
-				((gData.IndexInfo[0][2]>0 && m_pDX3->iInspVacuumPad3Check) || gData.IndexInfo[0][2]==0) &&
-				((gData.IndexInfo[0][3]>0 && m_pDX3->iInspVacuumPad4Check) || gData.IndexInfo[0][3]==0) &&
-				((gData.IndexInfo[0][4]>0 && m_pDX3->iInspVacuumPad5Check) || gData.IndexInfo[0][4]==0))) {
+		if (m_pDX2->iInspCMAlign1In && !m_pDX2->iInspCMAlign1Out) 
+		{
+			m_nIndexTCase = 150;
+			m_pCommon->Set_LoopTime(AUTO_INDEXT, 5000);
 
-				m_pDY3->oInspVacuumPad1On = FALSE;
-				m_pDY3->oInspVacuumPad2On = FALSE;
-				m_pDY3->oInspVacuumPad3On = FALSE;
-				m_pDY3->oInspVacuumPad4On = FALSE;
-				m_pDY3->oInspVacuumPad5On = FALSE;
-				m_pDY3->oInspVacuumPad6On = FALSE;
-				m_pAJinAXL->Write_Output(3);
-
-				m_nIndexTCase = 150;
-				m_pCommon->Set_LoopTime(AUTO_INDEXT, 5000);
-			}
 		}
 		break;
 

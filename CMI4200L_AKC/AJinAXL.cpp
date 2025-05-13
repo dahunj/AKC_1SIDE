@@ -464,7 +464,7 @@ void CAJinAXL::Status_Monitoring()
 	if (gData.nIndexPos == 8 && nIndexPos != 8) gData.nIndexPos = 0;
 	if (gData.nIndexPos < nIndexPos) gData.nIndexPos = nIndexPos;
 
-// 	if (!m_DX6.iUS_Unload1FCheck)	m_nGoodCnt++;
+// 	if (!m_DX6.iEnd_Load1FCheck)	m_nGoodCnt++;
 // 	else							m_nGoodCnt = 0;
 // 	if(m_nGoodCnt>200) {
 // 		gData.nGoodTrayCount = 0;
@@ -752,15 +752,15 @@ void CAJinAXL::Sim_SetOutToIn(int nNo)
 		pDX5->iGoodVacuumPad6Check	= pDY5->oGoodVacuumPad6On;
 	}
 	if (nNo==6) {
-		pDX6->iUS_UnloadSupport1In	= pDY6->oUS_UnloadSupport12In;
-		pDX6->iUS_UnloadSupport1Out	= pDY6->oUS_UnloadSupport12Out;
-		pDX6->iUS_UnloadSupport2In	= pDY6->oUS_UnloadSupport12In;
-		pDX6->iUS_UnloadSupport2Out	= pDY6->oUS_UnloadSupport12Out;
+		pDX6->iEnd_LoadSupport1In	= pDY6->oEnd_LoadSupport12In;
+		pDX6->iEnd_LoadSupport1Out	= pDY6->oEnd_LoadSupport12Out;
+		pDX6->iEnd_LoadSupport2In	= pDY6->oEnd_LoadSupport12In;
+		pDX6->iEnd_LoadSupport2Out	= pDY6->oEnd_LoadSupport12Out;
 
-		pDX6->iUS_LoadSupport1In	= pDY6->oUS_LoadSupport12In;
-		pDX6->iUS_LoadSupport1Out	= pDY6->oUS_LoadSupport12Out;
-		pDX6->iUS_LoadSupport2In	= pDY6->oUS_LoadSupport12In;
-		pDX6->iUS_LoadSupport2Out	= pDY6->oUS_LoadSupport12Out;
+		pDX6->iEnd_UnloadSupport1In	= pDY6->oEnd_UnloadSupport12In;
+		pDX6->iEnd_UnloadSupport1Out	= pDY6->oEnd_UnloadSupport12Out;
+		pDX6->iEnd_UnloadSupport2In	= pDY6->oEnd_UnloadSupport12In;
+		pDX6->iEnd_UnloadSupport2Out	= pDY6->oEnd_UnloadSupport12Out;
 
 		pDX6->iUS_Z1AlignM34In		= pDY6->oUS_Z1AlignM34In;
 		pDX6->iUS_Z1AlignM34Out		= pDY6->oUS_Z1AlignM34Out;
