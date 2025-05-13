@@ -563,6 +563,11 @@ void CManualInspectorDlg::OnBtnVisionYClick(UINT nID)
 			return;
 		}
 	}
+	if (!pCommon->Check_Position(AX_BARCODE_A, 0)) {
+		AfxMessageBox(_T("Barcode A Ready Position 위치후에 진행하세요....."));
+		return;
+	}
+
 
 	if (pDX2->iInspCMAlign1In && !pDX2->iInspCMAlign1Out && pDX2->iInspCMAlign2In && !pDX2->iInspCMAlign2Out && 
 		pDX2->iInspCMAlign3In && !pDX2->iInspCMAlign3Out && pDX2->iInspCMAlign4In && !pDX2->iInspCMAlign4Out ) {

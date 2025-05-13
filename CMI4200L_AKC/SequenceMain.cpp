@@ -3313,9 +3313,9 @@ BOOL CSequenceMain::NGPicker_Run()
 					int nYY = gData.nTrayPos[gData.nNGTrayPos];
 					m_pCommon->PickerNG_DnMove(gData.NGPicNo, gData.NGIdxNo, nYY, gData.nNGTrayPos);
 					m_dNGPickerX = m_pCommon->m_dP3X;
-					m_dNGPickerZ = m_pCommon->m_dP3Z;
+					//m_dNGPickerZ = m_pCommon->m_dP3Z;
 					m_pAJinAXL->Move_Abs_Accel(AX_NG_PICKER_X, m_dNGPickerX, m_pMoveData->dDNGPickerX[2]);
-					m_pAJinAXL->Move_Abs_Accel(AX_NG_PICKER_Z, m_dNGPickerZ, m_pMoveData->dDNGPickerZ[2]);
+					//m_pAJinAXL->Move_Abs_Accel(AX_NG_PICKER_Z, m_dNGPickerZ, m_pMoveData->dDNGPickerZ[2]);
 
 					m_pCommon->PickerNGStageMove(nYY, gData.nNGTrayPos);
 					m_dNGStageY = m_pCommon->m_dP3Y;
@@ -3346,7 +3346,7 @@ BOOL CSequenceMain::NGPicker_Run()
 	case 230:
 		if (m_pAJinAXL->Is_MoveDone(AX_NG_PICKER_X, m_dNGPickerX) &&
 			m_pAJinAXL->Is_MoveDone(AX_NG_STAGE_Y, m_dNGStageY) &&
-			m_pCommon->Check_Position(AX_NG_PICKER_Z, 0) ) {
+			m_pAJinAXL->Is_Done(AX_NG_PICKER_Z) ) {
 			m_nNGPickerCase = 231;
 			m_pCommon->Set_LoopTime(AUTO_NGPICKER, 5000);
 		}
