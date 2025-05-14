@@ -10,7 +10,6 @@
 #include "AJinAXL.h"
 #include "DataManager.h"
 #include "Common.h"
-#include "LogFile.h"
 #include "ExtBarcode_Honeywell.h"
 #include "Barcode_DS1100.h"
 #include "MESInterface.h"
@@ -43,6 +42,7 @@ void CWorkDlg::Delete_Instance()
 CWorkDlg::CWorkDlg(CWnd* pParent /*=NULL*/)
 	: CDialogEx(CWorkDlg::IDD, pParent)
 {
+	pLogFile = CLogFile::Get_Instance();
 }
 
 CWorkDlg::~CWorkDlg()
@@ -344,7 +344,7 @@ void CWorkDlg::OnTimer(UINT_PTR nIDEvent)
 	DX_DATA_0 *pDX0 = pAJinAXL->Get_pDX0();
 
 	CSequenceMain *pSequenceMain = CSequenceMain::Get_Instance();
-	CLogFile *pLogFile = CLogFile::Get_Instance();
+	
 
 	if (pDX0->iStartSw && !m_rdoWorkStart.GetCheck()) {
 		if (Check_Start()==FALSE) {
@@ -392,7 +392,6 @@ void CWorkDlg::OnTimer(UINT_PTR nIDEvent)
 					g_objMES.Set_LotStart(gData.sLotID, gData.nCMJobCount, gData.sOperID);
 
 					CString sLog;
-					CLogFile *pLogFile = CLogFile::Get_Instance();
 					sLog.Format("[Work Mode] MES Lot Started, LotID:%s, CM Count:%d, OperID: %s", gData.sLotID, gData.nCMJobCount, gData.sOperID);
 					pLogFile->Save_HandlerLog(sLog);
 				}
@@ -456,18 +455,18 @@ void CWorkDlg::OnBnClickedRdoWorkStart()
 	if (Check_Start()==FALSE) return;
 
 	CString sLog;
-	CLogFile *pLogFile = CLogFile::Get_Instance();
 	sLog.Format("[Work Mode] START button push....  LotID[%s] CM[%d] OperID[%s]", gData.sLotID, gData.nCMJobCount, gData.sOperID);
 	pLogFile->Save_HandlerLog(sLog);	
+	Enable_LotInfo(FALSE);
 }
 
 void CWorkDlg::OnBnClickedRdoWorkStop()
 {
-	CLogFile *pLogFile = CLogFile::Get_Instance();
 	pLogFile->Save_HandlerLog("[Work Mode] STOP button push");
 
 	CCMI4200LDlg *pMainDlg = (CCMI4200LDlg*)AfxGetApp()->m_pMainWnd;
 	pMainDlg->Set_MainState(STATE_INITEND);
+	Enable_LotInfo(TRUE);
 }
 
 void CWorkDlg::OnBnClickedChkStripStop()
@@ -529,7 +528,6 @@ void CWorkDlg::OnBnClickedChkSampleJob()
 			gData.bCleanOutMode = TRUE;
 
 			CString sLog;
-			CLogFile *pLogFile = CLogFile::Get_Instance();
 			sLog.Format("[Work Mode] Clean Out button push....  LotID[%s] CM[%d] OperID[%s]", gData.sLotID, gData.nCMJobCount, gData.sOperID);
 			pLogFile->Save_HandlerLog(sLog);
 
@@ -711,7 +709,6 @@ void CWorkDlg::OnBnClickedLotID()
 	}
 
 	CString sLog;
-	CLogFile *pLogFile = CLogFile::Get_Instance();
 	sLog.Format("[Work Mode] Lot ID Input....  LotID[%s] CM[%d] OperID[%s]", gData.sLotID, gData.nCMJobCount, gData.sOperID);
 	pLogFile->Save_HandlerLog(sLog);
 }
@@ -756,7 +753,6 @@ void CWorkDlg::OnBnClickedCMCnt()
 	}
 
 	CString sLog;
-	CLogFile *pLogFile = CLogFile::Get_Instance();
 	sLog.Format("[Work Mode] CMCnt push....  LotID[%s] CM[%d]", gData.sLotID, gData.nCMJobCount);
 	pLogFile->Save_HandlerLog(sLog);
 }
@@ -1025,7 +1021,8 @@ void CWorkDlg::Display_Status()
 	CBarcode_DS1100 *pBarcode_DS1100 = CBarcode_DS1100::Get_Instance();
 	pBarcode_DS1100->GetBarcode(sData);
 	nData = sData.GetLength();
-	if(nData > 0) {
+	if(nData > 0) 
+	{
 
 		m_stcLotId1.SetWindowText(sData);
 
@@ -1042,6 +1039,13 @@ void CWorkDlg::Display_Status()
 
 		COperatorDlg *pOperatorDlg = COperatorDlg::Get_Instance();
 		pOperatorDlg->m_stcOperLotID.SetWindowText(gData.sLotID);
+
+		CString sLog;
+		sLog.Format("[Work Mode] Barcode Input....  Barcode : [%s]", sData);
+		pLogFile->Save_HandlerLog(sLog);
+
+		sData.Empty();
+		nData = 0;
 
 	} 
 /*
@@ -1167,7 +1171,6 @@ void CWorkDlg::Set_AlaramLog()
 	gAlm.lProcTime = gAlm.lEndTime - gAlm.lStartTime;
 	sData.Format("%s,%s,%s,%s,%s,%d", gAlm.sLotID, gAlm.sAlmNo, gAlm.sAlmMsg, gAlm.sStartTime, gAlm.sEndTime, gAlm.lProcTime);
 
-	CLogFile *pLogFile = CLogFile::Get_Instance();
 	//pLogFile->Save_AlarmLog(sData);
 	pLogFile->Save_AlarmResetLog(sData);
 
@@ -1381,7 +1384,6 @@ void CWorkDlg::Add_ShifeError()
 {
 	CString str;
 
-	CLogFile *pLogFile = CLogFile::Get_Instance();
 	str.Format("Barcode Shift => LotID[%s] NG_Tray_NO[%d] Position[%d]", gLot.sLotID, gData.nNGTrayPos, gData.nNGPos);
 	pLogFile->Save_HandlerLog(str);
 
@@ -1422,7 +1424,6 @@ void CWorkDlg::OnBnClickedBtnLotCancel()
 //	pCommon->Show_MsgBox(1, sLog);
 	AfxMessageBox(_T(sLog));
 
-	CLogFile *pLogFile = CLogFile::Get_Instance();
 	pLogFile->Save_HandlerLog(sLog);
 }
 
@@ -1441,7 +1442,7 @@ LRESULT CWorkDlg::OnLotStartEnd(WPARAM wParam, LPARAM lParam)
 	} else if (wParam == 2) {
 		pMainDlg->Set_LotErrorLog("LOT END", 902, "Lot End");
 		if (gLot.nBsNGCnt > 0) {
-			CLogFile *pLogFile = CLogFile::Get_Instance();
+		
 			CString strMsg, strLog;
 			strMsg.Format("Barcode Shift Error %d ea 발생!! NG Tray를 확인하여 주세요.........", gLot.nBsNGCnt);
 			strLog.Format("[Barcode Shift] %s", strMsg);
@@ -1476,11 +1477,18 @@ void CWorkDlg::OnBnClickedBtnBuzzerOff()
 	pAJinAXL->Write_Output(0);
 
 #ifndef AJIN_BOARD_USE
-	CLogFile *pLogFile = CLogFile::Get_Instance();
+	
 	pLogFile->Save_Interlock(1);
 #endif
 }
 
+void CWorkDlg::Enable_LotInfo(BOOL on)
+{
+	m_stcLotId1.EnableWindow(on);
+	m_stcLotId2.EnableWindow(on);
+	m_stcCMCnt.EnableWindow(on);
+
+}
 
 
 
@@ -1516,16 +1524,13 @@ void CWorkDlg::OnBnClickedChkAllPassFunction()
 
 			gData.bUseAllPass = TRUE;
 
-			
-			CLogFile *pLogFile = CLogFile::Get_Instance();
 			sLog.Format("[Work Mode] All Pass push....  LotID[%s] CM[%d] m_bUseContinueLot[%d]", gData.sLotID, gData.nCMJobCount, gData.bUseAllPass);
 			pLogFile->Save_HandlerLog(sLog);	
 		}
 	}
 	else if(!m_chkAllPass.GetCheck())
 	{
-		gData.bUseAllPass = FALSE;
-		CLogFile *pLogFile = CLogFile::Get_Instance();
+		gData.bUseAllPass = FALSE;		
 		sLog.Format("[Work Mode] ContinueLot push....  LotID[%s] CM[%d] m_bUseContinueLot[%d]", gData.sLotID, gData.nCMJobCount, gData.bUseAllPass);
 		pLogFile->Save_HandlerLog(sLog);	
 	}

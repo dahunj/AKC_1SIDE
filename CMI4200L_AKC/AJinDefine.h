@@ -342,12 +342,12 @@ typedef union tag_DX_DATA_6 {
 		DWORD i607: 1;						// X607
 				                               
 		DWORD iEnd_UnloadSupport1In: 1;		// X608
-		DWORD iEnd_UnloadSupport1Out: 1;		// X609
-		DWORD iEnd_Unload1FEmitter: 1;			// X610
+		DWORD iEnd_UnloadSupport1Out: 1;	// X609
+		DWORD iEnd_Unload1FEmitter: 1;		// X610
 		DWORD iEnd_UnloadSupport2In: 1;		// X611
-		DWORD iEnd_UnloadSupport2Out: 1;		// X612
-		DWORD iEnd_Unload1FCheck: 1;			// X613
-		DWORD iEnd_UnloadFullCheck: 1;			// X614
+		DWORD iEnd_UnloadSupport2Out: 1;	// X612
+		DWORD iEnd_Unload1FCheck: 1;		// X613
+		DWORD iEnd_UnloadFullCheck: 1;		// X614
 		DWORD i615: 1;						// X615
                                                
 		DWORD iUS_Z1Check1: 1;				// X616

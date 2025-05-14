@@ -3,6 +3,8 @@
 
 #pragma once
 
+#include "LogFile.h"
+
 #define UM_UPDATE_MODEL			WM_USER+1
 #define UM_UPDATE_RFID			WM_USER+2
 #define	UM_UPDATE_JOB_LIST		WM_USER+3
@@ -113,6 +115,7 @@ private:
 	BOOL	m_bInitialOk;
 	int		m_nDisCnt;
 	CString m_sCurLotID;
+	CLogFile *pLogFile;
 
 private:
 	void Initial_Controls();
@@ -138,6 +141,7 @@ public:
 	void Add_ShifeError();
 	void AutoStop();
 	void Clear_LotInfo();
+	void Enable_LotInfo(BOOL on);
 	
 	afx_msg void OnBnClickedChkAllPassFunction();
 };
