@@ -365,11 +365,11 @@ void CManualInspectorDlg::Display_Status()
 	else m_ledTRIO[8].Set_On(FALSE);
 	if (pDX2->iInspVacuumDown) m_ledTRIO[9].Set_On(TRUE);
 	else m_ledTRIO[9].Set_On(FALSE);
-	if (pDX2->iInspCMAlignCheck1) m_ledTRIO[10].Set_On(TRUE);
+	if (pDX2->iIndexPosPin1) m_ledTRIO[10].Set_On(TRUE);
 	else m_ledTRIO[10].Set_On(FALSE);
-	if (pDX2->iInspCMAlignCheck2) m_ledTRIO[11].Set_On(TRUE);
+	if (pDX2->iIndexPosPin2) m_ledTRIO[11].Set_On(TRUE);
 	else m_ledTRIO[11].Set_On(FALSE);
-	if (pDX2->iInspCMAlignCheck3) m_ledTRIO[12].Set_On(TRUE);
+	if (pDX2->iIndexPosPin3) m_ledTRIO[12].Set_On(TRUE);
 	else m_ledTRIO[12].Set_On(FALSE);
 
 	if (pDX5->iNGVacuumUp) m_ledTRIO[15].Set_On(TRUE);
