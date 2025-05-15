@@ -1,8 +1,8 @@
-// ManualInspectorDlg.cpp : 구현 파일입니다.
+// Manual_InspectorDlg.cpp : 구현 파일입니다.
 //
 #include "stdafx.h"
 #include "CMI4200L.h"
-#include "ManualInspectorDlg.h"
+#include "Manual_InspectorDlg.h"
 #include "afxdialogex.h"
 #include <math.h>
 
@@ -15,18 +15,18 @@
 
 // CManualElevatorDlg 대화 상자입니다.
 
-IMPLEMENT_DYNAMIC(CManualInspectorDlg, CDialogEx)
+IMPLEMENT_DYNAMIC(CManual_InspectorDlg, CDialogEx)
 
-CManualInspectorDlg::CManualInspectorDlg(CWnd* pParent /*=NULL*/)
-	: CDialogEx(CManualInspectorDlg::IDD, pParent)
+CManual_InspectorDlg::CManual_InspectorDlg(CWnd* pParent /*=NULL*/)
+	: CDialogEx(CManual_InspectorDlg::IDD, pParent)
 {
 }
 
-CManualInspectorDlg::~CManualInspectorDlg()
+CManual_InspectorDlg::~CManual_InspectorDlg()
 {
 }
 
-void CManualInspectorDlg::DoDataExchange(CDataExchange* pDX)
+void CManual_InspectorDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
 	for (int i = 0; i < 5; i++) DDX_Control(pDX, IDC_STC_AXIS_POS_0 + i, m_stcAxisPos[i]);
@@ -157,7 +157,7 @@ void CManualInspectorDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_LED_BLOCK_DOWN, m_ledBlock[1]);
 }
 
-BEGIN_MESSAGE_MAP(CManualInspectorDlg, CDialogEx)
+BEGIN_MESSAGE_MAP(CManual_InspectorDlg, CDialogEx)
 	ON_WM_DESTROY()
 	ON_WM_SHOWWINDOW()
 	ON_CONTROL_RANGE(BN_CLICKED, IDC_BTN_VISION_Y_0, IDC_BTN_VISION_Y_0, OnBtnVisionYClick)
@@ -238,13 +238,13 @@ BEGIN_MESSAGE_MAP(CManualInspectorDlg, CDialogEx)
 	ON_CONTROL_RANGE(BN_CLICKED, IDC_BTN_GDVAC_IO_12, IDC_BTN_GDVAC_IO_12, OnBtnGDVacIOClick)
 	ON_CONTROL_RANGE(BN_CLICKED, IDC_BTN_GDVAC_IO_13, IDC_BTN_GDVAC_IO_13, OnBtnGDVacIOClick)
 
-	ON_BN_CLICKED(IDC_BTN_PRESS_UP, &CManualInspectorDlg::OnBnClickedBtnPressUp)
-	ON_BN_CLICKED(IDC_BTN_PRESS_DOWN, &CManualInspectorDlg::OnBnClickedBtnPressDown)
+	ON_BN_CLICKED(IDC_BTN_PRESS_UP, &CManual_InspectorDlg::OnBnClickedBtnPressUp)
+	ON_BN_CLICKED(IDC_BTN_PRESS_DOWN, &CManual_InspectorDlg::OnBnClickedBtnPressDown)
 END_MESSAGE_MAP()
 
 // CManualElevatorDlg 메시지 처리기입니다.
 
-BOOL CManualInspectorDlg::OnInitDialog() 
+BOOL CManual_InspectorDlg::OnInitDialog() 
 {
 	CDialogEx::OnInitDialog();
 
@@ -283,12 +283,12 @@ BOOL CManualInspectorDlg::OnInitDialog()
 	// 예외: OCX 속성 페이지는 FALSE를 반환해야 합니다.
 }
 
-void CManualInspectorDlg::OnDestroy() 
+void CManual_InspectorDlg::OnDestroy() 
 {
 	CDialogEx::OnDestroy();
 }
 
-BOOL CManualInspectorDlg::PreTranslateMessage(MSG* pMsg) 
+BOOL CManual_InspectorDlg::PreTranslateMessage(MSG* pMsg) 
 {
 	if ((pMsg->message == WM_KEYDOWN) && (pMsg->wParam == VK_RETURN || pMsg->wParam == VK_ESCAPE))
 		return TRUE;
@@ -296,7 +296,7 @@ BOOL CManualInspectorDlg::PreTranslateMessage(MSG* pMsg)
 	return CDialogEx::PreTranslateMessage(pMsg);
 }
 
-void CManualInspectorDlg::OnShowWindow(BOOL bShow, UINT nStatus) 
+void CManual_InspectorDlg::OnShowWindow(BOOL bShow, UINT nStatus) 
 {
 	CDialogEx::OnShowWindow(bShow, nStatus);
 
@@ -305,7 +305,7 @@ void CManualInspectorDlg::OnShowWindow(BOOL bShow, UINT nStatus)
 	}
 }
 
-void CManualInspectorDlg::Initial_Controls() 
+void CManual_InspectorDlg::Initial_Controls() 
 {
 	for (int i = 0; i < 6; i++) m_stcAxisPos[i].Init_Ctrl("바탕", 11, TRUE, RGB(0xFF, 0xFF, 0xFF), RGB(0x00, 0x10, 0xB0));
 	for (int i = 0; i < 19; i++) m_ledTRIO[i].Init_Ctrl("바탕", 11, FALSE, COLOR_DEFAULT, COLOR_DEFAULT, CLedCS::emGreen, CLedCS::em16);
@@ -314,7 +314,7 @@ void CManualInspectorDlg::Initial_Controls()
 	for (int i = 0; i < 2; i++) m_ledBlock[i].Init_Ctrl("바탕", 11, FALSE, COLOR_DEFAULT, COLOR_DEFAULT, CLedCS::emGreen, CLedCS::em16);
 }
 
-void CManualInspectorDlg::Display_Status()
+void CManual_InspectorDlg::Display_Status()
 {
 	CAJinAXL *pAJinAXL = CAJinAXL::Get_Instance();
 	DX_DATA_2 *pDX2 = pAJinAXL->Get_pDX2();
@@ -491,7 +491,7 @@ void CManualInspectorDlg::Display_Status()
 	for(int i=0; i<2; i++) m_ledBlock[i].ShowWindow(gData.bUseCMPress);
 }
 
-void CManualInspectorDlg::OnBtnVisionYClick(UINT nID)
+void CManual_InspectorDlg::OnBtnVisionYClick(UINT nID)
 {
 	CAJinAXL *pAJinAXL = CAJinAXL::Get_Instance();
 	CCommon *pCommon = CCommon::Get_Instance();
@@ -594,7 +594,7 @@ void CManualInspectorDlg::OnBtnVisionYClick(UINT nID)
 	}
 }
 
-void CManualInspectorDlg::OnBtnVisionAClick(UINT nID)
+void CManual_InspectorDlg::OnBtnVisionAClick(UINT nID)
 {
 	CAJinAXL *pAJinAXL = CAJinAXL::Get_Instance();
 	CCommon *pCommon = CCommon::Get_Instance();
@@ -624,7 +624,7 @@ void CManualInspectorDlg::OnBtnVisionAClick(UINT nID)
 */
 }
 
-void CManualInspectorDlg::OnBtnVisionZClick(UINT nID)
+void CManual_InspectorDlg::OnBtnVisionZClick(UINT nID)
 {
 	CAJinAXL *pAJinAXL = CAJinAXL::Get_Instance();
 	CCommon *pCommon = CCommon::Get_Instance();
@@ -646,7 +646,7 @@ void CManualInspectorDlg::OnBtnVisionZClick(UINT nID)
 	}
 }
 
-void CManualInspectorDlg::OnBtnBarcoeAClick(UINT nID)
+void CManual_InspectorDlg::OnBtnBarcoeAClick(UINT nID)
 {
 	CAJinAXL *pAJinAXL = CAJinAXL::Get_Instance();
 	CCommon *pCommon = CCommon::Get_Instance();
@@ -659,7 +659,7 @@ void CManualInspectorDlg::OnBtnBarcoeAClick(UINT nID)
 	}
 }
 
-void CManualInspectorDlg::OnBtnNGStageYClick(UINT nID)
+void CManual_InspectorDlg::OnBtnNGStageYClick(UINT nID)
 {
 	CAJinAXL *pAJinAXL = CAJinAXL::Get_Instance();
 	CCommon *pCommon = CCommon::Get_Instance();
@@ -689,7 +689,7 @@ void CManualInspectorDlg::OnBtnNGStageYClick(UINT nID)
 	}
 }
 
-void CManualInspectorDlg::OnBtnVacIOClick(UINT nID)
+void CManual_InspectorDlg::OnBtnVacIOClick(UINT nID)
 {
 	CAJinAXL *pAJinAXL = CAJinAXL::Get_Instance();
 	DY_DATA_3 *pDY3 = pAJinAXL->Get_pDY3();
@@ -751,7 +751,7 @@ void CManualInspectorDlg::OnBtnVacIOClick(UINT nID)
 	pAJinAXL->Write_Output(3);
 }
 
-void CManualInspectorDlg::OnBtnNGVacIOClick(UINT nID)
+void CManual_InspectorDlg::OnBtnNGVacIOClick(UINT nID)
 {
 	CAJinAXL *pAJinAXL = CAJinAXL::Get_Instance();
 	DY_DATA_5 *pDY5 = pAJinAXL->Get_pDY5();
@@ -813,7 +813,7 @@ void CManualInspectorDlg::OnBtnNGVacIOClick(UINT nID)
 	pAJinAXL->Write_Output(5);
 }
 
-void CManualInspectorDlg::OnBtnGDVacIOClick(UINT nID)
+void CManual_InspectorDlg::OnBtnGDVacIOClick(UINT nID)
 {
 	CAJinAXL *pAJinAXL = CAJinAXL::Get_Instance();
 	DY_DATA_5 *pDY5 = pAJinAXL->Get_pDY5();
@@ -875,7 +875,7 @@ void CManualInspectorDlg::OnBtnGDVacIOClick(UINT nID)
 	pAJinAXL->Write_Output(5);
 }
 
-void CManualInspectorDlg::OnBtnTRIOClick(UINT nID)
+void CManual_InspectorDlg::OnBtnTRIOClick(UINT nID)
 {
 	CAJinAXL *pAJinAXL = CAJinAXL::Get_Instance();
 	DY_DATA_2 *pDY2 = pAJinAXL->Get_pDY2();
@@ -961,7 +961,7 @@ void CManualInspectorDlg::OnBtnTRIOClick(UINT nID)
 	pAJinAXL->Write_Output(2);
 }
 
-void CManualInspectorDlg::OnBnClickedBtnPressUp()
+void CManual_InspectorDlg::OnBnClickedBtnPressUp()
 {
 	CAJinAXL *pAJinAXL = CAJinAXL::Get_Instance();
 	CCommon *pCommon = CCommon::Get_Instance();
@@ -981,7 +981,7 @@ void CManualInspectorDlg::OnBnClickedBtnPressUp()
 }
 
 
-void CManualInspectorDlg::OnBnClickedBtnPressDown()
+void CManual_InspectorDlg::OnBnClickedBtnPressDown()
 {
 	CAJinAXL *pAJinAXL = CAJinAXL::Get_Instance();
 	CCommon *pCommon = CCommon::Get_Instance();

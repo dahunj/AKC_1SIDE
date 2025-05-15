@@ -1308,7 +1308,7 @@ void CInspector::Set_LotComplete(int nInspector)
 void CInspector::Set_LoadComplete(int nInspector, int nTrayNo, int nTRNo)
 {
 	CString sSendData;
-	sSendData.Format("LOAD,COMPLETE,%s,%02d,%d,%s,%d", gLot.sLotID, nTrayNo, nTRNo, gData.sRecipeName, gData.nIndexPos);
+	sSendData.Format("LOAD,COMPLETE,%s,%02d,%d,%s,%d", gLot.sLotID, nTrayNo, nTRNo, gData.sRecipeName, gData.nIndexPos+1);
 	Send_Command(nInspector, sSendData);
 }
 

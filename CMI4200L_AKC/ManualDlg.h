@@ -2,13 +2,13 @@
 //
 #pragma once
 
-#include "ManualInspectorDlg.h"
-#include "ManualGoodNGPickerDlg.h"
-#include "ManualUnloadDlg.h"
-#include "ManualLoadPickerDlg.h"
-#include "ManualPicker3Dlg.h"
+#include "Manual_InspectorDlg.h"
+#include "Manual_GoodNGPickerDlg.h"
+#include "Manual_UnloadingDlg.h"
+#include "Manual_LoadPickerDlg.h"
+#include "Manual_UnloadPickerDlg.h"
 #include "ManualLotDataDlg.h"
-#include "ManualLoadingDlg.h"
+#include "Manual_LoadingDlg.h"
 
 // CManualDlg 대화 상자입니다.
 
@@ -63,12 +63,12 @@ protected:
 public:
 	
 
-	CManualLoadingDlg	*m_pManualLoadingDlg;
-	CManualInspectorDlg	*m_pManualInspectorDlg;
-	CManualGoodNGPickerDlg	*m_pManualGoodNGPickerDlg;
-	CManualUnloadDlg	*m_pManualUnloadDlg;
-	CManualLoadPickerDlg	*m_pManualLoadPickerDlg;
-	CManualPicker3Dlg	*m_pManualUnloadPickerDlg;
+	CManual_LoadingDlg	*m_pManualLoadingDlg;
+	CManual_InspectorDlg	*m_pManualInspectorDlg;
+	CManual_GoodNGPickerDlg	*m_pManualGoodNGPickerDlg;
+	CManual_UnloadingDlg	*m_pManualUnloadDlg;
+	CManual_LoadPickerDlg	*m_pManualLoadPickerDlg;
+	CManual_UnloadPickerDlg	*m_pManualUnloadPickerDlg;
 	
 private:
 	void Initial_Controls();

@@ -1,8 +1,8 @@
-// ManualGoodNGPickerDlg.cpp : 구현 파일입니다.
+// Manual_GoodNGPickerDlg.cpp : 구현 파일입니다.
 //
 #include "stdafx.h"
 #include "CMI4200L.h"
-#include "ManualGoodNGPickerDlg.h"
+#include "Manual_GoodNGPickerDlg.h"
 #include "afxdialogex.h"
 
 #include "AJinAXL.h"
@@ -14,18 +14,18 @@
 
 // CManualPickerDlg 대화 상자입니다.
 
-IMPLEMENT_DYNAMIC(CManualGoodNGPickerDlg, CDialogEx)
+IMPLEMENT_DYNAMIC(CManual_GoodNGPickerDlg, CDialogEx)
 
-CManualGoodNGPickerDlg::CManualGoodNGPickerDlg(CWnd* pParent /*=NULL*/)
-	: CDialogEx(CManualGoodNGPickerDlg::IDD, pParent)
+CManual_GoodNGPickerDlg::CManual_GoodNGPickerDlg(CWnd* pParent /*=NULL*/)
+	: CDialogEx(CManual_GoodNGPickerDlg::IDD, pParent)
 {
 }
 
-CManualGoodNGPickerDlg::~CManualGoodNGPickerDlg()
+CManual_GoodNGPickerDlg::~CManual_GoodNGPickerDlg()
 {
 }
 
-void CManualGoodNGPickerDlg::DoDataExchange(CDataExchange* pDX)
+void CManual_GoodNGPickerDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
 	for (int i = 0; i < 5; i++) DDX_Control(pDX, IDC_STC_AXIS_POS_0 + i, m_stcAxisPos[i]);
@@ -158,7 +158,7 @@ void CManualGoodNGPickerDlg::DoDataExchange(CDataExchange* pDX)
 
 }
 
-BEGIN_MESSAGE_MAP(CManualGoodNGPickerDlg, CDialogEx)
+BEGIN_MESSAGE_MAP(CManual_GoodNGPickerDlg, CDialogEx)
 	ON_WM_DESTROY()
 	ON_WM_SHOWWINDOW()
 
@@ -222,13 +222,13 @@ BEGIN_MESSAGE_MAP(CManualGoodNGPickerDlg, CDialogEx)
 	ON_CONTROL_RANGE(BN_CLICKED, IDC_BTN_NG_PICKER_IO1_22, IDC_BTN_NG_PICKER_IO1_22, OnBtnNGPickIOClick)
 	ON_CONTROL_RANGE(BN_CLICKED, IDC_BTN_NG_PICKER_IO1_23, IDC_BTN_NG_PICKER_IO1_23, OnBtnNGPickIOClick)
 
-	ON_BN_CLICKED(IDC_BTN_GOOD_PICKER4_MOVE, &CManualGoodNGPickerDlg::OnBtnGoodPickMoveClick)
-	ON_BN_CLICKED(IDC_BTN_GOOD_PICKER4_MOVE2, &CManualGoodNGPickerDlg::OnBnClickedBtnGoodPicker4Move2)
+	ON_BN_CLICKED(IDC_BTN_GOOD_PICKER4_MOVE, &CManual_GoodNGPickerDlg::OnBtnGoodPickMoveClick)
+	ON_BN_CLICKED(IDC_BTN_GOOD_PICKER4_MOVE2, &CManual_GoodNGPickerDlg::OnBnClickedBtnGoodPicker4Move2)
 END_MESSAGE_MAP()
 
 // CManualPickerDlg 메시지 처리기입니다.
 
-BOOL CManualGoodNGPickerDlg::OnInitDialog() 
+BOOL CManual_GoodNGPickerDlg::OnInitDialog() 
 {
 	CDialogEx::OnInitDialog();
 
@@ -260,12 +260,12 @@ BOOL CManualGoodNGPickerDlg::OnInitDialog()
 	// 예외: OCX 속성 페이지는 FALSE를 반환해야 합니다.
 }
 
-void CManualGoodNGPickerDlg::OnDestroy() 
+void CManual_GoodNGPickerDlg::OnDestroy() 
 {
 	CDialogEx::OnDestroy();
 }
 
-BOOL CManualGoodNGPickerDlg::PreTranslateMessage(MSG* pMsg) 
+BOOL CManual_GoodNGPickerDlg::PreTranslateMessage(MSG* pMsg) 
 {
 	if ((pMsg->message == WM_KEYDOWN) && (pMsg->wParam == VK_RETURN || pMsg->wParam == VK_ESCAPE))
 		return TRUE;
@@ -273,7 +273,7 @@ BOOL CManualGoodNGPickerDlg::PreTranslateMessage(MSG* pMsg)
 	return CDialogEx::PreTranslateMessage(pMsg);
 }
 
-void CManualGoodNGPickerDlg::OnShowWindow(BOOL bShow, UINT nStatus) 
+void CManual_GoodNGPickerDlg::OnShowWindow(BOOL bShow, UINT nStatus) 
 {
 	CDialogEx::OnShowWindow(bShow, nStatus);
 
@@ -283,7 +283,7 @@ void CManualGoodNGPickerDlg::OnShowWindow(BOOL bShow, UINT nStatus)
 }
 
 
-void CManualGoodNGPickerDlg::OnBtnPickerXClick(UINT nID)
+void CManual_GoodNGPickerDlg::OnBtnPickerXClick(UINT nID)
 {
 	CAJinAXL *pAJinAXL = CAJinAXL::Get_Instance();
 	DX_DATA_4 *pDX4 = pAJinAXL->Get_pDX4();
@@ -342,7 +342,7 @@ void CManualGoodNGPickerDlg::OnBtnPickerXClick(UINT nID)
 
 }
 
-void CManualGoodNGPickerDlg::OnBtnPickerYClick(UINT nID)
+void CManual_GoodNGPickerDlg::OnBtnPickerYClick(UINT nID)
 {
 	CAJinAXL *pAJinAXL = CAJinAXL::Get_Instance();
 	DX_DATA_4 *pDX4 = pAJinAXL->Get_pDX4();
@@ -392,7 +392,7 @@ void CManualGoodNGPickerDlg::OnBtnPickerYClick(UINT nID)
 	pLogFile->Save_HandlerLog(sLog);
 }
 
-void CManualGoodNGPickerDlg::OnBtnPickerZClick(UINT nID)
+void CManual_GoodNGPickerDlg::OnBtnPickerZClick(UINT nID)
 {
 	CAJinAXL *pAJinAXL = CAJinAXL::Get_Instance();
 	CCommon *pCommon = CCommon::Get_Instance();
@@ -412,7 +412,7 @@ void CManualGoodNGPickerDlg::OnBtnPickerZClick(UINT nID)
 	pLogFile->Save_HandlerLog(sLog);
 }
 
-void CManualGoodNGPickerDlg::OnBtnNGPickXClick(UINT nID)
+void CManual_GoodNGPickerDlg::OnBtnNGPickXClick(UINT nID)
 {
 	CAJinAXL *pAJinAXL = CAJinAXL::Get_Instance();
 	CCommon *pCommon = CCommon::Get_Instance();
@@ -460,7 +460,7 @@ void CManualGoodNGPickerDlg::OnBtnNGPickXClick(UINT nID)
 	pLogFile->Save_HandlerLog(sLog);
 }
 
-void CManualGoodNGPickerDlg::OnBtnNGPickZClick(UINT nID)
+void CManual_GoodNGPickerDlg::OnBtnNGPickZClick(UINT nID)
 {
 	CAJinAXL *pAJinAXL = CAJinAXL::Get_Instance();
 	CCommon *pCommon = CCommon::Get_Instance();
@@ -482,7 +482,7 @@ void CManualGoodNGPickerDlg::OnBtnNGPickZClick(UINT nID)
 	pLogFile->Save_HandlerLog(sLog);
 }
 
-void CManualGoodNGPickerDlg::OnBtnNGPickIOClick(UINT nID)
+void CManual_GoodNGPickerDlg::OnBtnNGPickIOClick(UINT nID)
 {
 	CAJinAXL *pAJinAXL = CAJinAXL::Get_Instance();
 	DX_DATA_2 *pDX2 = pAJinAXL->Get_pDX2();
@@ -683,7 +683,7 @@ void CManualGoodNGPickerDlg::OnBtnNGPickIOClick(UINT nID)
 	pLogFile->Save_HandlerLog(sLog);
 }
 
-void CManualGoodNGPickerDlg::OnBtnPicker1Click(UINT nID)
+void CManual_GoodNGPickerDlg::OnBtnPicker1Click(UINT nID)
 {
 	CAJinAXL *pAJinAXL = CAJinAXL::Get_Instance();
 	DX_DATA_2 *pDX2 = pAJinAXL->Get_pDX2();
@@ -725,7 +725,7 @@ void CManualGoodNGPickerDlg::OnBtnPicker1Click(UINT nID)
 	pLogFile->Save_HandlerLog(sLog);
 }
 
-void CManualGoodNGPickerDlg::OnBtnPicker2Click(UINT nID)
+void CManual_GoodNGPickerDlg::OnBtnPicker2Click(UINT nID)
 {
 	CAJinAXL *pAJinAXL = CAJinAXL::Get_Instance();
 	DX_DATA_2 *pDX2 = pAJinAXL->Get_pDX2();
@@ -767,7 +767,7 @@ void CManualGoodNGPickerDlg::OnBtnPicker2Click(UINT nID)
 	pLogFile->Save_HandlerLog(sLog);
 }
 
-void CManualGoodNGPickerDlg::OnBtnPicker3Click(UINT nID)
+void CManual_GoodNGPickerDlg::OnBtnPicker3Click(UINT nID)
 {
 	CAJinAXL *pAJinAXL = CAJinAXL::Get_Instance();
 	DX_DATA_2 *pDX2 = pAJinAXL->Get_pDX2();
@@ -809,7 +809,7 @@ void CManualGoodNGPickerDlg::OnBtnPicker3Click(UINT nID)
 	pLogFile->Save_HandlerLog(sLog);
 }
 
-void CManualGoodNGPickerDlg::OnBtnPicker4Click(UINT nID)
+void CManual_GoodNGPickerDlg::OnBtnPicker4Click(UINT nID)
 {
 	CAJinAXL *pAJinAXL = CAJinAXL::Get_Instance();
 	DX_DATA_2 *pDX2 = pAJinAXL->Get_pDX2();
@@ -851,7 +851,7 @@ void CManualGoodNGPickerDlg::OnBtnPicker4Click(UINT nID)
 	pLogFile->Save_HandlerLog(sLog);
 }
 
-void CManualGoodNGPickerDlg::OnBtnPicker5Click(UINT nID)
+void CManual_GoodNGPickerDlg::OnBtnPicker5Click(UINT nID)
 {
 	CAJinAXL *pAJinAXL = CAJinAXL::Get_Instance();
 	DX_DATA_2 *pDX2 = pAJinAXL->Get_pDX2();
@@ -893,7 +893,7 @@ void CManualGoodNGPickerDlg::OnBtnPicker5Click(UINT nID)
 	pLogFile->Save_HandlerLog(sLog);
 }
 
-void CManualGoodNGPickerDlg::OnBtnPicker6Click(UINT nID)
+void CManual_GoodNGPickerDlg::OnBtnPicker6Click(UINT nID)
 {
 	CAJinAXL *pAJinAXL = CAJinAXL::Get_Instance();
 	DX_DATA_2 *pDX2 = pAJinAXL->Get_pDX2();
@@ -935,7 +935,7 @@ void CManualGoodNGPickerDlg::OnBtnPicker6Click(UINT nID)
 	pLogFile->Save_HandlerLog(sLog);
 }
 
-void CManualGoodNGPickerDlg::OnBtnPickerAClick(UINT nID)
+void CManual_GoodNGPickerDlg::OnBtnPickerAClick(UINT nID)
 {
 	CAJinAXL *pAJinAXL = CAJinAXL::Get_Instance();
 	DX_DATA_2 *pDX2 = pAJinAXL->Get_pDX2();
@@ -1080,7 +1080,7 @@ void CManualGoodNGPickerDlg::OnBtnPickerAClick(UINT nID)
 ///////////////////////////////////////////////////////////////////////////////
 // User Functions
 
-void CManualGoodNGPickerDlg::Initial_Controls() 
+void CManual_GoodNGPickerDlg::Initial_Controls() 
 {
 
 	for (int i = 0; i < 5; i++) m_stcAxisPos[i].Init_Ctrl("바탕", 11, TRUE, RGB(0xFF, 0xFF, 0xFF), RGB(0x00, 0x10, 0xB0));
@@ -1113,7 +1113,7 @@ void CManualGoodNGPickerDlg::Initial_Controls()
 #endif
 }
 
-void CManualGoodNGPickerDlg::Display_Status()
+void CManual_GoodNGPickerDlg::Display_Status()
 {
 
 	CAJinAXL *pAJinAXL = CAJinAXL::Get_Instance();
@@ -1292,7 +1292,7 @@ void CManualGoodNGPickerDlg::Display_Status()
 
 ///////////////////////////////////////////////////////////////////////////////
 
-void CManualGoodNGPickerDlg::OnBtnGoodPickMovePosClick(UINT nID)
+void CManual_GoodNGPickerDlg::OnBtnGoodPickMovePosClick(UINT nID)
 {
 
  	int ID; 
@@ -1324,13 +1324,13 @@ void CManualGoodNGPickerDlg::OnBtnGoodPickMovePosClick(UINT nID)
 	}
 
 }
-void CManualGoodNGPickerDlg::OnBtnGoodPickMoveClick()
+void CManual_GoodNGPickerDlg::OnBtnGoodPickMoveClick()
 {
 
 }
 
 
-void CManualGoodNGPickerDlg::OnBnClickedBtnGoodPicker4Move2()
+void CManual_GoodNGPickerDlg::OnBnClickedBtnGoodPicker4Move2()
 {
 }
 

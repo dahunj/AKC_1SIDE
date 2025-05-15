@@ -3,7 +3,7 @@
 
 #include "stdafx.h"
 #include "CMI4200L.h"
-#include "ManualLoadPickerDlg.h"
+#include "Manual_LoadPickerDlg.h"
 #include "afxdialogex.h"
 
 #include "AJinAXL.h"
@@ -14,21 +14,21 @@
 #include "Math.h"
 
 
-// ManualLoadPickerDlg 대화 상자입니다.
+// Manual_LoadPickerDlg 대화 상자입니다.
 
-IMPLEMENT_DYNAMIC(CManualLoadPickerDlg, CDialogEx)
+IMPLEMENT_DYNAMIC(CManual_LoadPickerDlg, CDialogEx)
 
-CManualLoadPickerDlg::CManualLoadPickerDlg(CWnd* pParent /*=NULL*/)
-	: CDialogEx(CManualLoadPickerDlg::IDD, pParent)
+CManual_LoadPickerDlg::CManual_LoadPickerDlg(CWnd* pParent /*=NULL*/)
+	: CDialogEx(CManual_LoadPickerDlg::IDD, pParent)
 {
 
 }
 
-CManualLoadPickerDlg::~CManualLoadPickerDlg()
+CManual_LoadPickerDlg::~CManual_LoadPickerDlg()
 {
 }
 
-void CManualLoadPickerDlg::DoDataExchange(CDataExchange* pDX)
+void CManual_LoadPickerDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
 	DDX_Control(pDX, IDC_STC_AXIS_POS_0, m_stcAxisPos[0]);
@@ -121,7 +121,7 @@ void CManualLoadPickerDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_BTN_NG_PICKER_MOVE2, m_btnNGPickMoveZ);
 }
 
-BEGIN_MESSAGE_MAP(CManualLoadPickerDlg, CDialogEx)
+BEGIN_MESSAGE_MAP(CManual_LoadPickerDlg, CDialogEx)
 	ON_WM_DESTROY()
 	ON_WM_SHOWWINDOW()
 	ON_CONTROL_RANGE(BN_CLICKED, IDC_BTN_ML_PICKER_Y1_0, IDC_BTN_ML_PICKER_Y1_0, OnBtnMLNGPickY1Click)
@@ -177,14 +177,14 @@ BEGIN_MESSAGE_MAP(CManualLoadPickerDlg, CDialogEx)
 	ON_CONTROL_RANGE(BN_CLICKED, IDC_STC_MOVE_2, IDC_STC_MOVE_2, OnBtnNGPickMovePosClick)
 	ON_CONTROL_RANGE(BN_CLICKED, IDC_STC_MOVE_3, IDC_STC_MOVE_3, OnBtnNGPickMovePosClick)
 
-	ON_BN_CLICKED(IDC_BTN_NG_PICKER_MOVE, &CManualLoadPickerDlg::OnBtnNGPickMoveClick)
-	ON_BN_CLICKED(IDC_BTN_NG_PICKER_MOVE2, &CManualLoadPickerDlg::OnBnClickedBtnNgPickerMove2)
+	ON_BN_CLICKED(IDC_BTN_NG_PICKER_MOVE, &CManual_LoadPickerDlg::OnBtnNGPickMoveClick)
+	ON_BN_CLICKED(IDC_BTN_NG_PICKER_MOVE2, &CManual_LoadPickerDlg::OnBnClickedBtnNgPickerMove2)
 END_MESSAGE_MAP()
 
 
-// ManualLoadPickerDlg 메시지 처리기입니다.
+// Manual_LoadPickerDlg 메시지 처리기입니다.
 
-BOOL CManualLoadPickerDlg::OnInitDialog() 
+BOOL CManual_LoadPickerDlg::OnInitDialog() 
 {
 	CDialogEx::OnInitDialog();
 
@@ -220,12 +220,12 @@ BOOL CManualLoadPickerDlg::OnInitDialog()
 	// 예외: OCX 속성 페이지는 FALSE를 반환해야 합니다.
 }
 
-void CManualLoadPickerDlg::OnDestroy() 
+void CManual_LoadPickerDlg::OnDestroy() 
 {
 	CDialogEx::OnDestroy();
 }
 
-BOOL CManualLoadPickerDlg::PreTranslateMessage(MSG* pMsg) 
+BOOL CManual_LoadPickerDlg::PreTranslateMessage(MSG* pMsg) 
 {
 	if ((pMsg->message == WM_KEYDOWN) && (pMsg->wParam == VK_RETURN || pMsg->wParam == VK_ESCAPE))
 		return TRUE;
@@ -233,18 +233,18 @@ BOOL CManualLoadPickerDlg::PreTranslateMessage(MSG* pMsg)
 	return CDialogEx::PreTranslateMessage(pMsg);
 }
 
-void CManualLoadPickerDlg::OnShowWindow(BOOL bShow, UINT nStatus) 
+void CManual_LoadPickerDlg::OnShowWindow(BOOL bShow, UINT nStatus) 
 {
 	CDialogEx::OnShowWindow(bShow, nStatus);
 }
 
-void CManualLoadPickerDlg::Initial_Controls() 
+void CManual_LoadPickerDlg::Initial_Controls() 
 {
 	for (int i = 0; i < 6; i++) m_stcAxisPos[i].Init_Ctrl("바탕", 11, TRUE, RGB(0xFF, 0xFF, 0xFF), RGB(0x00, 0x10, 0xB0));
 	for (int i = 0; i < 24; i++) m_ledMLPickIO[i].Init_Ctrl("바탕", 11, FALSE, COLOR_DEFAULT, COLOR_DEFAULT, CLedCS::emGreen, CLedCS::em16);
 }
 
-void CManualLoadPickerDlg::Display_Status()
+void CManual_LoadPickerDlg::Display_Status()
 {
 	CAJinAXL *pAJinAXL = CAJinAXL::Get_Instance();
 	DX_DATA_2 *pDX2 = pAJinAXL->Get_pDX2();
@@ -341,7 +341,7 @@ void CManualLoadPickerDlg::Display_Status()
 	m_btnMLPickZ[2].ShowWindow(bShow);
 }
 
-void CManualLoadPickerDlg::OnBtnMLNGPickY1Click(UINT nID)
+void CManual_LoadPickerDlg::OnBtnMLNGPickY1Click(UINT nID)
 {
 	CAJinAXL *pAJinAXL = CAJinAXL::Get_Instance();
 	CCommon *pCommon = CCommon::Get_Instance();
@@ -428,7 +428,7 @@ void CManualLoadPickerDlg::OnBtnMLNGPickY1Click(UINT nID)
 	}
 }
 
-void CManualLoadPickerDlg::OnBtnMLNGPickY2Click(UINT nID)
+void CManual_LoadPickerDlg::OnBtnMLNGPickY2Click(UINT nID)
 {
 	CAJinAXL *pAJinAXL = CAJinAXL::Get_Instance();
 	CCommon *pCommon = CCommon::Get_Instance();
@@ -451,7 +451,7 @@ void CManualLoadPickerDlg::OnBtnMLNGPickY2Click(UINT nID)
 	}
 }
 
-void CManualLoadPickerDlg::OnBtnMLNGPickZClick(UINT nID)
+void CManual_LoadPickerDlg::OnBtnMLNGPickZClick(UINT nID)
 {
 	CAJinAXL *pAJinAXL = CAJinAXL::Get_Instance();
 	DX_DATA_2 *pDX2 = pAJinAXL->Get_pDX2();
@@ -557,7 +557,7 @@ void CManualLoadPickerDlg::OnBtnMLNGPickZClick(UINT nID)
 	}
 }
 
-void CManualLoadPickerDlg::OnBtnMLPickIOClick(UINT nID)
+void CManual_LoadPickerDlg::OnBtnMLPickIOClick(UINT nID)
 {
 	CAJinAXL *pAJinAXL = CAJinAXL::Get_Instance();
 	DY_DATA_2 *pDY2 = pAJinAXL->Get_pDY2();
@@ -755,12 +755,12 @@ void CManualLoadPickerDlg::OnBtnMLPickIOClick(UINT nID)
 }
 
 
-void CManualLoadPickerDlg::OnBtnNGPickMoveClick()
+void CManual_LoadPickerDlg::OnBtnNGPickMoveClick()
 {
 
 }
 
-void CManualLoadPickerDlg::OnBtnNGPickMovePosClick(UINT nID)
+void CManual_LoadPickerDlg::OnBtnNGPickMovePosClick(UINT nID)
 {
 
  	int ID; 
@@ -795,7 +795,7 @@ void CManualLoadPickerDlg::OnBtnNGPickMovePosClick(UINT nID)
 
 
 
-void CManualLoadPickerDlg::OnBnClickedBtnNgPickerMove2()
+void CManual_LoadPickerDlg::OnBnClickedBtnNgPickerMove2()
 {
 	CString sTmp[4];
 	int xx, yy, zz;

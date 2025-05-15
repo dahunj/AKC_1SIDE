@@ -85,22 +85,22 @@ BOOL CManualDlg::OnInitDialog()
 
 	Initial_Controls();	
 
-	m_pManualInspectorDlg = new CManualInspectorDlg(this);
+	m_pManualInspectorDlg = new CManual_InspectorDlg(this);
 	m_pManualInspectorDlg->Create(IDD_MANUAL_INSPECTOR_DLG, this);
 
-	m_pManualGoodNGPickerDlg = new CManualGoodNGPickerDlg(this);
+	m_pManualGoodNGPickerDlg = new CManual_GoodNGPickerDlg(this);
 	m_pManualGoodNGPickerDlg->Create(IDD_MANUAL_GOOD_NG_PICKER_DLG, this);
 
-	m_pManualUnloadDlg = new CManualUnloadDlg(this);
+	m_pManualUnloadDlg = new CManual_UnloadingDlg(this);
 	m_pManualUnloadDlg->Create(IDD_MANUAL_UNLOAD_DLG, this);
 
-	m_pManualLoadPickerDlg = new CManualLoadPickerDlg(this);
+	m_pManualLoadPickerDlg = new CManual_LoadPickerDlg(this);
 	m_pManualLoadPickerDlg->Create(IDD_MANUAL_LOADPICKER_DLG, this);
 
-	m_pManualUnloadPickerDlg = new CManualPicker3Dlg(this);
+	m_pManualUnloadPickerDlg = new CManual_UnloadPickerDlg(this);
 	m_pManualUnloadPickerDlg->Create(IDD_MANUAL_PICKER3_DLG, this);	
 
-	m_pManualLoadingDlg = new CManualLoadingDlg(this);
+	m_pManualLoadingDlg = new CManual_LoadingDlg(this);
 	m_pManualLoadingDlg->Create(IDD_MANUAL_LOADING_DLG, this);
 
 	// Inspector Dlg Visible
