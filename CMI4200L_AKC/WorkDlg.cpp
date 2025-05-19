@@ -210,6 +210,8 @@ BEGIN_MESSAGE_MAP(CWorkDlg, CDialogEx)
 	ON_MESSAGE(UM_LOT_START_END, &CWorkDlg::OnLotStartEnd)
 		
 	
+	ON_BN_CLICKED(IDC_BUTTON1, &CWorkDlg::OnBnClickedButton1)
+	ON_BN_CLICKED(IDC_BUTTON2, &CWorkDlg::OnBnClickedButton2)
 END_MESSAGE_MAP()
 
 // CWorkDlg 메시지 처리기입니다.
@@ -434,6 +436,7 @@ void CWorkDlg::OnTimer(UINT_PTR nIDEvent)
 			pMainDlg->Enable_ModeButton(TRUE);
 
 			pMainDlg->Set_LotErrorLog("STOP", 904, "Stop");
+			g_objMES.Set_Status(3);
 
 		} else {				// Stop
 			// Auto Start
@@ -1539,4 +1542,22 @@ void CWorkDlg::OnBnClickedChkAllPassFunction()
 	
 
 	
+}
+
+
+void CWorkDlg::OnBnClickedButton1()
+{
+	CAJinAXL *pAJinAXL = CAJinAXL::Get_Instance();
+	DX_DATA_0 *pDX0 = pAJinAXL->Get_pDX0();
+
+	pDX0->iStartSw = TRUE;
+}
+
+
+void CWorkDlg::OnBnClickedButton2()
+{
+	CAJinAXL *pAJinAXL = CAJinAXL::Get_Instance();
+	DX_DATA_0 *pDX0 = pAJinAXL->Get_pDX0();
+
+	pDX0->iStopSw = TRUE;
 }

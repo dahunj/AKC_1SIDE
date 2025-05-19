@@ -144,6 +144,8 @@ public:
 	void Enable_LotInfo(BOOL on);
 	
 	afx_msg void OnBnClickedChkAllPassFunction();
+	afx_msg void OnBnClickedButton1();
+	afx_msg void OnBnClickedButton2();
 };
 
 ///////////////////////////////////////////////////////////////////////////////
