@@ -61,7 +61,7 @@
 #define SIM_WAITTIMES	 10		//
 #define SIM_WAITTIMEM	 10		//
 
-#define AJIN_BOARD_USE
+//#define AJIN_BOARD_USE
 
 //PDX Model Only(3x4)
 //#define EQ_TYPE_C1	//R44C
