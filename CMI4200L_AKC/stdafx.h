@@ -61,6 +61,9 @@
 #define SIM_WAITTIMES	 10		//
 #define SIM_WAITTIMEM	 10		//
 
+
+
+//Comments when you wanna simulate 
 #define AJIN_BOARD_USE
 
 //PDX Model Only(3x4)
