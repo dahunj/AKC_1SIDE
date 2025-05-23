@@ -237,7 +237,29 @@ void CSetupMotionTabDlg::OnBtnHomeClick(UINT nID)
 	if (Check_Interlock(m_nMotionIdx + ID)==FALSE) return;
 
 	CAJinAXL *pAJinAXL = CAJinAXL::Get_Instance();
-	pAJinAXL->Home_Search(m_nMotionIdx + ID);
+
+	if (pAJinAXL->Is_AbsoluteType(m_nMotionIdx + ID)) 	
+	{
+		DWORD dwStart = GetTickCount();
+		pAJinAXL->Set_EncoderType(m_nMotionIdx + ID, 0);	// Inc
+		theApp.uSleep(50);
+		pAJinAXL->Home_Search(m_nMotionIdx + ID);
+		theApp.uSleep(10);
+		while (TRUE) {
+			if (GetTickCount() - dwStart > 30000) { AfxMessageBox("Home Error!!!"); return; }
+			if (!pAJinAXL->Is_Home(m_nMotionIdx + ID)) { theApp.DoEvents(); continue; }
+			break;
+		}
+		theApp.uSleep(100);		// Homing 완료 후 0.1초 Sleep
+	
+		pAJinAXL->Set_EncoderType(m_nMotionIdx + ID, 1);	// Abs
+
+	} else {
+		pAJinAXL->Home_Search(m_nMotionIdx + ID);
+	}
+
+
+	
 }
 
 void CSetupMotionTabDlg::OnStcAbsDistClick(UINT nID)

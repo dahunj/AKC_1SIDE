@@ -406,6 +406,12 @@ BOOL CSequenceInit::Initial_Load1Run()
 		break;
 	case 162:
 		if (m_pCommon->Check_Position(AX_LOAD_TRAY_Z1, 0) && m_pCommon->Check_Position(AX_LOAD_TRAY_Z2, 0)) {
+			
+			CAJinAXL *pAJinAXL = CAJinAXL::Get_Instance();
+			pAJinAXL->Set_EncoderType(AX_LOAD_TRAY_Z1, 0);	// Inc
+			pAJinAXL->Set_EncoderType(AX_LOAD_TRAY_Z2, 0);	// Inc
+			if (!m_pCommon->Delay_LoopTime(INITIAL_LOAD1, 100)) break;
+			
 			m_pAJinAXL->Home_Search(AX_LOAD_TRAY_Z1);
 			m_pAJinAXL->Home_Search(AX_LOAD_TRAY_Z2);
 			m_nInitLoad1Case = 163;
@@ -414,6 +420,10 @@ BOOL CSequenceInit::Initial_Load1Run()
 		break;
 	case 163:
 		if (m_pAJinAXL->Is_Home(AX_LOAD_TRAY_Z1) && m_pAJinAXL->Is_Home(AX_LOAD_TRAY_Z2)) {
+			CAJinAXL *pAJinAXL = CAJinAXL::Get_Instance();
+			pAJinAXL->Set_EncoderType(AX_LOAD_TRAY_Z1, 1);	// Abs
+			pAJinAXL->Set_EncoderType(AX_LOAD_TRAY_Z2, 1);	// Abs
+			if (!m_pCommon->Delay_LoopTime(INITIAL_LOAD1, 100)) break;
 			m_pCommon->Move_Position(AX_LOAD_TRAY_Z1, 0);
 			m_pCommon->Move_Position(AX_LOAD_TRAY_Z2, 1);
 			m_nInitLoad1Case = 164;
@@ -422,6 +432,11 @@ BOOL CSequenceInit::Initial_Load1Run()
 		break;
 	case 164:
 		if (m_pCommon->Check_Position(AX_LOAD_TRAY_Z1, 0) && m_pCommon->Check_Position(AX_LOAD_TRAY_Z2, 1)) {
+			CAJinAXL *pAJinAXL = CAJinAXL::Get_Instance();
+			pAJinAXL->Set_EncoderType(AX_LOAD_TRAY_X1, 0);	// Inc
+			pAJinAXL->Set_EncoderType(AX_LOAD_TRAY_X2, 0);	// Inc
+			if (!m_pCommon->Delay_LoopTime(INITIAL_LOAD1, 100)) break;
+
 			m_pAJinAXL->Home_Search(AX_LOAD_TRAY_X1);
 			m_pAJinAXL->Home_Search(AX_LOAD_TRAY_X2);
 			m_nInitLoad1Case = 165;
@@ -430,6 +445,10 @@ BOOL CSequenceInit::Initial_Load1Run()
 		break;
 	case 165:
 		if (m_pAJinAXL->Is_Home(AX_LOAD_TRAY_X1) && m_pAJinAXL->Is_Home(AX_LOAD_TRAY_X2)) {
+			CAJinAXL *pAJinAXL = CAJinAXL::Get_Instance();
+			pAJinAXL->Set_EncoderType(AX_LOAD_TRAY_X1, 1);	// Abs
+			pAJinAXL->Set_EncoderType(AX_LOAD_TRAY_X2, 1);	// Abs
+			if (!m_pCommon->Delay_LoopTime(INITIAL_LOAD1, 100)) break;
 			m_pCommon->Move_Position(AX_LOAD_TRAY_X1, 0);
 			m_pCommon->Move_Position(AX_LOAD_TRAY_X2, 3);
 			m_nInitLoad1Case = 166;
@@ -607,6 +626,11 @@ BOOL CSequenceInit::Initial_Unload1Run()
 		break;
 	case 162:
 		if (m_pCommon->Check_Position(AX_UNLOAD_TRAY_Z1, 0) && m_pCommon->Check_Position(AX_UNLOAD_TRAY_Z2, 0)) {
+			CAJinAXL *pAJinAXL = CAJinAXL::Get_Instance();
+			pAJinAXL->Set_EncoderType(AX_UNLOAD_TRAY_Z1, 0);	// inc
+			pAJinAXL->Set_EncoderType(AX_UNLOAD_TRAY_Z2, 0);	// inc
+			if (!m_pCommon->Delay_LoopTime(INITIAL_UNLOAD1, 100)) break;
+
 			m_pAJinAXL->Home_Search(AX_UNLOAD_TRAY_Z1);
 			m_pAJinAXL->Home_Search(AX_UNLOAD_TRAY_Z2);
 			m_nInitUnload1Case = 163;
@@ -615,6 +639,11 @@ BOOL CSequenceInit::Initial_Unload1Run()
 		break;
 	case 163:
 		if (m_pAJinAXL->Is_Home(AX_UNLOAD_TRAY_Z1) && m_pAJinAXL->Is_Home(AX_UNLOAD_TRAY_Z2)) {
+			CAJinAXL *pAJinAXL = CAJinAXL::Get_Instance();
+			pAJinAXL->Set_EncoderType(AX_UNLOAD_TRAY_Z1, 1);	// Abs
+			pAJinAXL->Set_EncoderType(AX_UNLOAD_TRAY_Z2, 1);	// Abs
+			if (!m_pCommon->Delay_LoopTime(INITIAL_UNLOAD1, 100)) break;
+
 			m_pCommon->Move_Position(AX_UNLOAD_TRAY_Z1, 0);
 			m_pCommon->Move_Position(AX_UNLOAD_TRAY_Z2, 1);
 			m_nInitUnload1Case = 164;
@@ -623,6 +652,11 @@ BOOL CSequenceInit::Initial_Unload1Run()
 		break;
 	case 164:
 		if (m_pCommon->Check_Position(AX_UNLOAD_TRAY_Z1, 0) && m_pCommon->Check_Position(AX_UNLOAD_TRAY_Z2, 1)) {
+			CAJinAXL *pAJinAXL = CAJinAXL::Get_Instance();
+			pAJinAXL->Set_EncoderType(AX_UNLOAD_TRAY_Y1, 0);	// inc
+			pAJinAXL->Set_EncoderType(AX_UNLOAD_TRAY_Y2, 0);	// inc
+			if (!m_pCommon->Delay_LoopTime(INITIAL_UNLOAD1, 100)) break;
+			
 			m_pAJinAXL->Home_Search(AX_UNLOAD_TRAY_Y1);
 			m_pAJinAXL->Home_Search(AX_UNLOAD_TRAY_Y2);
 			m_nInitUnload1Case = 165;
@@ -631,6 +665,11 @@ BOOL CSequenceInit::Initial_Unload1Run()
 		break;
 	case 165:
 		if (m_pAJinAXL->Is_Home(AX_UNLOAD_TRAY_Y1) && m_pAJinAXL->Is_Home(AX_UNLOAD_TRAY_Y2)) {
+			CAJinAXL *pAJinAXL = CAJinAXL::Get_Instance();
+			pAJinAXL->Set_EncoderType(AX_UNLOAD_TRAY_Y1, 1);	// Abs
+			pAJinAXL->Set_EncoderType(AX_UNLOAD_TRAY_Y2, 1);	// Abs
+			if (!m_pCommon->Delay_LoopTime(INITIAL_UNLOAD1, 100)) break;
+
 			m_pCommon->Move_Position(AX_UNLOAD_TRAY_Y1, 0);
 			m_pCommon->Move_Position(AX_UNLOAD_TRAY_Y2, 3);
 			m_nInitUnload1Case = 166;
