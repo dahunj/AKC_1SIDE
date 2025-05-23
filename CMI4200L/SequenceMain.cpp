@@ -78,8 +78,8 @@ CSequenceMain::CSequenceMain()
 
 	m_nLoad1Case = 100;
 	m_nLoad2Case = 440;
-	m_nUnload1Case = 100;
-	m_nUnload2Case = 440;
+	m_nUnload1Case = 440;
+	m_nUnload2Case = 100;
 	m_nInspectCase = 100;
 	m_nBarcodeCase = 100;
 	m_nNGPickerCase = 100;
@@ -1476,7 +1476,7 @@ BOOL CSequenceMain::Unload1_Run()
 		break;
 
 	case 200:
-		if (m_nUnload2Case < 200 || m_nUnload2Case > 350) {
+		if (m_nUnload2Case < 200 || m_nUnload2Case > 412) {
 			m_pCommon->Move_Position(AX_UNLOAD_TRAY_Y1, 2); //job start pos
 			m_nUnload1Case = 290;
 			m_pCommon->Set_LoopTime(AUTO_UNLOAD1, 30000);
@@ -2031,8 +2031,8 @@ BOOL CSequenceMain::Unload1_Run()
 		break;
 	case 475:
 		if (m_pCommon->Check_Position(AX_UNLOAD_TRAY_Y1, 0) && m_pCommon->Check_Position(AX_UNLOAD_TRAY_Y2, 3)) {
-			m_nUnload1Case = 100;
-			m_nUnload2Case = 440;
+			m_nUnload1Case = 440;
+			m_nUnload2Case = 100;
 			m_pCommon->Set_LoopTime(AUTO_UNLOAD1, 5000);
 		}
 		break;
@@ -2190,7 +2190,7 @@ BOOL CSequenceMain::Unload2_Run()
 		break;
 
 	case 200:
-		if (m_nUnload1Case < 200 || m_nUnload1Case > 350) {
+		if (m_nUnload1Case < 200 || m_nUnload1Case > 412) {
 			m_pCommon->Move_Position(AX_UNLOAD_TRAY_Y2, 2); // Y job pos 
 			m_nUnload2Case = 290;
 			m_pCommon->Set_LoopTime(AUTO_UNLOAD2, 30000);
