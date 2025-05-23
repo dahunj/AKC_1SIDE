@@ -76,7 +76,12 @@ public:
 	void EStop_Motion(int nAxis);
 	void Alarm_Reset(int nAxis);
 
+	//void Set_EncoderType(int nAxis, DWORD dwType);
+	//int  Get_EncoderType(int nAxis);
+
 	void Move_Abs_Accel(int nAxis, double dPos, double dAcc);
+
+
 
 	BOOL Is_Done(int nAxis);
 	BOOL Is_Home(int nAxis);
@@ -87,6 +92,8 @@ public:
 	void Read_MotionParam(int nAxis);
 	void Save_MotionParam(int nAxis, double dMovSp, double dJogSp);
 	void Save_RmsMotionSpeed(int nAxis, double dSpeedM);
+
+	//BOOL Is_AbsoluteType(int nAxis);
 
 	BOOL Is_ServoAxis(int nAxis);
 	BOOL Use_OrgAxis(int nAxis);

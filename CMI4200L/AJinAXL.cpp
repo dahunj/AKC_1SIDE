@@ -108,7 +108,7 @@ BOOL CAJinAXL::Initialize_AJin()
 #endif
 
 	for (long i = 0; i < AXIS_COUNT; i++) Set_ServoOn(i, TRUE);
-
+	
 	m_nGoodCnt = m_nEmptyCnt = 0;
 	m_bThreadAJin = TRUE;
 	m_pThreadAJin = AfxBeginThread(Thread_AJinRun, this);
@@ -773,3 +773,39 @@ void CAJinAXL::Sim_SetOutToIn(int nNo)
 		pDX6->iUS_Z2AlignS12Out		= pDY6->oUS_Z2AlignS12Out;
 	}
 }
+
+//void CAJinAXL::Set_EncoderType(int nAxis, DWORD dwType)
+//{
+//	// SS-CNET 또는 RTEX QI의 경우 Incremental 모드 설정을 하지 않음 (Home 이상동작 발생), RTEX DSP는 INC->Home->ABS (OLD)
+//	// QI/DSP 상관없이 Absolute Type이면 Home 완료 후 INC->ABS로 변경한다. (Home->INC->ABS) - 2024.11.05
+//#ifdef AJIN_BOARD_USE
+//	AxmSignalSetEncoderType(nAxis, dwType);	// ENCODER_TYPE_INCREMENTAL(0), ENCODER_TYPE_ABSOLUTE(1)
+//	Sleep(10);
+//#endif
+//}
+//
+//int CAJinAXL::Get_EncoderType(int nAxis)
+//{
+//	DWORD dwType = 0x00;
+//#ifdef AJIN_BOARD_USE
+//	AxmSignalGetEncoderType(nAxis, &dwType);
+//#endif
+//	return (int)dwType;
+//}
+//
+//BOOL CAJinAXL::Is_AbsoluteType(int nAxis)
+//{
+//	switch (nAxis) {
+//	case AX_LOAD_TRAY_X1:
+//	case AX_LOAD_TRAY_X2:
+//	case AX_LOAD_TRAY_Z1:
+//	case AX_LOAD_TRAY_Z2:
+//	case AX_UNLOAD_TRAY_Y1:
+//	case AX_UNLOAD_TRAY_Y2:
+//	case AX_UNLOAD_TRAY_Z1:
+//	case AX_UNLOAD_TRAY_Z2:
+//		return TRUE;
+//	default:
+//		return FALSE;
+//	}
+//}

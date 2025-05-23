@@ -317,7 +317,7 @@ BOOL CSequenceInit::Initial_MainRun()
 // 1.  (Error : 1210)
 BOOL CSequenceInit::Initial_Load1Run()
 {
-	double	dPosX1, dPosX2;
+	double	dPosX1, dPosX2, dPosZ1, dPosZ2;
 	AXIS_STATUS *pStatus;
 	CLogFile *pLogFile = CLogFile::Get_Instance();
 
@@ -367,21 +367,33 @@ BOOL CSequenceInit::Initial_Load1Run()
 		break;
 
 	case 160:
+		{
+			pStatus = m_pAJinAXL->Get_pStatus(AX_LOAD_TRAY_Z1);
+			dPosZ1 = pStatus->dPos;
+
+			pStatus = m_pAJinAXL->Get_pStatus(AX_LOAD_TRAY_Z2);
+			dPosZ2 = pStatus->dPos;
+
+			if(abs(dPosZ2 - dPosZ1) < 70) break;
+			if(dPosZ1 > 80) break;
+			if(dPosZ2 > 80) break;
+
 			pStatus = m_pAJinAXL->Get_pStatus(AX_LOAD_TRAY_X1);
 			dPosX1 = pStatus->dPos;
 
 			pStatus = m_pAJinAXL->Get_pStatus(AX_LOAD_TRAY_X2);
 			dPosX2 = pStatus->dPos;
 
-		if (dPosX1 <= dPosX2) {
-			m_pCommon->Move_Position(AX_LOAD_TRAY_X1, 0);
-			m_pCommon->Move_Position(AX_LOAD_TRAY_X2, 2);
-		} else {
-			m_pCommon->Move_Position(AX_LOAD_TRAY_X1, 2);
-			m_pCommon->Move_Position(AX_LOAD_TRAY_X2, 0);
-		}
+			if (dPosX1 <= dPosX2) {
+				m_pCommon->Move_Position(AX_LOAD_TRAY_X1, 0);
+				m_pCommon->Move_Position(AX_LOAD_TRAY_X2, 2);
+			} else {
+				m_pCommon->Move_Position(AX_LOAD_TRAY_X1, 2);
+				m_pCommon->Move_Position(AX_LOAD_TRAY_X2, 0);
+			}
 			m_nInitLoad1Case = 161;
 			m_pCommon->Set_LoopTime(INITIAL_LOAD1, 30000);
+		}
 		break;
 	case 161:
 		if ((m_pCommon->Check_Position(AX_LOAD_TRAY_X1, 0) && m_pCommon->Check_Position(AX_LOAD_TRAY_X2, 2)) ||
@@ -506,6 +518,7 @@ BOOL CSequenceInit::Initial_Load2Run()
 BOOL CSequenceInit::Initial_Unload1Run()
 {
 	double	dPosY1, dPosY2;
+	double	dPosZ1, dPosZ2;
 	AXIS_STATUS *pStatus;
 	CLogFile *pLogFile = CLogFile::Get_Instance();
 
@@ -555,21 +568,33 @@ BOOL CSequenceInit::Initial_Unload1Run()
 		break;
 
 	case 160:
+		{
+			pStatus = m_pAJinAXL->Get_pStatus(AX_UNLOAD_TRAY_Z1);
+			dPosZ1 = pStatus->dPos;
+
+			pStatus = m_pAJinAXL->Get_pStatus(AX_UNLOAD_TRAY_Z2);
+			dPosZ2 = pStatus->dPos;
+
+			if(abs(dPosZ1 - dPosZ2) < 70) break;
+			if(dPosZ1 > 80) break;
+			if(dPosZ2 > 80) break;
+
 			pStatus = m_pAJinAXL->Get_pStatus(AX_UNLOAD_TRAY_Y1);
 			dPosY1 = pStatus->dPos;
 
 			pStatus = m_pAJinAXL->Get_pStatus(AX_UNLOAD_TRAY_Y2);
 			dPosY2 = pStatus->dPos;
 
-		if (dPosY1 >= dPosY2) {
-			m_pCommon->Move_Position(AX_UNLOAD_TRAY_Y1, 0);
-			m_pCommon->Move_Position(AX_UNLOAD_TRAY_Y2, 3);
-		} else {
-			m_pCommon->Move_Position(AX_UNLOAD_TRAY_Y1, 3);
-			m_pCommon->Move_Position(AX_UNLOAD_TRAY_Y2, 0);
-		}
+			if (dPosY1 >= dPosY2) {
+				m_pCommon->Move_Position(AX_UNLOAD_TRAY_Y1, 0);
+				m_pCommon->Move_Position(AX_UNLOAD_TRAY_Y2, 3);
+			} else {
+				m_pCommon->Move_Position(AX_UNLOAD_TRAY_Y1, 3);
+				m_pCommon->Move_Position(AX_UNLOAD_TRAY_Y2, 0);
+			}
 			m_nInitUnload1Case = 161;
 			m_pCommon->Set_LoopTime(INITIAL_UNLOAD1, 30000);
+		}			
 		break;
 	case 161:
 		if ((m_pCommon->Check_Position(AX_UNLOAD_TRAY_Y1, 0) && m_pCommon->Check_Position(AX_UNLOAD_TRAY_Y2, 3)) ||
