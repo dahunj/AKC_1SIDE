@@ -1742,7 +1742,7 @@ BOOL CSequenceMain::Unload1_Run()
 
 			//Thing that case is over 350 means other stage(2) position is more than Unload.
 			//current pos of other stage >= job start pos
-			if (m_nUnload2Case > 350 || dPosY2 <= dPos)  
+			if (m_nUnload2Case > 350 && dPosY2 <= dPos)  
 			{
 				m_pCommon->Move_Position(AX_UNLOAD_TRAY_Z1, 0); // Move up (job height)
 				m_nUnload1Case = 460;
