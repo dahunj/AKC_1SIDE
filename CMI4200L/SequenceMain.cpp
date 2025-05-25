@@ -1742,7 +1742,7 @@ BOOL CSequenceMain::Unload1_Run()
 
 			//Thing that case is over 350 means other stage(2) position is more than Unload.
 			//current pos of other stage >= job start pos
-			if (m_nUnload2Case > 350 && dPosY2 >= dPos)  
+			if (m_nUnload2Case > 350 || dPosY2 <= dPos)  
 			{
 				m_pCommon->Move_Position(AX_UNLOAD_TRAY_Z1, 0); // Move up (job height)
 				m_nUnload1Case = 460;
@@ -1783,40 +1783,40 @@ BOOL CSequenceMain::Unload1_Run()
 		if (m_pDX6->iUS_Z1Check1)
 #endif
 		{
-			m_pCommon->Move_Position(AX_UNLOAD_TRAY_Z1, 0);
+			m_pCommon->Move_Position(AX_UNLOAD_TRAY_Z1, 0); // move up when tray 1 have tray 
 			m_pCommon->Move_Position(AX_UNLOAD_TRAY_Z2, 1);
 			m_nUnload1Case = 484;
 		} else {
 			m_pCommon->Move_Position(AX_UNLOAD_TRAY_Z1, 1); // move down
-			m_pCommon->Move_Position(AX_UNLOAD_TRAY_Z2, 0); //move up
+			m_pCommon->Move_Position(AX_UNLOAD_TRAY_Z2, 0); //move up when tray 2 have tray 
 			m_nUnload1Case = 482;
 		}
 			m_pCommon->Set_LoopTime(AUTO_UNLOAD1, 30000);
 		break;
 	case 482:
 		if (m_pCommon->Check_Position(AX_UNLOAD_TRAY_Z1, 1) && m_pCommon->Check_Position(AX_UNLOAD_TRAY_Z2, 0)) {
-			m_pCommon->Move_Position(AX_UNLOAD_TRAY_Y1, 3); //unload
-			m_pCommon->Move_Position(AX_UNLOAD_TRAY_Y2, 0); //load
+			m_pCommon->Move_Position(AX_UNLOAD_TRAY_Y1, 0); //load
+			m_pCommon->Move_Position(AX_UNLOAD_TRAY_Y2, 3); //unload 
 			m_nUnload1Case = 483;
 			m_pCommon->Set_LoopTime(AUTO_UNLOAD1, 30000);
 		}
 		break;
 	case 483:
-		if (m_pCommon->Check_Position(AX_UNLOAD_TRAY_Y1, 3) && m_pCommon->Check_Position(AX_UNLOAD_TRAY_Y2, 0)) {
+		if (m_pCommon->Check_Position(AX_UNLOAD_TRAY_Y1, 0) && m_pCommon->Check_Position(AX_UNLOAD_TRAY_Y2, 3)) {
 			m_nUnload1Case = 500;
 			m_pCommon->Set_LoopTime(AUTO_UNLOAD1, 30000);
 		}
 		break;
 	case 484:
 		if (m_pCommon->Check_Position(AX_UNLOAD_TRAY_Z1, 0) && m_pCommon->Check_Position(AX_UNLOAD_TRAY_Z2, 1)) {
-			m_pCommon->Move_Position(AX_UNLOAD_TRAY_Y1, 0);
-			m_pCommon->Move_Position(AX_UNLOAD_TRAY_Y2, 3);
+			m_pCommon->Move_Position(AX_UNLOAD_TRAY_Y1, 3); //unload 
+			m_pCommon->Move_Position(AX_UNLOAD_TRAY_Y2, 0);
 			m_nUnload1Case = 485;
 			m_pCommon->Set_LoopTime(AUTO_UNLOAD1, 30000);
 		}
 		break;
 	case 485:
-		if (m_pCommon->Check_Position(AX_UNLOAD_TRAY_Y1, 0) && m_pCommon->Check_Position(AX_UNLOAD_TRAY_Y2, 3)) {
+		if (m_pCommon->Check_Position(AX_UNLOAD_TRAY_Y1, 3) && m_pCommon->Check_Position(AX_UNLOAD_TRAY_Y2, 0)) {
 			m_nUnload1Case = 486;
 			m_pCommon->Set_LoopTime(AUTO_UNLOAD1, 5000);
 		}
@@ -1856,7 +1856,7 @@ BOOL CSequenceMain::Unload1_Run()
 #endif
 		{
 			if (!m_pCommon->Delay_LoopTime(AUTO_UNLOAD1, 500)) break;
-			m_pCommon->Move_Position(AX_UNLOAD_TRAY_Z1, 3); //Tray up 
+			m_pCommon->Move_Position(AX_UNLOAD_TRAY_Z1, 3); //support up 
 			m_nUnload1Case = 490;
 			m_pCommon->Set_LoopTime(AUTO_UNLOAD1, 30000);
 		}
@@ -1994,43 +1994,43 @@ BOOL CSequenceMain::Unload1_Run()
 			pStatus = m_pAJinAXL->Get_pStatus(AX_UNLOAD_TRAY_Z2);
 			dPosZ2 = pStatus->dPos;
 
-		if (dPosZ1 >= dPosZ2) {
-			m_pCommon->Move_Position(AX_UNLOAD_TRAY_Z1, 0);
-			m_pCommon->Move_Position(AX_UNLOAD_TRAY_Z2, 1);
+		if (dPosZ2 >= dPosZ1) {
+			m_pCommon->Move_Position(AX_UNLOAD_TRAY_Z1, 1); // move down
+			m_pCommon->Move_Position(AX_UNLOAD_TRAY_Z2, 0); // move up
 			m_nUnload1Case = 474;
 		} else {
-			m_pCommon->Move_Position(AX_UNLOAD_TRAY_Z1, 1);
-			m_pCommon->Move_Position(AX_UNLOAD_TRAY_Z2, 0);
+			m_pCommon->Move_Position(AX_UNLOAD_TRAY_Z1, 0);
+			m_pCommon->Move_Position(AX_UNLOAD_TRAY_Z2, 1);
 			m_nUnload1Case = 472;
 		}
 			m_pCommon->Set_LoopTime(AUTO_UNLOAD1, 30000);
 		break;
 	case 472:
-		if (m_pCommon->Check_Position(AX_UNLOAD_TRAY_Z1, 1) && m_pCommon->Check_Position(AX_UNLOAD_TRAY_Z2, 0)) {
-			m_pCommon->Move_Position(AX_UNLOAD_TRAY_Y1, 0);
-			m_pCommon->Move_Position(AX_UNLOAD_TRAY_Y2, 3);
+		if (m_pCommon->Check_Position(AX_UNLOAD_TRAY_Z1, 0) && m_pCommon->Check_Position(AX_UNLOAD_TRAY_Z2, 1)) {
+			m_pCommon->Move_Position(AX_UNLOAD_TRAY_Y1, 3); // unload
+			m_pCommon->Move_Position(AX_UNLOAD_TRAY_Y2, 0); // load
 			m_nUnload1Case = 473;
 			m_pCommon->Set_LoopTime(AUTO_UNLOAD1, 30000);
 		}
 		break;
 	case 473:
-		if (m_pCommon->Check_Position(AX_UNLOAD_TRAY_Y1, 0) && m_pCommon->Check_Position(AX_UNLOAD_TRAY_Y2, 3)) {
-			m_pCommon->Move_Position(AX_UNLOAD_TRAY_Z1, 0);
-			m_pCommon->Move_Position(AX_UNLOAD_TRAY_Z2, 1);
+		if (m_pCommon->Check_Position(AX_UNLOAD_TRAY_Y1, 3) && m_pCommon->Check_Position(AX_UNLOAD_TRAY_Y2, 0)) {
+			m_pCommon->Move_Position(AX_UNLOAD_TRAY_Z1, 1); // down
+			m_pCommon->Move_Position(AX_UNLOAD_TRAY_Z2, 0); // tray up
 			m_nUnload1Case = 474;
 			m_pCommon->Set_LoopTime(AUTO_UNLOAD1, 30000);
 		}
 		break;
 	case 474:
-		if (m_pCommon->Check_Position(AX_UNLOAD_TRAY_Z1, 0) && m_pCommon->Check_Position(AX_UNLOAD_TRAY_Z2, 1)) {
-			m_pCommon->Move_Position(AX_UNLOAD_TRAY_Y1, 0);
-			m_pCommon->Move_Position(AX_UNLOAD_TRAY_Y2, 3);
+		if (m_pCommon->Check_Position(AX_UNLOAD_TRAY_Z1, 1) && m_pCommon->Check_Position(AX_UNLOAD_TRAY_Z2, 0)) {
+			m_pCommon->Move_Position(AX_UNLOAD_TRAY_Y1, 3); //unload 
+			m_pCommon->Move_Position(AX_UNLOAD_TRAY_Y2, 0); //load
 			m_nUnload1Case = 475;
 			m_pCommon->Set_LoopTime(AUTO_UNLOAD1, 30000);
 		}
 		break;
 	case 475:
-		if (m_pCommon->Check_Position(AX_UNLOAD_TRAY_Y1, 0) && m_pCommon->Check_Position(AX_UNLOAD_TRAY_Y2, 3)) {
+		if (m_pCommon->Check_Position(AX_UNLOAD_TRAY_Y1, 3) && m_pCommon->Check_Position(AX_UNLOAD_TRAY_Y2, 0)) {
 			m_nUnload1Case = 440;
 			m_nUnload2Case = 100;
 			m_pCommon->Set_LoopTime(AUTO_UNLOAD1, 5000);
@@ -2447,7 +2447,7 @@ BOOL CSequenceMain::Unload2_Run()
 			else						dPos = m_pMoveData->dUnloadTrayY1[2] - (gData.nArrayW * gData.dTrayPitchW);
 
 			//case is over 350 means Y already moved to unload pos
-			if (m_nUnload1Case > 350 && dPosY1 >= dPos)
+			if (m_nUnload1Case > 350 && dPosY1 <= dPos)
 			{
 				m_pCommon->Move_Position(AX_UNLOAD_TRAY_Z2, 0); // Z move up 
 				m_nUnload2Case = 460;
@@ -6842,6 +6842,8 @@ BOOL CSequenceMain::Run_Simulation()
 	if (m_nLoad1Case == 480) { pDX1->iLS_Z1Check1 = FALSE; pDX1->iLS_Z1Check2 = FALSE; pDX1->iLS_Z2Check1 = FALSE; pDX1->iLS_Z2Check2 = FALSE; }
 	if (m_nLoad2Case == 110) { pDX1->iLS_Z2Check1 = FALSE; pDX1->iLS_Z2Check2 = FALSE; }
 	if (m_nLoad2Case == 170) { pDX1->iLS_Z2Check1 = TRUE; pDX1->iLS_Z2Check2 = TRUE; }
+
+	if(m_nUnload1Case == 100 || m_nUnload2Case == 100) m_pDX6->iEnd_Load1FCheck = TRUE;
 
 	if (m_nUnload1Case == 110) { pDX6->iUS_Z1Check1 = FALSE; pDX6->iUS_Z1Check2 = FALSE;
 								 pDX6->iUS_Z1AlignS12In = FALSE; pDX6->iUS_Z1AlignS12Out = TRUE; pDX6->iUS_Z1AlignM34In = FALSE; pDX6->iUS_Z1AlignM34Out = TRUE; }

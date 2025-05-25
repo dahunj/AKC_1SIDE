@@ -289,7 +289,7 @@ BOOL CSequenceInit::Initial_MainRun()
 
 		// 변수 초기화
 		CSequenceMain *pSequenceMain = CSequenceMain::Get_Instance();
-		pSequenceMain->Set_RunCase(100, 440, 100, 440, 100, 100, 100, 100, 100, 100, 100, 100);
+		pSequenceMain->Set_RunCase(100, 440, 440, 100, 100, 100, 100, 100, 100, 100, 100, 100);
 		pSequenceMain->Set_ClearRunData(0);
 		gData.bCleanOutMode = FALSE;
 
@@ -344,25 +344,25 @@ BOOL CSequenceInit::Initial_Load1Run()
 
 			m_pAJinAXL->Write_Output(1);
 			m_nInitLoad1Case = 112;
-			m_pCommon->Set_LoopTime(INITIAL_LOAD1, 5000);
+			m_pCommon->Set_LoopTime(INITIAL_LOAD1, 15000);
 		break;
 	case 112:
 		if (m_pDX1->iLS_LoadSupport1In && !m_pDX1->iLS_LoadSupport1Out && m_pDX1->iLS_LoadSupport2In && !m_pDX1->iLS_LoadSupport2Out) {
 			m_nInitLoad1Case = 113;
-			m_pCommon->Set_LoopTime(INITIAL_LOAD1, 5000);
+			m_pCommon->Set_LoopTime(INITIAL_LOAD1, 15000);
 		}
 		break;
 	case 113:
 		if (!m_pDX1->iLS_Z1AlignS12In && m_pDX1->iLS_Z1AlignS12Out && !m_pDX1->iLS_Z1AlignM34In && m_pDX1->iLS_Z1AlignM34Out) {
 			m_nInitLoad1Case = 150;
-			m_pCommon->Set_LoopTime(INITIAL_LOAD1, 60000);
+			m_pCommon->Set_LoopTime(INITIAL_LOAD1, 30000);
 		}
 		break;
 
 	case 150:
 		if (m_pCommon->Check_Position(AX_LOAD_PICKER_Z, 0) ) {
 			m_nInitLoad1Case = 160;
-			m_pCommon->Set_LoopTime(INITIAL_LOAD1, 60000);
+			m_pCommon->Set_LoopTime(INITIAL_LOAD1, 30000);
 		}
 		break;
 
@@ -392,7 +392,7 @@ BOOL CSequenceInit::Initial_Load1Run()
 				m_pCommon->Move_Position(AX_LOAD_TRAY_X2, 0);
 			}
 			m_nInitLoad1Case = 161;
-			m_pCommon->Set_LoopTime(INITIAL_LOAD1, 30000);
+			m_pCommon->Set_LoopTime(INITIAL_LOAD1, 10000);
 		}
 		break;
 	case 161:
@@ -409,7 +409,7 @@ BOOL CSequenceInit::Initial_Load1Run()
 			m_pAJinAXL->Home_Search(AX_LOAD_TRAY_Z1);
 			m_pAJinAXL->Home_Search(AX_LOAD_TRAY_Z2);
 			m_nInitLoad1Case = 163;
-			m_pCommon->Set_LoopTime(INITIAL_LOAD1, 60000);
+			m_pCommon->Set_LoopTime(INITIAL_LOAD1, 30000);
 		}
 		break;
 	case 163:
@@ -425,7 +425,7 @@ BOOL CSequenceInit::Initial_Load1Run()
 			m_pAJinAXL->Home_Search(AX_LOAD_TRAY_X1);
 			m_pAJinAXL->Home_Search(AX_LOAD_TRAY_X2);
 			m_nInitLoad1Case = 165;
-			m_pCommon->Set_LoopTime(INITIAL_LOAD1, 60000);
+			m_pCommon->Set_LoopTime(INITIAL_LOAD1, 30000);
 		}
 		break;
 	case 165:
@@ -545,25 +545,25 @@ BOOL CSequenceInit::Initial_Unload1Run()
 
 			m_pAJinAXL->Write_Output(6);
 			m_nInitUnload1Case = 112;
-			m_pCommon->Set_LoopTime(INITIAL_UNLOAD1, 5000);
+			m_pCommon->Set_LoopTime(INITIAL_UNLOAD1, 35000);
 		break;
 	case 112:
 		if (m_pDX6->iEnd_LoadSupport1In && !m_pDX6->iEnd_LoadSupport1Out && m_pDX6->iEnd_LoadSupport2In && !m_pDX6->iEnd_LoadSupport2Out) {
 			m_nInitUnload1Case = 113;
-			m_pCommon->Set_LoopTime(INITIAL_UNLOAD1, 5000);
+			m_pCommon->Set_LoopTime(INITIAL_UNLOAD1, 35000);
 		}
 		break;
 	case 113:
 		if (!m_pDX6->iUS_Z1AlignS12In && m_pDX6->iUS_Z1AlignS12Out && !m_pDX6->iUS_Z1AlignM34In && m_pDX6->iUS_Z1AlignM34Out) {
 			m_nInitUnload1Case = 150;
-			m_pCommon->Set_LoopTime(INITIAL_UNLOAD1, 60000);
+			m_pCommon->Set_LoopTime(INITIAL_UNLOAD1, 35000);
 		}
 		break;
 
 	case 150:
 		if (m_pCommon->Check_Position(AX_UNLOAD_PICKER_Z, 0) ) {
 			m_nInitUnload1Case = 160;
-			m_pCommon->Set_LoopTime(INITIAL_UNLOAD1, 60000);
+			m_pCommon->Set_LoopTime(INITIAL_UNLOAD1, 35000);
 		}
 		break;
 
@@ -593,7 +593,7 @@ BOOL CSequenceInit::Initial_Unload1Run()
 				m_pCommon->Move_Position(AX_UNLOAD_TRAY_Y2, 3);
 			}
 			m_nInitUnload1Case = 161;
-			m_pCommon->Set_LoopTime(INITIAL_UNLOAD1, 30000);
+			m_pCommon->Set_LoopTime(INITIAL_UNLOAD1, 35000);
 		}			
 		break;
 	case 161:
@@ -602,7 +602,7 @@ BOOL CSequenceInit::Initial_Unload1Run()
 			m_pCommon->Move_Position(AX_UNLOAD_TRAY_Z1, 0);
 			m_pCommon->Move_Position(AX_UNLOAD_TRAY_Z2, 0);
 			m_nInitUnload1Case = 162;
-			m_pCommon->Set_LoopTime(INITIAL_UNLOAD1, 30000);
+			m_pCommon->Set_LoopTime(INITIAL_UNLOAD1, 35000);
 		}
 		break;
 	case 162:
@@ -610,7 +610,7 @@ BOOL CSequenceInit::Initial_Unload1Run()
 			m_pAJinAXL->Home_Search(AX_UNLOAD_TRAY_Z1);
 			m_pAJinAXL->Home_Search(AX_UNLOAD_TRAY_Z2);
 			m_nInitUnload1Case = 163;
-			m_pCommon->Set_LoopTime(INITIAL_UNLOAD1, 60000);
+			m_pCommon->Set_LoopTime(INITIAL_UNLOAD1, 30000);
 		}
 		break;
 	case 163:
@@ -626,7 +626,7 @@ BOOL CSequenceInit::Initial_Unload1Run()
 			m_pAJinAXL->Home_Search(AX_UNLOAD_TRAY_Y1);
 			m_pAJinAXL->Home_Search(AX_UNLOAD_TRAY_Y2);
 			m_nInitUnload1Case = 165;
-			m_pCommon->Set_LoopTime(INITIAL_UNLOAD1, 60000);
+			m_pCommon->Set_LoopTime(INITIAL_UNLOAD1, 30000);
 		}
 		break;
 	case 165:
