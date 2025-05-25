@@ -374,9 +374,9 @@ BOOL CSequenceInit::Initial_Load1Run()
 			pStatus = m_pAJinAXL->Get_pStatus(AX_LOAD_TRAY_Z2);
 			dPosZ2 = pStatus->dPos;
 
-			if(abs(dPosZ2 - dPosZ1) < 70) break;
-			if(dPosZ1 > 80) break;
-			if(dPosZ2 > 80) break;
+			if(abs(dPosZ2 - dPosZ1) < 65) break;
+			if(dPosZ1 > 85) break;
+			if(dPosZ2 > 85) break;
 
 			pStatus = m_pAJinAXL->Get_pStatus(AX_LOAD_TRAY_X1);
 			dPosX1 = pStatus->dPos;
@@ -575,7 +575,7 @@ BOOL CSequenceInit::Initial_Unload1Run()
 			pStatus = m_pAJinAXL->Get_pStatus(AX_UNLOAD_TRAY_Z2);
 			dPosZ2 = pStatus->dPos;
 
-			if(abs(dPosZ1 - dPosZ2) < 70) break;
+			if(abs(dPosZ1 - dPosZ2) < 65) break;
 			if(dPosZ1 > 85) break;
 			if(dPosZ2 > 85) break;
 
