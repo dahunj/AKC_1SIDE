@@ -1476,7 +1476,7 @@ BOOL CSequenceMain::Unload1_Run()
 		break;
 
 	case 200:
-		if (m_nUnload2Case < 200 || m_nUnload2Case > 412) {
+		if (m_nUnload2Case < 200 || m_nUnload2Case > 411) {
 			m_pCommon->Move_Position(AX_UNLOAD_TRAY_Y1, 2); //job start pos
 			m_nUnload1Case = 290;
 			m_pCommon->Set_LoopTime(AUTO_UNLOAD1, 30000);
@@ -1742,7 +1742,7 @@ BOOL CSequenceMain::Unload1_Run()
 
 			//Thing that case is over 350 means other stage(2) position is more than Unload.
 			//current pos of other stage >= job start pos
-			if (m_nUnload2Case > 350 && dPosY2 <= dPos)  
+			if (m_nUnload2Case > 411 && dPosY2 >= dPos)  
 			{
 				m_pCommon->Move_Position(AX_UNLOAD_TRAY_Z1, 0); // Move up (job height)
 				m_nUnload1Case = 460;
@@ -2078,7 +2078,7 @@ BOOL CSequenceMain::Unload2_Run()
 	case 100:
 		if (Check_IndexEmpty(9)==FALSE || Check_PickerEmpty()==FALSE) {
 			if (m_pCommon->Check_Position(AX_UNLOAD_TRAY_Y2, 0) && m_pCommon->Check_Position(AX_UNLOAD_TRAY_Z2, 0)) {
-				if (m_pDX6->iEnd_Load1FCheck && m_nUnload1Case < 460) {
+				if (m_pDX6->iEnd_Load1FCheck) {
 					m_nUnload2Case = 110;
 					m_pCommon->Set_LoopTime(AUTO_UNLOAD2, 5000);
 				}
@@ -2190,7 +2190,7 @@ BOOL CSequenceMain::Unload2_Run()
 		break;
 
 	case 200:
-		if (m_nUnload1Case < 200 || m_nUnload1Case > 412) {
+		if (m_nUnload1Case < 200 || m_nUnload1Case > 411) {
 			m_pCommon->Move_Position(AX_UNLOAD_TRAY_Y2, 2); // Y job pos 
 			m_nUnload2Case = 290;
 			m_pCommon->Set_LoopTime(AUTO_UNLOAD2, 30000);
@@ -2447,7 +2447,7 @@ BOOL CSequenceMain::Unload2_Run()
 			else						dPos = m_pMoveData->dUnloadTrayY1[2] - (gData.nArrayW * gData.dTrayPitchW);
 
 			//case is over 350 means Y already moved to unload pos
-			if (m_nUnload1Case > 350 && dPosY1 <= dPos)
+			if (m_nUnload1Case > 411 && dPosY1 >= dPos)
 			{
 				m_pCommon->Move_Position(AX_UNLOAD_TRAY_Z2, 0); // Z move up 
 				m_nUnload2Case = 460;

@@ -615,14 +615,14 @@ BOOL CSequenceInit::Initial_Unload1Run()
 		break;
 	case 163:
 		if (m_pAJinAXL->Is_Home(AX_UNLOAD_TRAY_Z1) && m_pAJinAXL->Is_Home(AX_UNLOAD_TRAY_Z2)) {
-			m_pCommon->Move_Position(AX_UNLOAD_TRAY_Z1, 0);
-			m_pCommon->Move_Position(AX_UNLOAD_TRAY_Z2, 1);
+			m_pCommon->Move_Position(AX_UNLOAD_TRAY_Z1, 1);
+			m_pCommon->Move_Position(AX_UNLOAD_TRAY_Z2, 0);
 			m_nInitUnload1Case = 164;
 			m_pCommon->Set_LoopTime(INITIAL_UNLOAD1, 30000);
 		}
 		break;
 	case 164:
-		if (m_pCommon->Check_Position(AX_UNLOAD_TRAY_Z1, 0) && m_pCommon->Check_Position(AX_UNLOAD_TRAY_Z2, 1)) {
+		if (m_pCommon->Check_Position(AX_UNLOAD_TRAY_Z1, 1) && m_pCommon->Check_Position(AX_UNLOAD_TRAY_Z2, 0)) {
 			m_pAJinAXL->Home_Search(AX_UNLOAD_TRAY_Y1);
 			m_pAJinAXL->Home_Search(AX_UNLOAD_TRAY_Y2);
 			m_nInitUnload1Case = 165;
