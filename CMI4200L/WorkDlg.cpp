@@ -856,114 +856,7 @@ void CWorkDlg::Display_Status()
 
 	strText.Format("%d", gData.nIndexPos);
 	m_stcWorkSlot[2].SetWindowText(strText);
-
-	int		i, j, nTCnt, nUPEH;
-	double	dTackTime[3];
-	SYSTEMTIME time;
-	GetLocalTime(&time);
-	
-	gLot.sEndTime.Format("%04d%02d%02d_%02d%02d%02d", time.wYear, time.wMonth, time.wDay, time.wHour, time.wMinute, time.wSecond);
-
-	i = time.wHour;
-	nTCnt = 0;
-	dTackTime[0] = dTackTime[1] = dTackTime[2] = 0.0;
-	for(j=0; j<gTD.dTack[i][49]; j++) {
-		dTackTime[0] = dTackTime[0] + gTD.dTack[i][j];
-		nTCnt++;
-	}
-	if (nTCnt>1) dTackTime[0] = dTackTime[0] / nTCnt;
-
-	nTCnt = 0;
-	if (i>=7 && i<=18) {
-		for(i=7; i<=18; i++) {
-			for(j=0; j<gTD.dTack[i][49]; j++) {
-				dTackTime[1] = dTackTime[1] + gTD.dTack[i][j];
-				nTCnt++;
-			}
-		}
-	} else {
-		for(i=0; i<7; i++) {
-			for(j=0; j<gTD.dTack[i][49]; j++) {
-				dTackTime[1] = dTackTime[1] + gTD.dTack[i][j];
-				nTCnt++;
-			}
-		}
-		for(i=19; i<=23; i++) {
-			for(j=0; j<gTD.dTack[i][49]; j++) {
-				dTackTime[1] = dTackTime[1] + gTD.dTack[i][j];
-				nTCnt++;
-			}
-		}
-	}
-	if (nTCnt>1) dTackTime[1] = dTackTime[1] / nTCnt;
-
-	nTCnt = 0;
-	for(i=0; i<=23; i++) {
-		for(j=0; j<gTD.dTack[i][49]; j++) {
-			dTackTime[2] = dTackTime[2] + gTD.dTack[i][j];
-			nTCnt++;
-		}
-	}
-	if (nTCnt>1) dTackTime[2] = dTackTime[2] / nTCnt;
-
-	// Tack
-	if (gTD.dTackTime==0) strText = "";
-	else strText.Format("%0.5f", gTD.dTackTime);
-	m_stcWorkSlot[3].SetWindowText(strText);
-
-	if (dTackTime[0]==0) strText = "";
-	else strText.Format("%0.5f", dTackTime[0]);
-	m_stcWorkSlot[4].SetWindowText(strText);
-
-	if (dTackTime[1]==0) strText = "";
-	else strText.Format("%0.5f", dTackTime[1]);
-	m_stcWorkSlot[5].SetWindowText(strText);
-
-	if (dTackTime[2]==0) strText = "";
-	else strText.Format("%0.5f", dTackTime[2]);
-	m_stcWorkSlot[6].SetWindowText(strText);
-
-	//UPEH
-	if (gTD.dTackTime==0) strText = "";
-	else { nUPEH = int(3600 / gTD.dTackTime); strText.Format("%d", nUPEH); }
-	m_stcWorkSlot[7].SetWindowText(strText);
-
-	if (dTackTime[0]==0) strText = "";
-	else { nUPEH = int(3600 / dTackTime[0]); strText.Format("%d", nUPEH); }
-	m_stcWorkSlot[8].SetWindowText(strText);
-
-	if (dTackTime[1]==0) strText = "";
-	else { nUPEH = int(3600 / dTackTime[1]); strText.Format("%d", nUPEH); }
-	m_stcWorkSlot[10].SetWindowText(strText);
-
-	if (dTackTime[2]==0) strText = "";
-	else { nUPEH = int(3600 / dTackTime[2]); strText.Format("%d", nUPEH); }
-	m_stcWorkSlot[11].SetWindowText(strText);
-
-	//»ý»ê·®
-	if (gTD.dCount[0]==0) strText = "";
-	else strText.Format("%d", gTD.dCount[0]);
-	m_stcWorkSlot[12].SetWindowText(strText);
-
-	if (gTD.dCount[1]==0) strText = "";
-	else strText.Format("%d", gTD.dCount[1]);
-	m_stcWorkSlot[13].SetWindowText(strText);
-
-	if (gLot.nCMCount==0) strText = "";
-	else strText.Format("%d", gLot.nCMCount);
-	m_stcWorkSlot[14].SetWindowText(strText);
-
-	if (gLot.nGoodCnt==0) strText = "";
-	else strText.Format("%d", gLot.nGoodCnt);
-	m_stcWorkSlot[15].SetWindowText(strText);
-
-	if (gLot.nNGCnt==0) strText = "";
-	else strText.Format("%d", gLot.nNGCnt);
-	m_stcWorkSlot[16].SetWindowText(strText);
-
-//	if (gLot.nMESNGCnt==0) strText = "";
-//	else strText.Format("%d", gLot.nMESNGCnt);
-//	m_stcWorkSlot[17].SetWindowText(strText);
+		
 
 	int nLoadCnt;
 	nLoadCnt = gData.nTrayJobCount - gData.nLoadTrayCount;  
@@ -1536,11 +1429,19 @@ void CWorkDlg::OnBnClickedChkAllPassFunction()
 		sLog.Format("[Work Mode] ContinueLot push....  LotID[%s] CM[%d] m_bUseContinueLot[%d]", gData.sLotID, gData.nCMJobCount, gData.bUseAllPass);
 		pLogFile->Save_HandlerLog(sLog);	
 	}
+}
 
+void CWorkDlg::UpdateUph()
+{
+	CString strText;
 
-	
+	if (gLot.dTackTime == 0) strText = "";
+	else strText.Format("%0.5f", gLot.dTackTime);
+	m_stcWorkSlot[3].SetWindowText(strText);
 
-	
+	if (gLot.dTackTime == 0) strText = "";
+	else strText.Format("%d", int(3600 / gLot.dTackTime));
+	m_stcWorkSlot[7].SetWindowText(strText);
 }
 
 

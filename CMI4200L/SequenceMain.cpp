@@ -360,6 +360,7 @@ UINT CSequenceMain::Thread_MainRun(LPVOID lpVoid)
 			pMainDlg->Set_MainState(STATE_LOTEND);
 
 			CWorkDlg *pWorkDlg = CWorkDlg::Get_Instance();
+			pWorkDlg->UpdateUph();
 			pWorkDlg->AutoStop();
 
 			if (gData.bAPDResultErr) { pCommon->Show_Error(998); }
@@ -6664,14 +6665,14 @@ void CSequenceMain::Job_LotEnd()
 	dMESTack = double(lTime/1000);
 	dTack = double(lTime/1000) / double(gLot.nCMCount);
 	if(dTack > 0) gLot.dTackTime = dTack;
-
+	
 	gLot.nGoodCnt = gLot.nCMCount - gLot.nNGCnt;
 	CLogFile *pLogFile = CLogFile::Get_Instance();
-	//if (!m_pEquipData->bUseInlineMode) {
+	
 	sLog.Format("%s,%s,%s,%d,%02d,%04d,%0.7lf,%d,%d,%d",
 		gLot.sLotID, gLot.sStartTime, gLot.sEndTime, lTime, gLot.nTrayCount, gLot.nCMCount, gLot.dTackTime, gLot.nGoodCnt, gLot.nNGCnt, gLot.nBoNGCnt);
 		pLogFile->Save_JobListLog(sLog);
-	//}
+
 	if(gLot.sLotID.GetLength()>11) {
 		int	i, j;
 		gTD.dTackTime = gLot.dTackTime;
@@ -6692,28 +6693,16 @@ void CSequenceMain::Job_LotEnd()
 
 	pLogFile->Save_LotLog("LotResult");
 
-	g_objCapAttachUDP.Set_TrayEnd(gData.nPortNo);
-	//g_objCapAttachUDP.Set_TrayEnd(1);
+	g_objCapAttachUDP.Set_TrayEnd(gData.nPortNo);	
 	Sleep(30);
 	g_objCapAttachUDP.Set_LotEnd(gData.nPortNo);
-	//g_objCapAttachUDP.Set_LotEnd(1);
+	
 
 	if (gLot.sLotID == gData.sLotID) gData.sLotID = "";
-	if (gData.bCleanOutMode==FALSE ) {
-		// 캡 조립이 완료가 되면 완공하기 위해 정보 저장.
-// 		if (m_pEquipData->bUseInlineMode) {
-// 			gLot.sCALotID = gLot.sLotID;
-// 			gLot.nCACmCount = gLot.nCMCount;
-// 			gLot.nCAGoodCount = gLot.nGoodCnt;
-// 			gLot.nCANgCount = gLot.nNGCnt;
-// 			gLot.sCAStartTime = gLot.sStartTime;
-// 			gLot.dwCALotStart = gLot.lLotStart;
-// 
-// 			gData.bCapAttachWork = FALSE;
-// 			//gData.bCapAttachWork = TRUE;	// Inline 모드 일때  Cap Attach까지 LotEnd되어야 투입할수 있도록 해준다.
-// 
-// 
-// 		} else {
+
+	if (gData.bCleanOutMode==FALSE ) 
+	{
+
 			if (!m_pEquipData->bUseMesApd || !gData.bAPDResultErr) g_objMES.Set_LotEnd(gLot.sLotID, gLot.nCMCount, gData.sOperID, gLot.nGoodCnt, gLot.nNGCnt);
 // 		}
 	}

@@ -142,6 +142,8 @@ public:
 	void AutoStop();
 	void Clear_LotInfo();
 	void Enable_LotInfo(BOOL on);
+
+	void UpdateUph();
 	
 	afx_msg void OnBnClickedChkAllPassFunction();
 	afx_msg void OnBnClickedButton1();
