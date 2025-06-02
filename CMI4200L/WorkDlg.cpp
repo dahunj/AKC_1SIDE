@@ -1451,7 +1451,9 @@ LRESULT CWorkDlg::OnLotStartEnd(WPARAM wParam, LPARAM lParam)
 			strLog.Format("[Barcode Shift] %s", strMsg);
 			pLogFile->Save_HandlerLog(strLog);
 			pCommon->Show_MsgBox(1, strMsg);
-		}
+		}		
+		pCommon->Show_MsgBox(1, "Lot End");
+
 	}
 	return 0;
 }
