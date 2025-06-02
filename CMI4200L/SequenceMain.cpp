@@ -4254,12 +4254,13 @@ BOOL CSequenceMain::LDPicker_Run()
 		if((m_pCommon->Check_Position(AX_LOAD_PICKER_Z, 0)) &&
 //		   ((!m_pEquipData->bUseCMCheck) ||
 		   ((gData.bUseDryRun) ||
-			(((gData.LoadTrayInfo[x][0]>0 && m_pDX2->iMLPicker1CMCheck) || gData.LoadTrayInfo[x][0]==0) &&
-			 ((gData.LoadTrayInfo[x][1]>0 && m_pDX2->iMLPicker2CMCheck) || gData.LoadTrayInfo[x][1]==0) &&
-			 ((gData.LoadTrayInfo[x][2]>0 && m_pDX2->iMLPicker3CMCheck) || gData.LoadTrayInfo[x][2]==0) &&
-			 ((gData.LoadTrayInfo[x][3]>0 && m_pDX2->iMLPicker4CMCheck) || gData.LoadTrayInfo[x][3]==0) &&
-			 ((gData.LoadTrayInfo[x][4]>0 && m_pDX2->iMLPicker5CMCheck) || gData.LoadTrayInfo[x][4]==0) &&
-			 ((gData.LoadTrayInfo[x][5]>0 && m_pDX2->iMLPicker6CMCheck) || gData.LoadTrayInfo[x][5]==0)) )) {
+			(((gData.LoadTrayInfo[x][0]>0 && m_pDX2->iMLPicker1CMCheck) || (gData.LoadTrayInfo[x][0]==0 && !m_pDX2->iMLPicker1CMCheck)) &&
+			 ((gData.LoadTrayInfo[x][1]>0 && m_pDX2->iMLPicker2CMCheck) || (gData.LoadTrayInfo[x][1]==0 && !m_pDX2->iMLPicker2CMCheck)) &&
+			 ((gData.LoadTrayInfo[x][2]>0 && m_pDX2->iMLPicker3CMCheck) || (gData.LoadTrayInfo[x][2]==0 && !m_pDX2->iMLPicker3CMCheck)) &&
+			 ((gData.LoadTrayInfo[x][3]>0 && m_pDX2->iMLPicker4CMCheck) || (gData.LoadTrayInfo[x][3]==0 && !m_pDX2->iMLPicker4CMCheck)) &&
+			 ((gData.LoadTrayInfo[x][4]>0 && m_pDX2->iMLPicker5CMCheck) || (gData.LoadTrayInfo[x][4]==0 && !m_pDX2->iMLPicker5CMCheck)) &&
+			 ((gData.LoadTrayInfo[x][5]>0 && m_pDX2->iMLPicker6CMCheck) || (gData.LoadTrayInfo[x][5]==0 && !m_pDX2->iMLPicker6CMCheck))))) 
+		{
 			if (!m_pCommon->Delay_LoopTime(AUTO_LDPICKER, 100)) break;
 
 			gData.PickerLoadTrayNo = gData.LoadTrayNo;
@@ -4304,12 +4305,13 @@ BOOL CSequenceMain::LDPicker_Run()
 	case 201:		
 //		if ((!m_pEquipData->bUseCMCheck) ||
 		if ((gData.bUseDryRun) ||
-		   (((gData.PickerInfor[0][0]>0 && m_pDX2->iMLPicker1CMCheck) || gData.PickerInfor[0][0]==0) &&
-			((gData.PickerInfor[0][1]>0 && m_pDX2->iMLPicker2CMCheck) || gData.PickerInfor[0][1]==0) &&
-			((gData.PickerInfor[0][2]>0 && m_pDX2->iMLPicker3CMCheck) || gData.PickerInfor[0][2]==0) &&
-			((gData.PickerInfor[0][3]>0 && m_pDX2->iMLPicker4CMCheck) || gData.PickerInfor[0][3]==0) &&
-			((gData.PickerInfor[0][4]>0 && m_pDX2->iMLPicker5CMCheck) || gData.PickerInfor[0][4]==0) &&
-			((gData.PickerInfor[0][5]>0 && m_pDX2->iMLPicker6CMCheck) || gData.PickerInfor[0][5]==0)) ) {
+		   (((gData.PickerInfor[0][0]>0 && m_pDX2->iMLPicker1CMCheck) || (gData.PickerInfor[0][0]==0 && !m_pDX2->iMLPicker1CMCheck)) &&
+			((gData.PickerInfor[0][1]>0 && m_pDX2->iMLPicker2CMCheck) || (gData.PickerInfor[0][1]==0 && !m_pDX2->iMLPicker2CMCheck)) &&
+			((gData.PickerInfor[0][2]>0 && m_pDX2->iMLPicker3CMCheck) || (gData.PickerInfor[0][2]==0 && !m_pDX2->iMLPicker3CMCheck)) &&
+			((gData.PickerInfor[0][3]>0 && m_pDX2->iMLPicker4CMCheck) || (gData.PickerInfor[0][3]==0 && !m_pDX2->iMLPicker4CMCheck)) &&
+			((gData.PickerInfor[0][4]>0 && m_pDX2->iMLPicker5CMCheck) || (gData.PickerInfor[0][4]==0 && !m_pDX2->iMLPicker5CMCheck)) &&
+			((gData.PickerInfor[0][5]>0 && m_pDX2->iMLPicker6CMCheck) || (gData.PickerInfor[0][5]==0 && !m_pDX2->iMLPicker6CMCheck)))) 
+		{
 			m_nLDPickerCase = 202;
 			m_pCommon->Set_LoopTime(AUTO_LDPICKER, 5000);
 		}
