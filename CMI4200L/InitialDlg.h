@@ -70,6 +70,11 @@ public:
 	void LogAllDelete();
 	void LogFileDelete(CString sPath);
 
+	afx_msg void OnBnClickedBtmHomeLoadZ();
+	afx_msg void OnBnClickedBtmHomeInspectZ();
+	afx_msg void OnBnClickedBtmHomeNgZ();
+	afx_msg void OnBnClickedBtmHomeGoodZ();
+	afx_msg void OnBnClickedBtmHomeUnloadZ();
 };
 
 ///////////////////////////////////////////////////////////////////////////////

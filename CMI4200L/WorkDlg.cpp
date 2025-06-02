@@ -59,7 +59,7 @@ void CWorkDlg::DoDataExchange(CDataExchange* pDX)
 	for (int i = 19; i < 39; i++) DDX_Control(pDX, IDC_LABEL_0 + i, m_Label[i]);
 	DDX_Control(pDX, IDC_LABEL_3, m_Label[3]);
 	DDX_Control(pDX, IDC_LABEL_4, m_Label[4]);
-	DDX_Control(pDX, IDC_LABEL_DOOR, m_LabelDoor);
+	
 	
 	DDX_Control(pDX, IDC_STC_MODEL_NAME, m_stcModelName);
 	DDX_Control(pDX, IDC_STC_STRIP_SIZE, m_stcStripSize);
@@ -774,7 +774,7 @@ void CWorkDlg::Initial_Controls()
 	m_Label[3].Init_Ctrl("¹ÙÅÁ", 10, FALSE, RGB(0xFF, 0xFF, 0xFF), RGB(0x80, 0x80, 0x00));
 	m_Label[29].Init_Ctrl("¹ÙÅÁ", 11, FALSE, RGB(0xFF, 0xFF, 0xFF), RGB(0x80, 0x80, 0x00));
 	m_Label[37].Init_Ctrl("¹ÙÅÁ", 11, FALSE, RGB(0xFF, 0xFF, 0xFF), RGB(0x80, 0x80, 0x00));
-	m_LabelDoor.Init_Ctrl("¹ÙÅÁ", 40, FALSE, RGB(0xFF, 0xFF, 0xFF), RGB(0x80, 0x80, 0x00));
+	
 
 	for (int i = 22; i < 24; i++) m_Label[i].Init_Ctrl("¹ÙÅÁ", 11, FALSE, RGB(0xFF, 0xFF, 0x00), RGB(0x00, 0x00, 0x00));	// Elect,Laser
 	for (int i = 24; i < 29; i++) m_Label[i].Init_Ctrl("¹ÙÅÁ", 11, FALSE, RGB(0xFF, 0xFF, 0xFF), RGB(0x00, 0x00, 0x00));	// Slot
@@ -846,10 +846,7 @@ void CWorkDlg::Display_Status()
 {
 	CSequenceMain *pSequenceMain = CSequenceMain::Get_Instance();
 
-	CString strTemp, strText;
-	
-	if (gData.bUseDoorLock==FALSE)	m_LabelDoor.ShowWindow(TRUE);
-	else							m_LabelDoor.ShowWindow(FALSE);
+	CString strTemp, strText;	
 
 	strText.Format("%d", gData.LoadTrayNo);
 	m_stcWorkSlot[0].SetWindowText(strText);

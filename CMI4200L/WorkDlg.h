@@ -37,7 +37,7 @@ public:
 	enum { IDD = IDD_WORK_DLG };
 	CGroupCS		m_Group[9];
 	CLabelCS		m_Label[46];
-	CLabelCS		m_LabelDoor;
+	
 	CStaticCS		m_stcModelName;
 	CStaticCS		m_stcStripSize;
 	CStaticCS		m_stcStripType;

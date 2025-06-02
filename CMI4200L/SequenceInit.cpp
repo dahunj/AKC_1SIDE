@@ -1808,18 +1808,22 @@ BOOL CSequenceInit::Initial_Simulation()
 	if (m_nInitMainCase == 124) { pDX6->iUS_Z1Check1 = FALSE; pDX6->iUS_Z1Check2 = FALSE; }
 	if (m_nInitMainCase == 125) { pDX6->iUS_Z2Check1 = FALSE; pDX6->iUS_Z2Check2 = FALSE; }
 
-	if (m_nInitLoad1Case == 114) { pAJinAXL->Move_Absolute(AX_LOAD_TRAY_X1, 0.0); pAJinAXL->Move_Absolute(AX_LOAD_TRAY_X2, 0.0); }
-	if (m_nInitLoad1Case == 115) { pAJinAXL->Move_Absolute(AX_LOAD_TRAY_Z1, 0.0); pAJinAXL->Move_Absolute(AX_LOAD_TRAY_Z2, 0.0); }
+	if (m_nInitLoad1Case == 160) { m_pCommon->Move_Position(AX_LOAD_TRAY_Z1, 1); m_pCommon->Move_Position(AX_LOAD_TRAY_Z2, 0); }
+	//if (m_nInitLoad1Case == 114) { pAJinAXL->Move_Absolute(AX_LOAD_TRAY_X1, 0.0); pAJinAXL->Move_Absolute(AX_LOAD_TRAY_X2, 0.0); }
+	//if (m_nInitLoad1Case == 115) { pAJinAXL->Move_Absolute(AX_LOAD_TRAY_Z1, 0.0); pAJinAXL->Move_Absolute(AX_LOAD_TRAY_Z2, 0.0); }
 	if (m_nInitLoad2Case == 0) { }
+	if (m_nInitUnload1Case == 160) { m_pCommon->Move_Position(AX_UNLOAD_TRAY_Z1, 1); m_pCommon->Move_Position(AX_UNLOAD_TRAY_Z2, 0); }
 
-	if (m_nInitUnload1Case == 114) { pAJinAXL->Move_Absolute(AX_UNLOAD_TRAY_Y1, 0.0); pAJinAXL->Move_Absolute(AX_UNLOAD_TRAY_Y2, 0.0); }
-	if (m_nInitUnload1Case == 115) { pAJinAXL->Move_Absolute(AX_UNLOAD_TRAY_Z1, 0.0); pAJinAXL->Move_Absolute(AX_UNLOAD_TRAY_Z2, 0.0); }
+	//if (m_nInitUnload1Case == 114) { pAJinAXL->Move_Absolute(AX_UNLOAD_TRAY_Y1, 0.0); pAJinAXL->Move_Absolute(AX_UNLOAD_TRAY_Y2, 0.0); }
+	//if (m_nInitUnload1Case == 115) { pAJinAXL->Move_Absolute(AX_UNLOAD_TRAY_Z1, 0.0); pAJinAXL->Move_Absolute(AX_UNLOAD_TRAY_Z2, 0.0); }
 	if (m_nInitUnload2Case == 0) { }
 	if (m_nInitIndexTCase == 133) { pDX2->iIndexPosPin1 = FALSE; pDX2->iIndexPosPin2 = FALSE; pDX2->iIndexPosPin3 = FALSE; }
 	if (m_nInitLDPickerCase == 0) { }
 	if (m_nInitNGPickerCase == 0) { }
 	if (m_nInitGDPickerCase == 0) { }
 	if (m_nInitULPickerCase == 152) { m_pCommon->Move_Position(AX_UNLOAD_TRAY_Z1, 0); m_pCommon->Move_Position(AX_UNLOAD_TRAY_Z2, 0); }
+
+
 	if (m_nInitInspectCase == 0) { }
 	
 	if (m_nInitNGTrayCase == 111) { pDX3->iNGTray1Check = TRUE; pDX3->iNGTray2Check = TRUE;

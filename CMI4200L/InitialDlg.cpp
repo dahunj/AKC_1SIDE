@@ -94,6 +94,11 @@ BEGIN_MESSAGE_MAP(CInitialDlg, CDialogEx)
 	ON_BN_CLICKED(IDC_MES_TEST2, &CInitialDlg::OnBnClickedMesTest2)
 	ON_BN_CLICKED(IDC_MES_TEST3, &CInitialDlg::OnBnClickedMesTest3)
 	ON_BN_CLICKED(IDC_MES_TEST4, &CInitialDlg::OnBnClickedMesTest4)
+	ON_BN_CLICKED(IDC_BTM_HOME_LOAD_Z, &CInitialDlg::OnBnClickedBtmHomeLoadZ)
+	ON_BN_CLICKED(IDC_BTM_HOME_INSPECT_Z, &CInitialDlg::OnBnClickedBtmHomeInspectZ)
+	ON_BN_CLICKED(IDC_BTM_HOME_NG_Z, &CInitialDlg::OnBnClickedBtmHomeNgZ)
+	ON_BN_CLICKED(IDC_BTM_HOME_GOOD_Z, &CInitialDlg::OnBnClickedBtmHomeGoodZ)
+	ON_BN_CLICKED(IDC_BTM_HOME_UNLOAD_Z, &CInitialDlg::OnBnClickedBtmHomeUnloadZ)
 END_MESSAGE_MAP()
 
 // CInitialDlg 메시지 처리기입니다.
@@ -614,4 +619,39 @@ void CInitialDlg::LogFileDelete(CString sPath)
             if(bDelete) DeleteFile(file_path);
         }
     }
+}
+
+
+void CInitialDlg::OnBnClickedBtmHomeLoadZ()
+{
+	CAJinAXL *pAJinAXL = CAJinAXL::Get_Instance();
+	pAJinAXL->Home_Search(AX_LOAD_PICKER_Z);
+}
+
+
+void CInitialDlg::OnBnClickedBtmHomeInspectZ()
+{
+	CAJinAXL *pAJinAXL = CAJinAXL::Get_Instance();
+	pAJinAXL->Home_Search(AX_INSPECTION_Z);
+}
+
+
+void CInitialDlg::OnBnClickedBtmHomeNgZ()
+{
+	CAJinAXL *pAJinAXL = CAJinAXL::Get_Instance();
+	pAJinAXL->Home_Search(AX_NG_PICKER_Z);
+}
+
+
+void CInitialDlg::OnBnClickedBtmHomeGoodZ()
+{
+	CAJinAXL *pAJinAXL = CAJinAXL::Get_Instance();
+	pAJinAXL->Home_Search(AX_GOOD_PICKER_Z);
+}
+
+
+void CInitialDlg::OnBnClickedBtmHomeUnloadZ()
+{
+	CAJinAXL *pAJinAXL = CAJinAXL::Get_Instance();
+	pAJinAXL->Home_Search(AX_UNLOAD_PICKER_Z);
 }
