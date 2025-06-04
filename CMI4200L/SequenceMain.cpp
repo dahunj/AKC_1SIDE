@@ -2953,7 +2953,7 @@ BOOL CSequenceMain::NGPicker_Run()
 		break;
 
 	case 150:
-		if (!m_pDX2->iInspCMAlign2In && m_pDX2->iInspCMAlign2Out && m_pCommon->Check_Position(AX_NG_PICKER_Z, 1))
+		if (!m_pDX2->i_IndexAlignNG_In && m_pDX2->i_IndexAlignNG_Out && m_pCommon->Check_Position(AX_NG_PICKER_Z, 1))
 		{
 			if (!m_pCommon->Delay_LoopTime(AUTO_NGPICKER, 500)) break;
 
@@ -2970,7 +2970,7 @@ BOOL CSequenceMain::NGPicker_Run()
 		}
 		break;
 	case 151:	// NG Picker Down Check & CM Align Out
-		if (!m_pDX2->iInspCMAlign2In && m_pDX2->iInspCMAlign2Out && m_pCommon->Check_Position(AX_NG_PICKER_Z, 1)) 		
+		if (!m_pDX2->i_IndexAlignNG_In && m_pDX2->i_IndexAlignNG_Out && m_pCommon->Check_Position(AX_NG_PICKER_Z, 1)) 		
 		{
 			if (!m_pCommon->Delay_LoopTime(AUTO_NGPICKER, 500)) break;
 			m_sLog.Format("m_nBarcodeCase,%d, NG Picker Sylinder Down",m_nNGPickerCase); pLogFile->Save_MCCLog(m_sLog);
@@ -3006,7 +3006,7 @@ BOOL CSequenceMain::NGPicker_Run()
 		}
 		break;
 	case 161:
-		//if (!m_pDX2->iInspCMAlign2In && m_pDX2->iInspCMAlign2Out) 
+		//if (!m_pDX2->i_IndexAlignNG_In && m_pDX2->i_IndexAlignNG_Out) 
 		if((gData.NGJobPic[0]==0 || (gData.NGJobPic[0]==1 && !m_pDX3->iNGPicker1Up && m_pDX3->iNGPicker1Down)) &&
 			(gData.NGJobPic[1]==0 || (gData.NGJobPic[1]==1 && !m_pDX3->iNGPicker2Up && m_pDX3->iNGPicker2Down)) &&
 			(gData.NGJobPic[2]==0 || (gData.NGJobPic[2]==1 && !m_pDX3->iNGPicker3Up && m_pDX3->iNGPicker3Down)) ) 
@@ -3053,7 +3053,7 @@ BOOL CSequenceMain::NGPicker_Run()
 		break;
 
 	case 165:	// NG Picker Close
-		if (!m_pDX2->iInspCMAlign2In && m_pDX2->iInspCMAlign2Out) {
+		if (!m_pDX2->i_IndexAlignNG_In && m_pDX2->i_IndexAlignNG_Out) {
 			if (!m_pCommon->Delay_LoopTime(AUTO_NGPICKER, 500)) break;
 
 			if (gData.NGJobPic[0]==1) { m_pDY3->oNGPicker1Open = FALSE; m_pDY3->oNGPicker1Close = TRUE; }
@@ -3723,7 +3723,7 @@ BOOL CSequenceMain::GDPicker_Run()
 	case 140:
 		if (m_pAJinAXL->Is_MoveDone(AX_GOOD_PICKER_Y, m_dGDPickerY) &&
 			m_pAJinAXL->Is_MoveDone(AX_GOOD_PICKER_Z, m_dGDPickerZ) ) {
-			if (m_pDX2->iInspCMAlign3In && !m_pDX2->iInspCMAlign3Out) {
+			if (m_pDX2->i_IndexAlignGood_In && !m_pDX2->i_IndexAlignGood_Out) {
 				
 				m_pDY2->oInspCMAlign3In = FALSE;
 				m_pDY2->oInspCMAlign3Out = TRUE;
@@ -3734,7 +3734,7 @@ BOOL CSequenceMain::GDPicker_Run()
 		}
 		break;
 	case 150:
-		if (!m_pDX2->iInspCMAlign3In && m_pDX2->iInspCMAlign3Out)
+		if (!m_pDX2->i_IndexAlignGood_In && m_pDX2->i_IndexAlignGood_Out)
 		{
 			if (!m_pCommon->Delay_LoopTime(AUTO_GDPICKER, 500)) break;
 
@@ -3773,7 +3773,7 @@ BOOL CSequenceMain::GDPicker_Run()
 		}
 		break;
 	case 161:
-		if (!m_pDX2->iInspCMAlign3In && m_pDX2->iInspCMAlign3Out) {
+		if (!m_pDX2->i_IndexAlignGood_In && m_pDX2->i_IndexAlignGood_Out) {
 			if (!m_pCommon->Delay_LoopTime(AUTO_GDPICKER, 500)) break;
 			if (gData.GDPicNo==1) { m_pDY4->oGoodPicker1Open = FALSE; m_pDY4->oGoodPicker1Close = TRUE; }
 			if (gData.GDPicNo==2) { m_pDY4->oGoodPicker2Open = FALSE; m_pDY4->oGoodPicker2Close = TRUE; }
@@ -3856,7 +3856,7 @@ BOOL CSequenceMain::GDPicker_Run()
 	case 221:
 		if (m_pAJinAXL->Is_MoveDone(AX_GOOD_PICKER_Y, m_dGDPickerY) &&
 			m_pAJinAXL->Is_MoveDone(AX_GOOD_PICKER_Z, m_dGDPickerZ) ) {
-			if (!m_pDX2->iInspCMAlign3In && m_pDX2->iInspCMAlign3Out) {
+			if (!m_pDX2->i_IndexAlignGood_In && m_pDX2->i_IndexAlignGood_Out) {
 				m_nGDPickerCase = 230;
 				m_pCommon->Set_LoopTime(AUTO_GDPICKER, 5000);
 			}
@@ -3952,7 +3952,7 @@ BOOL CSequenceMain::GDPicker_Run()
 		}
 		break;
 	case 260:
-		if (m_pDX2->iInspCMAlign3In && !m_pDX2->iInspCMAlign3Out)		
+		if (m_pDX2->i_IndexAlignGood_In && !m_pDX2->i_IndexAlignGood_Out)		
 		{
 			gData.IndexInfo[4][gData.GDIdxNo-1] = gData.PickerInfor[2][gData.GDPicNo-1]; gData.PickerInfor[2][gData.GDPicNo-1] = 0;
 			gData.IDXPoNo[4][gData.GDIdxNo-1]   = gData.PickerGdPoNo[gData.GDPicNo-1];   gData.PickerGdPoNo[gData.GDPicNo-1] = 0;
@@ -3975,7 +3975,7 @@ BOOL CSequenceMain::GDPicker_Run()
 		}
 		break;
 	case 310:
-		if (!m_pDX2->iInspCMAlign3In && m_pDX2->iInspCMAlign3Out) 		
+		if (!m_pDX2->i_IndexAlignGood_In && m_pDX2->i_IndexAlignGood_Out) 		
 		{
 //			if (!m_pCommon->Delay_LoopTime(AUTO_GDPICKER, 100)) break;														  
 			if (gData.IndexInfo[4][0] > 0) { m_pDY4->oGoodPicker1Up = FALSE; m_pDY4->oGoodPicker1Down = TRUE; }
@@ -4012,7 +4012,7 @@ BOOL CSequenceMain::GDPicker_Run()
 		}
 		break;
 	case 321:
-		if (!m_pDX2->iInspCMAlign3In && m_pDX2->iInspCMAlign3Out) {
+		if (!m_pDX2->i_IndexAlignGood_In && m_pDX2->i_IndexAlignGood_Out) {
 			if (!m_pCommon->Delay_LoopTime(AUTO_GDPICKER, 200)) break;														  
 			if (gData.IndexInfo[4][0] > 0) { m_pDY4->oGoodPicker1Open = FALSE; m_pDY4->oGoodPicker1Close = TRUE; }
 			if (gData.IndexInfo[4][1] > 0) { m_pDY4->oGoodPicker2Open = FALSE; m_pDY4->oGoodPicker2Close = TRUE; }
@@ -4318,7 +4318,7 @@ BOOL CSequenceMain::LDPicker_Run()
 		break;
 	case 202:
 		if (m_pCommon->Check_Position(AX_LOAD_PICKER_Y1, 2) ) {
-			if (!m_pDX2->iInspCMAlign1In && m_pDX2->iInspCMAlign1Out) 
+			if (!m_pDX2->i_IndexAlignLoad_In && m_pDX2->i_IndexAlignLoad_Out) 
 			{
 				if (!m_pCommon->Delay_LoopTime(AUTO_LDPICKER, 500)) break;
 				m_pCommon->Move_Position(AX_LOAD_PICKER_Z, 3);
@@ -4388,7 +4388,7 @@ BOOL CSequenceMain::LDPicker_Run()
 		break;
 
 	case 230:
-		if (m_pDX2->iInspCMAlign1In && !m_pDX2->iInspCMAlign1Out ) {
+		if (m_pDX2->i_IndexAlignLoad_In && !m_pDX2->i_IndexAlignLoad_Out ) {
 			if (!m_pCommon->Delay_LoopTime(AUTO_LDPICKER, 300)) break;
 
 			gData.IDXLineNo[0] = gData.PickerLoadLineNo;
@@ -4514,7 +4514,7 @@ BOOL CSequenceMain::ULPicker_Run()
 		}
 		break;
 	case 130:
-		if (!m_pDX2->iInspCMAlign4In && m_pDX2->iInspCMAlign4Out )
+		if (!m_pDX2->i_IndexAlignUnload_In && m_pDX2->i_IndexAlignUnload_Out )
 		
 		{
 			if (!m_pCommon->Delay_LoopTime(AUTO_ULPICKER, 500)) break;
@@ -4553,7 +4553,7 @@ BOOL CSequenceMain::ULPicker_Run()
 		}
 		break;
 	case 141:
-		if (!m_pDX2->iInspCMAlign4In && m_pDX2->iInspCMAlign4Out ) {
+		if (!m_pDX2->i_IndexAlignUnload_In && m_pDX2->i_IndexAlignUnload_Out ) {
 			m_nULPickerCase = 142;
 			m_pCommon->Set_LoopTime(AUTO_ULPICKER, 10000);
 		}
@@ -5057,17 +5057,17 @@ BOOL CSequenceMain::ULPicker_Run()
 BOOL CSequenceMain::IndexT_Run()
 {
 	if (m_nIndexTCase <=200) {
-		if (gData.IndexJob[3] == 1 && m_pDX2->iInspCMAlign2Out) {
+		if (gData.IndexJob[3] == 1 && m_pDX2->i_IndexAlignNG_Out) {
 			m_pDY2->oInspCMAlign2In = TRUE;
 			m_pDY2->oInspCMAlign2Out = FALSE;
 			m_pAJinAXL->Write_Output(2);
 		}
-		if (gData.IndexJob[4] == 1 && m_pDX2->iInspCMAlign3Out) {
+		if (gData.IndexJob[4] == 1 && m_pDX2->i_IndexAlignGood_Out) {
 			m_pDY2->oInspCMAlign3In = TRUE;
 			m_pDY2->oInspCMAlign3Out = FALSE;
 			m_pAJinAXL->Write_Output(2);
 		}
-		if (gData.IndexJob[5] == 1 && m_pDX2->iInspCMAlign4Out) {
+		if (gData.IndexJob[5] == 1 && m_pDX2->i_IndexAlignUnload_Out) {
 			m_pDY2->oInspCMAlign4In = TRUE;
 			m_pDY2->oInspCMAlign4Out = FALSE;
 			m_pAJinAXL->Write_Output(2);
@@ -5119,8 +5119,19 @@ BOOL CSequenceMain::IndexT_Run()
 		break;
 
 	case 130:
+		if(m_nLDPickerCase > 210)
+		{
+			if (!m_pCommon->Delay_LoopTime(AUTO_INDEXT, 500)) break;
+			m_pDY3->oInspVacuumPad1On = FALSE;
+			m_pDY3->oInspVacuumPad2On = FALSE;
+			m_pDY3->oInspVacuumPad3On = FALSE;
+			m_pDY3->oInspVacuumPad4On = FALSE;
+			m_pDY3->oInspVacuumPad5On = FALSE;
+			m_pDY3->oInspVacuumPad6On = FALSE;
+			m_pAJinAXL->Write_Output(3);
 			m_nIndexTCase = 131;
 			m_pCommon->Set_LoopTime(AUTO_INDEXT, 60000);
+		}			
 		break;
 	case 131:
 		if (gData.IndexJob[0] == 1 || (gData.bCleanOutMode == TRUE) ) 
@@ -5142,7 +5153,7 @@ BOOL CSequenceMain::IndexT_Run()
 		}
 		break;
 	case 140:
-		if (m_pDX2->iInspCMAlign1In && !m_pDX2->iInspCMAlign1Out) {
+		if (m_pDX2->i_IndexAlignLoad_In && !m_pDX2->i_IndexAlignLoad_Out) {
 
 			m_nIndexTCase = 150;
 			m_pCommon->Set_LoopTime(AUTO_INDEXT, 5000);
@@ -5158,7 +5169,7 @@ BOOL CSequenceMain::IndexT_Run()
 			m_pCommon->Set_LoopTime(AUTO_INDEXT, 5000);
 		break;
 	case 142:
-		if (!m_pDX2->iInspCMAlign1In && m_pDX2->iInspCMAlign1Out) {
+		if (!m_pDX2->i_IndexAlignLoad_In && m_pDX2->i_IndexAlignLoad_Out) {
 			if (!m_pCommon->Delay_LoopTime(AUTO_INDEXT, 1000)) break;
 			m_pDY2->oInspCMAlign1In = TRUE;
 			m_pDY2->oInspCMAlign1Out = FALSE;
@@ -5168,7 +5179,7 @@ BOOL CSequenceMain::IndexT_Run()
 		}
 		break;
 	case 143:
-		if (m_pDX2->iInspCMAlign1In && !m_pDX2->iInspCMAlign1Out) 
+		if (m_pDX2->i_IndexAlignLoad_In && !m_pDX2->i_IndexAlignLoad_Out) 
 		{
 			m_nIndexTCase = 150;
 			m_pCommon->Set_LoopTime(AUTO_INDEXT, 5000);
@@ -5199,23 +5210,23 @@ BOOL CSequenceMain::IndexT_Run()
 		break;
 
 	case 200:
-		if ((gData.IndexJob[0] == 1 && m_pDX2->iInspCMAlign1In) &&
+		if ((gData.IndexJob[0] == 1 && m_pDX2->i_IndexAlignLoad_In) &&
 			(gData.IndexJob[1] == 1) &&
 			(gData.IndexJob[2] == 1) &&
-			(gData.IndexJob[3] == 1 && m_pDX2->iInspCMAlign2In) &&
-			(gData.IndexJob[4] == 1 && m_pDX2->iInspCMAlign3In) &&
-			(gData.IndexJob[5] == 1 && m_pDX2->iInspCMAlign4In) ) {
+			(gData.IndexJob[3] == 1 && m_pDX2->i_IndexAlignNG_In) &&
+			(gData.IndexJob[4] == 1 && m_pDX2->i_IndexAlignGood_In) &&
+			(gData.IndexJob[5] == 1 && m_pDX2->i_IndexAlignUnload_In) ) {
 			m_nIndexTCase = 210;
 			m_pCommon->Set_LoopTime(AUTO_INDEXT, 10000);
 		}
 		break;
 	case 210:
-		if ((gData.IndexJob[0] == 1 && m_pDX2->iInspCMAlign1In) &&
+		if ((gData.IndexJob[0] == 1 && m_pDX2->i_IndexAlignLoad_In) &&
 			(gData.IndexJob[1] == 1) &&
 			(gData.IndexJob[2] == 1) &&
-			(gData.IndexJob[3] == 1 && m_pDX2->iInspCMAlign2In) &&
-			(gData.IndexJob[4] == 1 && m_pDX2->iInspCMAlign3In) &&
-			(gData.IndexJob[5] == 1 && m_pDX2->iInspCMAlign4In) ) {
+			(gData.IndexJob[3] == 1 && m_pDX2->i_IndexAlignNG_In) &&
+			(gData.IndexJob[4] == 1 && m_pDX2->i_IndexAlignGood_In) &&
+			(gData.IndexJob[5] == 1 && m_pDX2->i_IndexAlignUnload_In) ) {
 			if ((!m_pCommon->Check_Position(AX_LOAD_PICKER_Y1, 2)   || (m_pCommon->Check_Position(AX_LOAD_PICKER_Y1, 2) && m_pCommon->Check_Position(AX_LOAD_PICKER_Z, 0))) &&
 				(!m_pCommon->Check_Position(AX_NG_PICKER_X, 0)      || (m_pCommon->Check_Position(AX_NG_PICKER_X, 0) && Check_NGPickerAllUp()==TRUE)) &&
 				(Check_GdPickerAllUp()==TRUE) &&
@@ -5255,11 +5266,11 @@ BOOL CSequenceMain::IndexT_Run()
 		}
 		break;
 	case 230:
-		if (!m_pDX2->iInspCMAlign1In && m_pDX2->iInspCMAlign1Out ) {
-//		if (!m_pDX2->iInspCMAlign1In && m_pDX2->iInspCMAlign1Out &&
-//			!m_pDX2->iInspCMAlign2In && m_pDX2->iInspCMAlign2Out &&
-//			!m_pDX2->iInspCMAlign3In && m_pDX2->iInspCMAlign3Out &&
-//			!m_pDX2->iInspCMAlign4In && m_pDX2->iInspCMAlign4Out ) {
+		if (!m_pDX2->i_IndexAlignLoad_In && m_pDX2->i_IndexAlignLoad_Out ) {
+//		if (!m_pDX2->i_IndexAlignLoad_In && m_pDX2->i_IndexAlignLoad_Out &&
+//			!m_pDX2->i_IndexAlignNG_In && m_pDX2->i_IndexAlignNG_Out &&
+//			!m_pDX2->i_IndexAlignGood_In && m_pDX2->i_IndexAlignGood_Out &&
+//			!m_pDX2->i_IndexAlignUnload_In && m_pDX2->i_IndexAlignUnload_Out ) {
 			Set_IndexEnd();
 			m_nIndexTCase = 100;
 			m_pCommon->Set_LoopTime(AUTO_INDEXT, 5000);
@@ -5287,8 +5298,8 @@ BOOL CSequenceMain::IndexT_Run()
 		}
 		break;
 	case 310:
-		if (m_pDX2->iInspCMAlign1In && !m_pDX2->iInspCMAlign1Out && m_pDX2->iInspCMAlign2In && !m_pDX2->iInspCMAlign2Out && 
-			m_pDX2->iInspCMAlign3In && !m_pDX2->iInspCMAlign3Out && m_pDX2->iInspCMAlign4In && !m_pDX2->iInspCMAlign4Out ) {
+		if (m_pDX2->i_IndexAlignLoad_In && !m_pDX2->i_IndexAlignLoad_Out && m_pDX2->i_IndexAlignNG_In && !m_pDX2->i_IndexAlignNG_Out && 
+			m_pDX2->i_IndexAlignGood_In && !m_pDX2->i_IndexAlignGood_Out && m_pDX2->i_IndexAlignUnload_In && !m_pDX2->i_IndexAlignUnload_Out ) {
 			m_nIndexTCase = 320;
 			m_pCommon->Set_LoopTime(AUTO_INDEXT, 5000);
 		}
@@ -5315,7 +5326,7 @@ BOOL CSequenceMain::IndexT_Run()
 		}
 		break;
 	case 340:
-		if (!m_pDX2->iInspCMAlign1In && m_pDX2->iInspCMAlign1Out ) {
+		if (!m_pDX2->i_IndexAlignLoad_In && m_pDX2->i_IndexAlignLoad_Out ) {
 			m_nIndexTCase = 100;
 			m_pCommon->Set_LoopTime(AUTO_INDEXT, 5000);
 		}
@@ -5341,10 +5352,10 @@ BOOL CSequenceMain::IndexT_Run()
 		}
 		if (m_nIndexTCase == 200) {
 			gData.nPicNo = 0;
-			if (!m_pDX2->iInspCMAlign1In) gData.nPicNo = 11;
-			if (!m_pDX2->iInspCMAlign2In) gData.nPicNo = 12;
-			if (!m_pDX2->iInspCMAlign3In) gData.nPicNo = 13;
-			if (!m_pDX2->iInspCMAlign4In) gData.nPicNo = 14;
+			if (!m_pDX2->i_IndexAlignLoad_In) gData.nPicNo = 11;
+			if (!m_pDX2->i_IndexAlignNG_In) gData.nPicNo = 12;
+			if (!m_pDX2->i_IndexAlignGood_In) gData.nPicNo = 13;
+			if (!m_pDX2->i_IndexAlignUnload_In) gData.nPicNo = 14;
 			if (gData.IndexJob[0] == 0) gData.nPicNo = 1;
 			if (gData.IndexJob[1] == 0)	gData.nPicNo = 2;
 			if (gData.IndexJob[2] == 0)	gData.nPicNo = 3;

@@ -502,7 +502,7 @@ void CManual_GoodNGPickerDlg::OnBtnNGPickIOClick(UINT nID)
 		pDY3->oNGPicker1Up = TRUE;
 		pDY3->oNGPicker1Down = FALSE;
 	} else if (nID == IDC_BTN_NG_PICKER_IO1_3) {
-		if (pDX2->iInspCMAlign2In && pCommon->Check_Position(AX_NG_PICKER_X, 0) && pDX3->iNGPicker1CMCheck) {
+		if (pDX2->i_IndexAlignNG_In && pCommon->Check_Position(AX_NG_PICKER_X, 0) && pDX3->iNGPicker1CMCheck) {
 			AfxMessageBox(_T("Can not move......(NG Picker1 CM Check And Align 2 In)"));
 			return;
 		}
@@ -523,7 +523,7 @@ void CManual_GoodNGPickerDlg::OnBtnNGPickIOClick(UINT nID)
 		pDY3->oNGPicker2Up = TRUE;
 		pDY3->oNGPicker2Down = FALSE;
 	} else if (nID == IDC_BTN_NG_PICKER_IO1_7) {
-		if (pDX2->iInspCMAlign2In && pCommon->Check_Position(AX_NG_PICKER_X, 0) && pDX3->iNGPicker2CMCheck) {
+		if (pDX2->i_IndexAlignNG_In && pCommon->Check_Position(AX_NG_PICKER_X, 0) && pDX3->iNGPicker2CMCheck) {
 			AfxMessageBox(_T("Can not move......(NG Picker2 CM Check And Align 2 In)"));
 			return;
 		}
@@ -544,7 +544,7 @@ void CManual_GoodNGPickerDlg::OnBtnNGPickIOClick(UINT nID)
 		pDY3->oNGPicker3Up = TRUE;
 		pDY3->oNGPicker3Down = FALSE;
 	} else if (nID == IDC_BTN_NG_PICKER_IO1_11) {
-		if (pDX2->iInspCMAlign2In && pCommon->Check_Position(AX_NG_PICKER_X, 0) && pDX3->iNGPicker3CMCheck) {
+		if (pDX2->i_IndexAlignNG_In && pCommon->Check_Position(AX_NG_PICKER_X, 0) && pDX3->iNGPicker3CMCheck) {
 			AfxMessageBox(_T("Can not move......(NG Picker3 CM Check And Align 2 In)"));
 			return;
 		}
@@ -596,7 +596,7 @@ void CManual_GoodNGPickerDlg::OnBtnNGPickIOClick(UINT nID)
 #endif
 	} else if (nID == IDC_BTN_NG_PICKER_IO1_15) {
 #ifdef NG_PICKER_3
-		if (pDX2->iInspCMAlign2In && pCommon->Check_Position(AX_NG_PICKER_X, 0) &&
+		if (pDX2->i_IndexAlignNG_In && pCommon->Check_Position(AX_NG_PICKER_X, 0) &&
 			(pDX3->iNGPicker1CMCheck || pDX3->iNGPicker2CMCheck || pDX3->iNGPicker3CMCheck)) {
 				AfxMessageBox(_T("Can not move......(NG Picker CM Check And Align 2 In)"));
 				return;
@@ -606,7 +606,7 @@ void CManual_GoodNGPickerDlg::OnBtnNGPickIOClick(UINT nID)
 				return;
 		}
 #else
-		if (pDX2->iInspCMAlign2In && pCommon->Check_Position(AX_NG_PICKER_X, 0) &&
+		if (pDX2->i_IndexAlignNG_In && pCommon->Check_Position(AX_NG_PICKER_X, 0) &&
 		   (pDX3->iNGPicker1CMCheck || pDX3->iNGPicker2CMCheck || pDX3->iNGPicker3CMCheck || pDX3->iNGPicker4CMCheck || pDX3->iNGPicker5CMCheck)) {
 			AfxMessageBox(_T("Can not move......(NG Picker CM Check And Align 2 In)"));
 			return;
@@ -641,7 +641,7 @@ void CManual_GoodNGPickerDlg::OnBtnNGPickIOClick(UINT nID)
 		pDY3->oNGPicker4Up = TRUE;
 		pDY3->oNGPicker4Down = FALSE;
 	} else if (nID == IDC_BTN_NG_PICKER_IO1_19) {
-		if (pDX2->iInspCMAlign2In && pCommon->Check_Position(AX_NG_PICKER_X, 0) && pDX3->iNGPicker4CMCheck) {
+		if (pDX2->i_IndexAlignNG_In && pCommon->Check_Position(AX_NG_PICKER_X, 0) && pDX3->iNGPicker4CMCheck) {
 			AfxMessageBox(_T("Can not move......(NG Picker4 CM Check And Align 2 In)"));
 			return;
 		}
@@ -662,7 +662,7 @@ void CManual_GoodNGPickerDlg::OnBtnNGPickIOClick(UINT nID)
 		pDY3->oNGPicker5Up = TRUE;
 		pDY3->oNGPicker5Down = FALSE;
 	} else if (nID == IDC_BTN_NG_PICKER_IO1_23) {
-		if (pDX2->iInspCMAlign2In && pCommon->Check_Position(AX_NG_PICKER_X, 0) && pDX3->iNGPicker5CMCheck) {
+		if (pDX2->i_IndexAlignNG_In && pCommon->Check_Position(AX_NG_PICKER_X, 0) && pDX3->iNGPicker5CMCheck) {
 			AfxMessageBox(_T("Can not move......(NG Picker5 CM Check And Align 2 In)"));
 			return;
 		}
@@ -698,7 +698,7 @@ void CManual_GoodNGPickerDlg::OnBtnPicker1Click(UINT nID)
 		pDY4->oGoodPicker1Down = FALSE;
 		pDY4->oGoodPicker1Up = TRUE;
 	} else if (nID == IDC_BTN_GOOD_PICKER1_1) {		// Picker1 Down
-		if (pDX2->iInspCMAlign3In && pDX4->iGoodPicker1CMCheck) {
+		if (pDX2->i_IndexAlignGood_In && pDX4->iGoodPicker1CMCheck) {
 			AfxMessageBox(_T("Can not move......(Good Picker1 CM Check And Align 3 In)"));
 			return;
 		}
@@ -740,7 +740,7 @@ void CManual_GoodNGPickerDlg::OnBtnPicker2Click(UINT nID)
 		pDY4->oGoodPicker2Down = FALSE;
 		pDY4->oGoodPicker2Up = TRUE;
 	} else if (nID == IDC_BTN_GOOD_PICKER2_1) {		// Picker1 Down
-		if (pDX2->iInspCMAlign3In && pDX4->iGoodPicker2CMCheck) {
+		if (pDX2->i_IndexAlignGood_In && pDX4->iGoodPicker2CMCheck) {
 			AfxMessageBox(_T("Can not move......(Good Picker2 CM Check And Align 3 In)"));
 			return;
 		}
@@ -782,7 +782,7 @@ void CManual_GoodNGPickerDlg::OnBtnPicker3Click(UINT nID)
 		pDY4->oGoodPicker3Down = FALSE;
 		pDY4->oGoodPicker3Up = TRUE;
 	} else if (nID == IDC_BTN_GOOD_PICKER3_1) {		// Picker1 Down
-		if (pDX2->iInspCMAlign3In && pDX4->iGoodPicker3CMCheck) {
+		if (pDX2->i_IndexAlignGood_In && pDX4->iGoodPicker3CMCheck) {
 			AfxMessageBox(_T("Can not move......(Good Picker3 CM Check And Align 3 In)"));
 			return;
 		}
@@ -824,7 +824,7 @@ void CManual_GoodNGPickerDlg::OnBtnPicker4Click(UINT nID)
 		pDY4->oGoodPicker4Down = FALSE;
 		pDY4->oGoodPicker4Up = TRUE;
 	} else if (nID == IDC_BTN_GOOD_PICKER4_1) {		// Picker1 Down
-		if (pDX2->iInspCMAlign3In && pDX4->iGoodPicker4CMCheck) {
+		if (pDX2->i_IndexAlignGood_In && pDX4->iGoodPicker4CMCheck) {
 			AfxMessageBox(_T("Can not move......(Good Picker4 CM Check And Align 3 In)"));
 			return;
 		}
@@ -866,7 +866,7 @@ void CManual_GoodNGPickerDlg::OnBtnPicker5Click(UINT nID)
 		pDY4->oGoodPicker5Down = FALSE;
 		pDY4->oGoodPicker5Up = TRUE;
 	} else if (nID == IDC_BTN_GOOD_PICKER5_1) {		// Picker1 Down
-		if (pDX2->iInspCMAlign3In && pDX4->iGoodPicker5CMCheck) {
+		if (pDX2->i_IndexAlignGood_In && pDX4->iGoodPicker5CMCheck) {
 			AfxMessageBox(_T("Can not move......(Good Picker5 CM Check And Align 3 In)"));
 			return;
 		}
@@ -908,7 +908,7 @@ void CManual_GoodNGPickerDlg::OnBtnPicker6Click(UINT nID)
 		pDY4->oGoodPicker6Down = FALSE;
 		pDY4->oGoodPicker6Up = TRUE;
 	} else if (nID == IDC_BTN_GOOD_PICKER6_1) {		// Picker1 Down
-		if (pDX2->iInspCMAlign3In && pDX4->iGoodPicker6CMCheck) {
+		if (pDX2->i_IndexAlignGood_In && pDX4->iGoodPicker6CMCheck) {
 			AfxMessageBox(_T("Can not move......(Good Picker6 CM Check And Align 3 In)"));
 			return;
 		}
@@ -969,7 +969,7 @@ void CManual_GoodNGPickerDlg::OnBtnPickerAClick(UINT nID)
 #endif
 	} else if (nID == IDC_BTN_GOOD_PICKER_1) {		// Picker1 Down
 #ifdef PICKER_3
-		if (pDX2->iInspCMAlign3In &&
+		if (pDX2->i_IndexAlignGood_In &&
 		   (pDX4->iGoodPicker1CMCheck || pDX4->iGoodPicker2CMCheck || pDX4->iGoodPicker3CMCheck)) {
 			AfxMessageBox(_T("Can not move......(Good Picker CM Check And Align 3 In)"));
 			return;
@@ -980,7 +980,7 @@ void CManual_GoodNGPickerDlg::OnBtnPickerAClick(UINT nID)
 		}
 #endif
 #ifdef PICKER_5
-		if (pDX2->iInspCMAlign3In &&
+		if (pDX2->i_IndexAlignGood_In &&
 		   (pDX4->iGoodPicker1CMCheck || pDX4->iGoodPicker2CMCheck || pDX4->iGoodPicker3CMCheck || pDX4->iGoodPicker4CMCheck || pDX4->iGoodPicker5CMCheck)) {
 			AfxMessageBox(_T("Can not move......(Good Picker CM Check And Align 3 In)"));
 			return;
@@ -992,7 +992,7 @@ void CManual_GoodNGPickerDlg::OnBtnPickerAClick(UINT nID)
 		}
 #endif
 #ifdef PICKER_6
-		if (pDX2->iInspCMAlign3In &&
+		if (pDX2->i_IndexAlignGood_In &&
 			(pDX4->iGoodPicker1CMCheck || pDX4->iGoodPicker2CMCheck || pDX4->iGoodPicker3CMCheck || pDX4->iGoodPicker4CMCheck || pDX4->iGoodPicker5CMCheck || pDX4->iGoodPicker6CMCheck)) {
 				AfxMessageBox(_T("Can not move......(Good Picker CM Check And Align 3 In)"));
 				return;
