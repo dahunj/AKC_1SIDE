@@ -5132,7 +5132,7 @@ BOOL CSequenceMain::IndexT_Run()
 			m_nIndexTCase = 131;
 			m_pCommon->Set_LoopTime(AUTO_INDEXT, 60000);
 		}			
-		break;
+		return TRUE;
 	case 131:
 		if (gData.IndexJob[0] == 1 || (gData.bCleanOutMode == TRUE) ) 
 		{
