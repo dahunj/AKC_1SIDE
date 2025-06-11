@@ -573,6 +573,7 @@ BOOL CWorkDlg::Check_Start()
 	CAJinAXL *pAJinAXL = CAJinAXL::Get_Instance();
 	DX_DATA_0 *pDX0 = pAJinAXL->Get_pDX0();
 	DX_DATA_1 *pDX1 = pAJinAXL->Get_pDX1();
+	DX_DATA_2 *pDX2 = pAJinAXL->Get_pDX2();
 	DX_DATA_3 *pDX3 = pAJinAXL->Get_pDX3();
 	DX_DATA_6 *pDX6 = pAJinAXL->Get_pDX6();
 	CCommon *pCommon = CCommon::Get_Instance();
@@ -658,6 +659,15 @@ BOOL CWorkDlg::Check_Start()
 			return FALSE;
 		}
 	}
+
+	if(pDX2->i_IndexAlignLoad_In || !pDX2->i_IndexAlignLoad_Out)
+	{
+		m_rdoWorkStart.SetCheck(FALSE);
+		pCommon->Show_MsgBox(1, "Load Index Align In 상태 입니다. Out 해주세요");
+		return FALSE;
+	}
+	
+
 #ifdef AJIN_BOARD_USE
 	// 비전만 사용할때 확인해주면 된다.
 	if (!gData.bUseDryRun && !gData.bCleanOutMode && pEquipData->bUseVisionInspect) {
@@ -688,6 +698,9 @@ BOOL CWorkDlg::Check_Start()
 		}
 	}
 #endif
+
+
+
 	gData.bCheckStartComplete = TRUE;
 	return TRUE;
 }
