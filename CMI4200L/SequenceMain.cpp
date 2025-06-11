@@ -5094,8 +5094,8 @@ BOOL CSequenceMain::IndexT_Run()
 	case 110:
 //		if (gData.IndexJob[0] == 1) {
 		if (m_pCommon->Check_Run(AX_INDEX_R)==FALSE) {
-			m_pDY2->oInspVacuumUp = TRUE;
-			m_pDY2->oInspVacuumDown = FALSE;
+			m_pDY2->oInspVacuumUp = FALSE;
+			m_pDY2->oInspVacuumDown = TRUE;
 			m_pAJinAXL->Write_Output(2);
 
 			m_nIndexTCase = 120;
@@ -5103,7 +5103,7 @@ BOOL CSequenceMain::IndexT_Run()
 		}
 		break;
 	case 120:
-		if (m_pDX2->iInspVacuumUp && !m_pDX2->iInspVacuumDown) {
+//		if (!m_pDX2->iInspVacuumUp && m_pDX2->iInspVacuumDown) {
 //			if (!m_pCommon->Delay_LoopTime(AUTO_INDEXT, 50)) break;
 			m_pDY3->oInspVacuumPad1On = TRUE;
 			m_pDY3->oInspVacuumPad2On = TRUE;
@@ -5115,7 +5115,7 @@ BOOL CSequenceMain::IndexT_Run()
 
 			m_nIndexTCase = 130;
 			m_pCommon->Set_LoopTime(AUTO_INDEXT, 5000);
-		}
+//		}
 		break;
 
 	case 130:
@@ -5201,7 +5201,7 @@ BOOL CSequenceMain::IndexT_Run()
 //		}
 		break;
 	case 160:
-		if((!m_pDX2->iInspVacuumUp && m_pDX2->iInspVacuumDown) &&
+		if(//(!m_pDX2->iInspVacuumUp && m_pDX2->iInspVacuumDown) &&
 		   (gData.bUseNGVacuum==FALSE || (!m_pDX5->iNGVacuumUp   && m_pDX5->iNGVacuumDown)) &&
 		   (gData.bUseGDVacuum==FALSE || (!m_pDX5->iGoodVacuumUp && m_pDX5->iGoodVacuumDown)) ) {
 			m_nIndexTCase = 200;
@@ -5231,7 +5231,7 @@ BOOL CSequenceMain::IndexT_Run()
 				(!m_pCommon->Check_Position(AX_NG_PICKER_X, 0)      || (m_pCommon->Check_Position(AX_NG_PICKER_X, 0) && Check_NGPickerAllUp()==TRUE)) &&
 				(Check_GdPickerAllUp()==TRUE) &&
 				(!m_pCommon->Check_Position(AX_UNLOAD_PICKER_X1, 0) || (m_pCommon->Check_Position(AX_UNLOAD_PICKER_X1, 0) && m_pCommon->Check_Position(AX_UNLOAD_PICKER_Z, 0))) ) {
-				if((!m_pDX2->iInspVacuumUp && m_pDX2->iInspVacuumDown) &&
+				if(//(!m_pDX2->iInspVacuumUp && m_pDX2->iInspVacuumDown) &&
 				   (gData.bUseNGVacuum==FALSE || (!m_pDX5->iNGVacuumUp   && m_pDX5->iNGVacuumDown)) &&
 				   (gData.bUseGDVacuum==FALSE || (!m_pDX5->iGoodVacuumUp && m_pDX5->iGoodVacuumDown)) ) {
 					if ((gData.bUseCMPress && m_pDX2->iCMPressUp && !m_pDX2->iCMPressDn) || !gData.bUseCMPress) {

@@ -1500,7 +1500,8 @@ BOOL CSequenceInit::Initial_IndexTRun()
 		}
 		break;
 	case 113:
-		if (!m_pDX2->iInspVacuumUp && m_pDX2->iInspVacuumDown ) {
+		//if (!m_pDX2->iInspVacuumUp && m_pDX2->iInspVacuumDown )
+		{
 			m_nInitIndexTCase = 114;
 			m_pCommon->Set_LoopTime(INITIAL_INDEXT, 5000);
 		}
