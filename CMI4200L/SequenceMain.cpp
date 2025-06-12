@@ -3114,7 +3114,7 @@ BOOL CSequenceMain::NGPicker_Run()
 
 	case 180:
 //		if((!m_pEquipData->bUseCMCheck) ||
-		if((gData.bUseDryRun) ||
+		if((gData.bUseDryRun) || gData.bUseGripCheckPass ||
 		   ((gData.NGJobPic[0]==0 || (gData.NGJobPic[0]==1 && m_pDX3->iNGPicker1CMCheck)) &&
 		    (gData.NGJobPic[1]==0 || (gData.NGJobPic[1]==1 && m_pDX3->iNGPicker2CMCheck)) &&
 		    (gData.NGJobPic[2]==0 || (gData.NGJobPic[2]==1 && m_pDX3->iNGPicker3CMCheck)) &&
@@ -3144,7 +3144,7 @@ BOOL CSequenceMain::NGPicker_Run()
 		break;
 	case 181:
 //		if((!m_pEquipData->bUseCMCheck) ||
-		if((gData.bUseDryRun) ||
+		if((gData.bUseDryRun) || gData.bUseGripCheckPass ||
 		   ((gData.NGJobPic[0]==0 || (gData.NGJobPic[0]==1 && m_pDX3->iNGPicker1CMCheck)) &&
 		    (gData.NGJobPic[1]==0 || (gData.NGJobPic[1]==1 && m_pDX3->iNGPicker2CMCheck)) &&
 		    (gData.NGJobPic[2]==0 || (gData.NGJobPic[2]==1 && m_pDX3->iNGPicker3CMCheck)) )) {
@@ -3316,7 +3316,7 @@ BOOL CSequenceMain::NGPicker_Run()
 	case 240:
 //		if((!m_pEquipData->bUseCMCheck) ||
 		if(!m_pCommon->Check_Position(AX_NG_PICKER_Z, 2)) break;
-		if((gData.bUseDryRun) ||
+		if((gData.bUseDryRun) || gData.bUseGripCheckPass ||
 		   (gData.NGPicNo==1 && m_pDX3->iNGPicker1CMCheck) ||
 		   (gData.NGPicNo==2 && m_pDX3->iNGPicker2CMCheck) ||
 		   (gData.NGPicNo==3 && m_pDX3->iNGPicker3CMCheck) ||
@@ -3531,7 +3531,7 @@ BOOL CSequenceMain::NGPicker_Run()
 	case 301:
 //		if((!m_pEquipData->bUseCMCheck) ||
 #ifdef NG_PICKER_3
-		if((gData.bUseDryRun) ||
+		if((gData.bUseDryRun) || gData.bUseGripCheckPass ||
 			(m_pCommon->Check_Position(AX_NG_PICKER_Z, 0) && !m_pDX3->iNGPicker1CMCheck && !m_pDX3->iNGPicker2CMCheck && !m_pDX3->iNGPicker3CMCheck) )
 #else
 		if((gData.bUseDryRun) ||
@@ -3820,7 +3820,7 @@ BOOL CSequenceMain::GDPicker_Run()
 		break;
 	case 180:
 //		if((!m_pEquipData->bUseCMCheck) ||
-		if((gData.bUseDryRun) ||
+		if((gData.bUseDryRun) || gData.bUseGripCheckPass ||
 		   (gData.GDPicNo==1 && m_pDX4->iGoodPicker1CMCheck) ||
 		   (gData.GDPicNo==2 && m_pDX4->iGoodPicker2CMCheck) ||
 		   (gData.GDPicNo==3 && m_pDX4->iGoodPicker3CMCheck) ||
@@ -3865,7 +3865,7 @@ BOOL CSequenceMain::GDPicker_Run()
 
 	case 230:
 //		if((!m_pEquipData->bUseCMCheck) ||
-		if((gData.bUseDryRun) ||
+		if((gData.bUseDryRun) || gData.bUseGripCheckPass ||
 		   (gData.GDPicNo==1 && m_pDX4->iGoodPicker1CMCheck) ||
 		   (gData.GDPicNo==2 && m_pDX4->iGoodPicker2CMCheck) ||
 		   (gData.GDPicNo==3 && m_pDX4->iGoodPicker3CMCheck) ||
@@ -4062,7 +4062,7 @@ BOOL CSequenceMain::GDPicker_Run()
 		break;
 	case 340:
 //		if((!m_pEquipData->bUseCMCheck) ||
-		if((gData.bUseDryRun) ||
+		if((gData.bUseDryRun) || gData.bUseGripCheckPass ||
 		  (((gData.IndexInfo[4][0] > 0 && m_pDX4->iGoodPicker1CMCheck) || gData.IndexInfo[4][0] == 0) &&
 		   ((gData.IndexInfo[4][1] > 0 && m_pDX4->iGoodPicker2CMCheck) || gData.IndexInfo[4][1] == 0) &&
 		   ((gData.IndexInfo[4][2] > 0 && m_pDX4->iGoodPicker3CMCheck) || gData.IndexInfo[4][2] == 0) &&
@@ -4253,7 +4253,7 @@ BOOL CSequenceMain::LDPicker_Run()
 		x=gData.nTrayPos[0]-1;
 		if((m_pCommon->Check_Position(AX_LOAD_PICKER_Z, 0)) &&
 //		   ((!m_pEquipData->bUseCMCheck) ||
-		   ((gData.bUseDryRun) ||
+		   ((gData.bUseDryRun) || gData.bUseGripCheckPass ||
 			(((gData.LoadTrayInfo[x][0]>0 && m_pDX2->iMLPicker1CMCheck) || (gData.LoadTrayInfo[x][0]==0 && !m_pDX2->iMLPicker1CMCheck)) &&
 			 ((gData.LoadTrayInfo[x][1]>0 && m_pDX2->iMLPicker2CMCheck) || (gData.LoadTrayInfo[x][1]==0 && !m_pDX2->iMLPicker2CMCheck)) &&
 			 ((gData.LoadTrayInfo[x][2]>0 && m_pDX2->iMLPicker3CMCheck) || (gData.LoadTrayInfo[x][2]==0 && !m_pDX2->iMLPicker3CMCheck)) &&
@@ -4304,7 +4304,7 @@ BOOL CSequenceMain::LDPicker_Run()
 		break;
 	case 201:		
 //		if ((!m_pEquipData->bUseCMCheck) ||
-		if ((gData.bUseDryRun) ||
+		if ((gData.bUseDryRun) || gData.bUseGripCheckPass ||
 		   (((gData.PickerInfor[0][0]>0 && m_pDX2->iMLPicker1CMCheck) || (gData.PickerInfor[0][0]==0 && !m_pDX2->iMLPicker1CMCheck)) &&
 			((gData.PickerInfor[0][1]>0 && m_pDX2->iMLPicker2CMCheck) || (gData.PickerInfor[0][1]==0 && !m_pDX2->iMLPicker2CMCheck)) &&
 			((gData.PickerInfor[0][2]>0 && m_pDX2->iMLPicker3CMCheck) || (gData.PickerInfor[0][2]==0 && !m_pDX2->iMLPicker3CMCheck)) &&
@@ -4581,7 +4581,7 @@ BOOL CSequenceMain::ULPicker_Run()
 	case 150:
 		if (m_pCommon->Check_Position(AX_UNLOAD_PICKER_Z, 0) ) {
 //			if((!m_pEquipData->bUseCMCheck) ||
-			if((gData.bUseDryRun) ||
+			if((gData.bUseDryRun) || gData.bUseGripCheckPass ||
 			   (((gData.IndexInfo[6][0]>0 && m_pDX5->iMUPicker1CMCheck) || gData.IndexInfo[6][0]==0) &&
 			    ((gData.IndexInfo[6][1]>0 && m_pDX5->iMUPicker2CMCheck) || gData.IndexInfo[6][1]==0) &&
 			    ((gData.IndexInfo[6][2]>0 && m_pDX5->iMUPicker3CMCheck) || gData.IndexInfo[6][2]==0) &&
@@ -4627,7 +4627,7 @@ BOOL CSequenceMain::ULPicker_Run()
 		break;
 	case 170:
 //		if ((!m_pEquipData->bUseCMCheck) ||
-		if ((gData.bUseDryRun) ||
+		if ((gData.bUseDryRun) || gData.bUseGripCheckPass ||
 			(((gData.PickerInfor[3][0]>0 && m_pDX5->iMUPicker1CMCheck) || gData.PickerInfor[3][0]==0) &&
 			 ((gData.PickerInfor[3][1]>0 && m_pDX5->iMUPicker2CMCheck) || gData.PickerInfor[3][1]==0) &&
 			 ((gData.PickerInfor[3][2]>0 && m_pDX5->iMUPicker3CMCheck) || gData.PickerInfor[3][2]==0) &&
@@ -4808,7 +4808,7 @@ BOOL CSequenceMain::ULPicker_Run()
 	case 250:
 //		if ((!m_pEquipData->bUseCMCheck) ||
 #ifdef PICKER_3
-		if ((gData.bUseDryRun) ||
+		if ((gData.bUseDryRun) || gData.bUseGripCheckPass ||
 			(!m_pDX5->iMUPicker1CMCheck && !m_pDX5->iMUPicker2CMCheck && !m_pDX5->iMUPicker3CMCheck) )
 #endif
 #ifdef PICKER_5
@@ -4915,7 +4915,7 @@ BOOL CSequenceMain::ULPicker_Run()
 		break;
 	case 370:
 //		if ((!m_pEquipData->bUseCMCheck) || (Check_UnloadPickerCM()==TRUE) ) {
-		if ((gData.bUseDryRun) || (Check_UnloadPickerCM()==TRUE) ) {
+		if ((gData.bUseDryRun) || gData.bUseGripCheckPass || (Check_UnloadPickerCM()==TRUE) ) {
 			for(int i=gData.nDownX-1; i<gData.nPickCnt; i++) {
 				gData.PickerInfor[3][i] = gData.GoodTrayInfo[gData.nUpNo-1][i];
 				gData.GoodTrayInfo[gData.nUpNo-1][i] = 0;

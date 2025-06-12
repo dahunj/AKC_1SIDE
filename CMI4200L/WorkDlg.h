@@ -75,6 +75,7 @@ public:
 	CLedCS			m_ledBarNG;
 	CCheckCS		m_chkMESUse;
 	CCheckCS		m_chkAllPass;
+	CCheckCS		m_chkGripCheckPass;
 	CGridCS			m_grdShiftList;
 	CButtonCS		m_btnBuzzerOff;
 	CButtonCS		m_btnLotCancel;
@@ -148,6 +149,7 @@ public:
 	afx_msg void OnBnClickedChkAllPassFunction();
 	afx_msg void OnBnClickedButton1();
 	afx_msg void OnBnClickedButton2();
+	afx_msg void OnBnClickedChkGripCheckPass();
 };
 
 ///////////////////////////////////////////////////////////////////////////////

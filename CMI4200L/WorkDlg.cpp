@@ -180,6 +180,7 @@ void CWorkDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_BTN_LOT_CANCEL, m_btnLotCancel);
 	DDX_Control(pDX, IDC_CHK_MES_USE, m_chkMESUse);
 	DDX_Control(pDX, IDC_CHK_ALL_PASS_FUNCTION, m_chkAllPass);
+	DDX_Control(pDX, IDC_CHK_GRIP_CHECK_PASS, m_chkGripCheckPass);
 }
 
 BEGIN_MESSAGE_MAP(CWorkDlg, CDialogEx)
@@ -212,6 +213,7 @@ BEGIN_MESSAGE_MAP(CWorkDlg, CDialogEx)
 	
 	ON_BN_CLICKED(IDC_BUTTON1, &CWorkDlg::OnBnClickedButton1)
 	ON_BN_CLICKED(IDC_BUTTON2, &CWorkDlg::OnBnClickedButton2)
+	ON_BN_CLICKED(IDC_CHK_GRIP_CHECK_PASS, &CWorkDlg::OnBnClickedChkGripCheckPass)
 END_MESSAGE_MAP()
 
 // CWorkDlg 메시지 처리기입니다.
@@ -851,6 +853,7 @@ void CWorkDlg::Initial_Controls()
 	m_ledBarNG.Init_Ctrl("바탕", 11, FALSE, COLOR_DEFAULT, COLOR_DEFAULT, CLedCS::emGreen, CLedCS::em16);
 	m_chkMESUse.Init_Ctrl("Arial", 12, TRUE, RGB(0xFF, 0xFF, 0x00), RGB(0xC0, 0x10, 0x30), CCheckCS::emRed, CCheckCS::emRight);
 	m_chkAllPass.Init_Ctrl("Arial", 12, TRUE, RGB(0xFF, 0xFF, 0x00), RGB(0xC0, 0x10, 0x30), CCheckCS::emRed, CCheckCS::emRight);
+	m_chkGripCheckPass.Init_Ctrl("Arial", 12, TRUE, RGB(0xFF, 0xFF, 0x00), RGB(0xC0, 0x10, 0x30), CCheckCS::emRed, CCheckCS::emRight);
 	
 	Initial_ShiftGrid();
 }
@@ -1473,4 +1476,17 @@ void CWorkDlg::OnBnClickedButton2()
 	DX_DATA_0 *pDX0 = pAJinAXL->Get_pDX0();
 
 	pDX0->iStopSw = TRUE;
+}
+
+
+void CWorkDlg::OnBnClickedChkGripCheckPass()
+{	
+	if(m_chkGripCheckPass.GetCheck())
+	{
+		gData.bUseGripCheckPass = TRUE;
+	}
+	else if(!m_chkAllPass.GetCheck())
+	{
+		gData.bUseGripCheckPass = FALSE;
+	}
 }

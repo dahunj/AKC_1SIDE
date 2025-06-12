@@ -68,7 +68,6 @@ protected:
 	static UINT	Thread_Tilt2Run(LPVOID lpVoid);
 */
 private:
-
 	BOOL Load1_Run();		// 1.  (Error : 2100)
 	BOOL Load2_Run();		// 2.  (Error : 2600)
 	BOOL Unload1_Run();		// 3.  (Error : 3100)
