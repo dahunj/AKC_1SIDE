@@ -5120,15 +5120,7 @@ BOOL CSequenceMain::IndexT_Run()
 
 	case 130:
 		if(m_nLDPickerCase > 210)
-		{
-			if (!m_pCommon->Delay_LoopTime(AUTO_INDEXT, 500)) break;
-			m_pDY3->oInspVacuumPad1On = FALSE;
-			m_pDY3->oInspVacuumPad2On = FALSE;
-			m_pDY3->oInspVacuumPad3On = FALSE;
-			m_pDY3->oInspVacuumPad4On = FALSE;
-			m_pDY3->oInspVacuumPad5On = FALSE;
-			m_pDY3->oInspVacuumPad6On = FALSE;
-			m_pAJinAXL->Write_Output(3);
+		{			
 			m_nIndexTCase = 131;
 			m_pCommon->Set_LoopTime(AUTO_INDEXT, 60000);
 		}			
