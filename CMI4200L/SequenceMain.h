@@ -117,7 +117,7 @@ public:
 	BOOL Check_IndexGoodJobExist();
 	BOOL Check_GoodPickJobUp();
 	BOOL Check_GoodAllPick();
-	BOOL Check_PickerEmpty();
+	BOOL Check_PickerEmpty(int nNo);
 	BOOL Check_LotEnd();
 	BOOL Check_LastTray();
 	BOOL Check_UnloadTraySort();
