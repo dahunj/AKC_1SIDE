@@ -178,7 +178,7 @@ int CSequenceMain::Get_IsAutoRun(int nType)
 			if (nCase[i] > 100) return 1;
 		}
 	}
-	if (Check_PickerEmpty()==FALSE) return 1;
+	if (Check_PickerEmpty(9)==FALSE) return 1;
 	if (Check_IndexEmpty(9)==FALSE) return 1;
 
 
@@ -1360,7 +1360,7 @@ BOOL CSequenceMain::Unload1_Run()
 
 	switch (m_nUnload1Case) {
 	case 100:
-		if (Check_IndexEmpty(9)==FALSE || Check_PickerEmpty()==FALSE) {
+		if (Check_IndexEmpty(9)==FALSE || Check_PickerEmpty(9)==FALSE) {
 			if (m_pCommon->Check_Position(AX_UNLOAD_TRAY_Y1, 0) && m_pCommon->Check_Position(AX_UNLOAD_TRAY_Z1, 0)) {
 				if (m_pDX6->iEnd_Load1FCheck) {
 					m_nUnload1Case = 110;
@@ -2077,7 +2077,7 @@ BOOL CSequenceMain::Unload2_Run()
 
 	switch (m_nUnload2Case) {
 	case 100:
-		if (Check_IndexEmpty(9)==FALSE || Check_PickerEmpty()==FALSE) {
+		if (Check_IndexEmpty(9)==FALSE || Check_PickerEmpty(9)==FALSE) {
 			if (m_pCommon->Check_Position(AX_UNLOAD_TRAY_Y2, 0) && m_pCommon->Check_Position(AX_UNLOAD_TRAY_Z2, 0)) {
 				if (m_pDX6->iEnd_Load1FCheck) {
 					m_nUnload2Case = 110;
@@ -3336,7 +3336,7 @@ BOOL CSequenceMain::NGPicker_Run()
 	case 241:
 //		if((!m_pEquipData->bUseCMCheck) ||
 		if(!m_pCommon->Check_Position(AX_NG_PICKER_Z, 2)) break;
-		if((gData.bUseDryRun) ||
+		if((gData.bUseDryRun) || gData.bUseGripCheckPass ||
 		   (gData.NGPicNo==1 && m_pDX3->iNGPicker1CMCheck) ||
 		   (gData.NGPicNo==2 && m_pDX3->iNGPicker2CMCheck) ||
 		   (gData.NGPicNo==3 && m_pDX3->iNGPicker3CMCheck) ) {
@@ -5083,12 +5083,17 @@ BOOL CSequenceMain::IndexT_Run()
 
 	switch (m_nIndexTCase) {
 	case 100:
-		if (Check_IndexEmpty(9)==FALSE || Check_PickerEmpty()==FALSE) {
+		if( Check_IndexEmpty(9)==FALSE && (gData.IndexJob[0] == 1) && Check_PickerEmpty(0))
+		{
+			m_nIndexTCase = 130;
+			m_pCommon->Set_LoopTime(AUTO_INDEXT, 30000);
+		}
+		else if (Check_IndexEmpty(9)==FALSE || Check_PickerEmpty(9)==FALSE) {
 //			if (gData.IndexJob[0] == 1) {
 				m_nIndexTCase = 110;
 				m_pCommon->Set_LoopTime(AUTO_INDEXT, 30000);
 //			}
-		}
+		}		
 		break;
 
 	case 110:
@@ -5118,9 +5123,17 @@ BOOL CSequenceMain::IndexT_Run()
 		}
 		break;
 
-	case 130:
-		if(m_nLDPickerCase > 210)
-		{			
+	case 130:	
+		if(m_nLDPickerCase > 210 || Check_IndexEmpty(0))
+		{
+			if (!m_pCommon->Delay_LoopTime(AUTO_INDEXT, 1200)) break;
+			m_pDY3->oInspVacuumPad1On = FALSE;
+			m_pDY3->oInspVacuumPad2On = FALSE;
+			m_pDY3->oInspVacuumPad3On = FALSE;
+			m_pDY3->oInspVacuumPad4On = FALSE;
+			m_pDY3->oInspVacuumPad5On = FALSE;
+			m_pDY3->oInspVacuumPad6On = FALSE;
+			m_pAJinAXL->Write_Output(3);
 			m_nIndexTCase = 131;
 			m_pCommon->Set_LoopTime(AUTO_INDEXT, 60000);
 		}			
@@ -6134,15 +6147,28 @@ BOOL CSequenceMain::Check_UnloadTraySortJob()
 	else									return FALSE;
 }
 
-BOOL CSequenceMain::Check_PickerEmpty()
+BOOL CSequenceMain::Check_PickerEmpty(int nNo)
 {
-	for(int w=0; w<4; w++) {
-		for(int l=0; l<gData.nPickCnt; l++) {
-			if (gData.PickerInfor[w][l] > 0 ) return FALSE;
+	if(nNo == 9)
+	{
+		for(int w=0; w<4; w++) {
+			for(int l=0; l<gData.nPickCnt; l++) {
+				if (gData.PickerInfor[w][l] > 0 ) return FALSE;
+			}
 		}
 	}
+
+	if(nNo == 0)
+	{
+		for(int l=0; l<gData.nPickCnt; l++) {
+			if (gData.PickerInfor[0][l] > 0 ) return FALSE;
+		}
+	}
+	
 	return TRUE;
 }
+
+
 
 BOOL CSequenceMain::Check_GoodPickJobUp()
 {

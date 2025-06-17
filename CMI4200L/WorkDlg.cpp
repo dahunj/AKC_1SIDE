@@ -662,13 +662,13 @@ BOOL CWorkDlg::Check_Start()
 		}
 	}
 
-	if(pDX2->i_IndexAlignLoad_In || !pDX2->i_IndexAlignLoad_Out)
-	{
-		m_rdoWorkStart.SetCheck(FALSE);
-		pCommon->Show_MsgBox(1, "Load Index Align In 상태 입니다. Out 해주세요");
-		return FALSE;
-	}
-	
+	//if(pDX2->i_IndexAlignLoad_In || !pDX2->i_IndexAlignLoad_Out)
+	//{
+	//	m_rdoWorkStart.SetCheck(FALSE);
+	//	pCommon->Show_MsgBox(1, "Load Index Align In 상태 입니다. Out 해주세요");
+	//	return FALSE;
+	//}
+	//
 
 #ifdef AJIN_BOARD_USE
 	// 비전만 사용할때 확인해주면 된다.
