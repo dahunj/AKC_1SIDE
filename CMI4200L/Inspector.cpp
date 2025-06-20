@@ -318,11 +318,13 @@ void CInspector::Get_StatusRequest(int nInspector)
 void CInspector::Get_StatusReply(int nInspector, CString sStatus)
 {
 	m_nStatusVision = atoi(sStatus);
+	
 }
 
 void CInspector::Get_StatusUpdate(int nInspector, CString sStatus)
 {
 	m_nStatusVision = atoi(sStatus);
+	if(m_nStatusVision == 1) gData.bLotReady = TRUE;
 }
 
 void CInspector::Get_ModelReply(int nInspector, CString sFlag)

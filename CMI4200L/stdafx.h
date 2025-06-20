@@ -62,7 +62,7 @@
 #define SIM_WAITTIMEM	 10		//
 
 //Comments when you wanna simulate 
-#define AJIN_BOARD_USE
+//#define AJIN_BOARD_USE
 
 //PDX Model Only(3x4)
 //#define EQ_TYPE_C1	//R44C
@@ -247,6 +247,9 @@ typedef struct {
 
 	int		nInsTrayNo;
 	int		nInsLineNo;
+
+	BOOL	bReload;
+	BOOL	bLotReady;
 } GLOVAL_DATA;
 extern  GLOVAL_DATA	gData;
 

@@ -147,9 +147,11 @@ public:
 	void UpdateUph();
 	
 	afx_msg void OnBnClickedChkAllPassFunction();
-	afx_msg void OnBnClickedButton1();
-	afx_msg void OnBnClickedButton2();
+	
+	
 	afx_msg void OnBnClickedChkGripCheckPass();
+	afx_msg void OnBnClickedBtnReload();
+	afx_msg void OnBnClickedBtnLotRestart();
 };
 
 ///////////////////////////////////////////////////////////////////////////////

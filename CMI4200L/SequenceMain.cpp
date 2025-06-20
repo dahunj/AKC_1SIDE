@@ -661,7 +661,9 @@ BOOL CSequenceMain::Load1_Run()
 		}
 		break;
 	case 110:
-		if (!m_pDX1->iLS_Z1AlignS12In && m_pDX1->iLS_Z1AlignS12Out && !m_pDX1->iLS_Z1AlignM34In && m_pDX1->iLS_Z1AlignM34Out) {
+		if(!gData.bLotReady && m_pEquipData->bUseVisionInspect) break; // 비전에서 LotReady 못 받으면 알람, getStatusReply 참고
+		if (!m_pDX1->iLS_Z1AlignS12In && m_pDX1->iLS_Z1AlignS12Out && !m_pDX1->iLS_Z1AlignM34In && m_pDX1->iLS_Z1AlignM34Out) 
+		{
 #ifdef TRAY_CHECK2
 			if (!m_pDX1->iLS_Z1Check1 && !m_pDX1->iLS_Z1Check2)
 #else
@@ -1044,6 +1046,7 @@ BOOL CSequenceMain::Load2_Run()
 		}
 		break;
 	case 110:
+		if(!gData.bLotReady && m_pEquipData->bUseVisionInspect) break; // 비전에서 LotReady 못 받으면 알람, getStatusReply 참고
 		if (!m_pDX1->iLS_Z2AlignS12In && m_pDX1->iLS_Z2AlignS12Out && !m_pDX1->iLS_Z2AlignM34In && m_pDX1->iLS_Z2AlignM34Out) {
 #ifdef TRAY_CHECK2
 			if (!m_pDX1->iLS_Z2Check1 && !m_pDX1->iLS_Z2Check2)
@@ -2637,6 +2640,11 @@ BOOL CSequenceMain::Inspect_Run()
 		if (!m_pEquipData->bUseVisionInspect) {		// KCS(2024.07.09) 무언정지 수정
 			m_nInspectCase = 200;
 			m_pCommon->Set_LoopTime(AUTO_INSPECT, 5000);
+		}
+		if(gData.bReload)
+		{
+			gData.bReload = FALSE;
+			m_nInspectCase = 130; m_pCommon->Set_LoopTime(AUTO_INSPECT, 5000);
 		}
 		break;
 	case 160:
@@ -6644,6 +6652,7 @@ void CSequenceMain::Job_LotStart()
 	
 	CInspector *pInspector = CInspector::Get_Instance();
 	pInspector->Set_LotStart(INSPECTOR_VISION);
+	
 	g_objCapAttachUDP.Set_LotStart(gData.nPortNo);
 	g_objCapAttachUDP.Set_ContinueLotInfo();
 	//g_objCapAttachUDP.Set_LotStart(1);
@@ -6742,6 +6751,8 @@ void CSequenceMain::Job_LotEnd()
 	if (gData.nPortNo == 1) gData.nPortNo = 2;
 	else					gData.nPortNo = 1;
 
+	gData.bLotReady = FALSE; // Lot Ready 상태 FALSE로 변경 
+	
 	CWorkDlg *pWorkDlg = CWorkDlg::Get_Instance();	
 	pWorkDlg->Enable_LotInfo(TRUE);
 	pWorkDlg->Clear_LotInfo();

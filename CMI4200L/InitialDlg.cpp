@@ -253,7 +253,7 @@ void CInitialDlg::OnTimer(UINT nIDEvent)
 
 				CInspector *pInspector = CInspector::Get_Instance();
 				
-				pInspector->Set_StatusUpdate(INSPECTOR_VISION, 1);
+				//pInspector->Set_StatusUpdate(INSPECTOR_VISION, 1);
 
 				pMainDlg->Enable_ModeButton(TRUE);
 				pMainDlg->m_btnMainOperator.EnableWindow(TRUE);
