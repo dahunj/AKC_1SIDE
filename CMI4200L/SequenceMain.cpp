@@ -88,6 +88,8 @@ CSequenceMain::CSequenceMain()
 	m_nULPickerCase = 100;
 	m_nIndexTCase = 100;
 	m_nNGTrayCase = 100;
+
+	gData.bLotReady = FALSE; // Lot Ready 상태 FALSE로 변경 
 }
 
 CSequenceMain::~CSequenceMain()
