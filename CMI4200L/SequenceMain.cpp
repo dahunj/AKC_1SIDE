@@ -5083,7 +5083,7 @@ BOOL CSequenceMain::IndexT_Run()
 
 	switch (m_nIndexTCase) {
 	case 100:
-		if( Check_IndexEmpty(9)==FALSE && (gData.IndexJob[0] == 1) && Check_PickerEmpty(0))
+		if( Check_PickerEmpty(0) && gData.IndexJob[0] == 1)
 		{
 			m_nIndexTCase = 130;
 			m_pCommon->Set_LoopTime(AUTO_INDEXT, 30000);
