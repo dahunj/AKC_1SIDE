@@ -252,6 +252,8 @@ void CInitialDlg::OnTimer(UINT nIDEvent)
 				//pManualDlg->m_pManualInspectorDlg->Set_3dRunCase(0);
 
 				CInspector *pInspector = CInspector::Get_Instance();
+				gData.bLotReady = FALSE; // Lot Ready 상태 FALSE로 변경 
+				
 				
 				//pInspector->Set_StatusUpdate(INSPECTOR_VISION, 1);
 

@@ -178,6 +178,8 @@ void CWorkDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_GRD_SHIFT_LIST, m_grdShiftList);
 	DDX_Control(pDX, IDC_BTN_BUZZER_OFF, m_btnBuzzerOff);
 	DDX_Control(pDX, IDC_BTN_LOT_CANCEL, m_btnLotCancel);
+	DDX_Control(pDX, IDC_BTN_RELOAD, m_btnReload);
+	DDX_Control(pDX, IDC_BTN_LOT_RESTART, m_btnLotRestart);
 	DDX_Control(pDX, IDC_CHK_MES_USE, m_chkMESUse);
 	DDX_Control(pDX, IDC_CHK_ALL_PASS_FUNCTION, m_chkAllPass);
 	DDX_Control(pDX, IDC_CHK_GRIP_CHECK_PASS, m_chkGripCheckPass);
@@ -833,6 +835,8 @@ void CWorkDlg::Initial_Controls()
 	m_chkSampleJob.Init_Ctrl("πŸ≈¡", 10, TRUE, RGB(0x00, 0x00, 0x00), COLOR_DEFAULT, 0, 0);
 	m_btnBuzzerOff.Init_Ctrl("πŸ≈¡", 8, TRUE, RGB(0x00, 0x00, 0x00), COLOR_DEFAULT, 0, 0);
 	m_btnLotCancel.Init_Ctrl("πŸ≈¡", 8, TRUE, RGB(0x00, 0x00, 0x00), COLOR_DEFAULT, 0, 0);
+	m_btnReload.Init_Ctrl("πŸ≈¡", 10, TRUE, RGB(0x00, 0x00, 0x00), COLOR_DEFAULT, 0, 0);
+	m_btnLotRestart.Init_Ctrl("πŸ≈¡", 10, TRUE, RGB(0x00, 0x00, 0x00), COLOR_DEFAULT, 0, 0);
 
 	for (int i = 0; i < 12; i++) m_stcWorkCase[i].Init_Ctrl("πŸ≈¡", 11, TRUE, RGB(0xFF, 0xFF, 0xFF), RGB(0x40, 0x40, 0x40));
 	for (int i = 0; i < 4; i++) m_stcTrayPos[i].Init_Ctrl("πŸ≈¡", 11, TRUE, COLOR_DEFAULT, RGB(0xF0, 0xFF, 0xB0));

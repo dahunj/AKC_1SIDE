@@ -2656,6 +2656,11 @@ BOOL CSequenceMain::Inspect_Run()
 			m_pCommon->Set_LoopTime(AUTO_INSPECT, 10000);
 		break;
 	case 170:
+		if(gData.bReload)
+		{
+			gData.bReload = FALSE;
+			m_nInspectCase = 130; m_pCommon->Set_LoopTime(AUTO_INSPECT, 5000);
+		}
 		if (m_pAJinAXL->Is_MoveDone(AX_INSPECTION_A, m_dVisionPosA) && m_pCommon->Check_Position(AX_INSPECTION_Z, 0)) {
 			CInspector *pInspector = CInspector::Get_Instance();
 			pInspector->Set_MoveComplete(INSPECTOR_VISION, "I");
@@ -2665,6 +2670,11 @@ BOOL CSequenceMain::Inspect_Run()
 		break;
 
 	case 180:
+		if(gData.bReload)
+		{
+			gData.bReload = FALSE;
+			m_nInspectCase = 130; m_pCommon->Set_LoopTime(AUTO_INSPECT, 5000);
+		}
 		if (m_pAJinAXL->Is_Done(AX_INSPECTION_Z)) {
 			m_pAJinAXL->Move_Abs_Accel(AX_INSPECTION_Z, m_dVisionPosZ, m_pMoveData->dDInspectionZ[0]);
 			m_nInspectCase = 190;
@@ -2672,6 +2682,11 @@ BOOL CSequenceMain::Inspect_Run()
 		}
 		break;
 	case 190:
+		if(gData.bReload)
+		{
+			gData.bReload = FALSE;
+			m_nInspectCase = 130; m_pCommon->Set_LoopTime(AUTO_INSPECT, 5000);
+		}
 		if (m_pAJinAXL->Is_MoveDone(AX_INSPECTION_Z, m_dVisionPosZ)) {
 			CInspector *pInspector = CInspector::Get_Instance();
 			pInspector->Set_MoveComplete(INSPECTOR_VISION, "I");
@@ -5093,7 +5108,7 @@ BOOL CSequenceMain::IndexT_Run()
 
 	switch (m_nIndexTCase) {
 	case 100:
-		if( Check_PickerEmpty(0) && gData.IndexJob[0] == 1)
+		if( Check_PickerEmpty(0))
 		{
 			m_nIndexTCase = 130;
 			m_pCommon->Set_LoopTime(AUTO_INDEXT, 30000);

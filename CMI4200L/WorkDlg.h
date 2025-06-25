@@ -79,7 +79,8 @@ public:
 	CGridCS			m_grdShiftList;
 	CButtonCS		m_btnBuzzerOff;
 	CButtonCS		m_btnLotCancel;
-
+	CButtonCS		m_btnReload;
+	CButtonCS		m_btnLotRestart;
 
 	
 protected:
