@@ -1476,13 +1476,17 @@ BOOL CSequenceMain::Unload1_Run()
 		if (m_pDX6->iUS_Z1Check1)
 #endif
 		{
-			m_nUnload1Case = 200;
+			m_nUnload1Case = 192;
 			m_pCommon->Set_LoopTime(AUTO_UNLOAD1, 5000);
 		}
 		break;
+	case 192:
+		m_pCommon->Move_Position(AX_UNLOAD_TRAY_Y1, 3); //job wait pos
+		m_nUnload1Case = 200;
+		m_pCommon->Set_LoopTime(AUTO_UNLOAD1, 30000);
 
 	case 200:
-		if (m_nUnload2Case < 200 || m_nUnload2Case > 411) {
+		if (m_nUnload2Case < 192 || m_nUnload2Case > 411) {
 			m_pCommon->Move_Position(AX_UNLOAD_TRAY_Y1, 2); //job start pos
 			m_nUnload1Case = 290;
 			m_pCommon->Set_LoopTime(AUTO_UNLOAD1, 30000);
@@ -1748,7 +1752,7 @@ BOOL CSequenceMain::Unload1_Run()
 
 			//Thing that case is over 350 means other stage(2) position is more than Unload.
 			//current pos of other stage >= job start pos
-			if (m_nUnload2Case > 411 && dPosY2 >= dPos)  
+			if (m_nUnload2Case >= 300 && dPosY2 >= dPos)//if (m_nUnload2Case > 411 && dPosY2 >= dPos)  
 			{
 				m_pCommon->Move_Position(AX_UNLOAD_TRAY_Z1, 0); // Move up (job height)
 				m_nUnload1Case = 460;
@@ -2190,13 +2194,18 @@ BOOL CSequenceMain::Unload2_Run()
 		if (m_pDX6->iUS_Z2Check1)
 #endif
 		{
-			m_nUnload2Case = 200;
+			m_nUnload2Case = 192;
 			m_pCommon->Set_LoopTime(AUTO_UNLOAD2, 5000);
 		}
 		break;
+	case 192:
+		m_pCommon->Move_Position(AX_UNLOAD_TRAY_Y2, 3); //job wait pos
+		m_nUnload2Case = 200;
+		m_pCommon->Set_LoopTime(AUTO_UNLOAD2, 30000);
+
 
 	case 200:
-		if (m_nUnload1Case < 200 || m_nUnload1Case > 411) {
+		if (m_nUnload1Case < 192 || m_nUnload1Case > 411) {
 			m_pCommon->Move_Position(AX_UNLOAD_TRAY_Y2, 2); // Y job pos 
 			m_nUnload2Case = 290;
 			m_pCommon->Set_LoopTime(AUTO_UNLOAD2, 30000);
@@ -2453,7 +2462,7 @@ BOOL CSequenceMain::Unload2_Run()
 			else						dPos = m_pMoveData->dUnloadTrayY1[2] - (gData.nArrayW * gData.dTrayPitchW);
 
 			//case is over 350 means Y already moved to unload pos
-			if (m_nUnload1Case > 411 && dPosY1 >= dPos)
+			if (m_nUnload1Case > 300 && dPosY1 >= dPos)
 			{
 				m_pCommon->Move_Position(AX_UNLOAD_TRAY_Z2, 0); // Z move up 
 				m_nUnload2Case = 460;
