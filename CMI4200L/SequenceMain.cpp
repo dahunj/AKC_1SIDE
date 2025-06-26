@@ -1481,7 +1481,7 @@ BOOL CSequenceMain::Unload1_Run()
 		}
 		break;
 	case 192:
-		m_pCommon->Move_Position(AX_UNLOAD_TRAY_Y1, 3); //job wait pos
+		m_pCommon->Move_Position(AX_UNLOAD_TRAY_Y1, 1); //job wait pos
 		m_nUnload1Case = 200;
 		m_pCommon->Set_LoopTime(AUTO_UNLOAD1, 30000);
 
@@ -2199,7 +2199,7 @@ BOOL CSequenceMain::Unload2_Run()
 		}
 		break;
 	case 192:
-		m_pCommon->Move_Position(AX_UNLOAD_TRAY_Y2, 3); //job wait pos
+		m_pCommon->Move_Position(AX_UNLOAD_TRAY_Y2, 1); //job wait pos
 		m_nUnload2Case = 200;
 		m_pCommon->Set_LoopTime(AUTO_UNLOAD2, 30000);
 
