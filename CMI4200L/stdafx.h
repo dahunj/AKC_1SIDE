@@ -40,6 +40,9 @@
 #include "CSUdpSocket.h"
 #include "CSGrid.h"
 #include "CSClientSocket.h"
+
+#include <math.h>
+
 #ifdef _DEBUG
 	#pragma comment(lib, "CSControlsD.lib")
 	#pragma comment(lib, "CSIniFileD.lib")
@@ -62,18 +65,18 @@
 #define SIM_WAITTIMEM	 10		//
 
 //Comments when you wanna simulate 
-//#define AJIN_BOARD_USE
+#define AJIN_BOARD_USE
 
 //PDX Model Only(3x4)
 //#define EQ_TYPE_C1	//R44C
 #define EQ_TYPE_C2		//R44C
 
 #if defined(EQ_TYPE_C1)		//R44C
-	#define MAIN_VERSION	"V 1.0.7.c1"
+	#define MAIN_VERSION	"V 1.0.8.c1"
 	#define PICKER_3		// Load/Good/Unload Picker 3
 	#define NG_PICKER_3
 #elif defined(EQ_TYPE_C2)	//R44C
-	#define MAIN_VERSION	"V 1.0.7.c2"
+	#define MAIN_VERSION	"V 1.0.8.c2"
 	#define ALIGN_NEW		// Main Air 2개 (기본 1개), 스테이지 Master/Slave I/O 순서 뒤바뀌어 있음.
 	#define TRAY_CHECK2		// Tray Check Sensor 2개 (기본 1개)
 	#define PICKER_3		// Load/Good/Unload Picker 3

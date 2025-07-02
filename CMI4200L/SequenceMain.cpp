@@ -351,7 +351,9 @@ UINT CSequenceMain::Thread_MainRun(LPVOID lpVoid)
 		if (nRunSts == 0 && (gData.nStatus >= 3 && gData.nStatus < 5) 
 			&& (pSeqMain->Get_RunCase(AUTO_UNLOAD1) == 300 || pSeqMain->Get_RunCase(AUTO_UNLOAD2) == 300)) {
 			pSeqMain->Set_RunCase(AUTO_UNLOAD1, 480);
-			pCommon->Set_LoopTime(AUTO_UNLOAD1, 10000);
+			pSeqMain->Set_RunCase(AUTO_UNLOAD2, 0);
+			pCommon->Set_LoopTime(AUTO_UNLOAD1, 15000);
+			pCommon->Set_LoopTime(AUTO_UNLOAD2, 15000);
 			pSeqMain->Set_RunCase(AUTO_INDEXT, 300);
 			gData.nStatus = 5;	//최종 후처리
 		}
@@ -1380,7 +1382,7 @@ BOOL CSequenceMain::Unload1_Run()
 		if (Check_IndexEmpty(9) && Check_PickerEmpty(9) && (gLot.nTrayCount <= gData.nLoadTrayCount) && gData.nStatus == 4)
 		{
 			m_nUnload1Case = 192;
-		}
+		}	
 		break;
 	case 110:
 #ifdef TRAY_CHECK2
@@ -2611,10 +2613,13 @@ BOOL CSequenceMain::Inspect_Run()
 
 	case 110:
 		if (m_nIndexTCase <= 200 && gData.IndexJob[1] == 0) {
-			if (Check_IndexEmpty(1) == TRUE || (gData.bCleanOutMode == TRUE)) {
+			if (Check_IndexEmpty(1) == TRUE || (gData.bCleanOutMode == TRUE)) 
+			{
 				gData.IndexJob[1] = 1;
 				m_nInspectCase = 100;
-			} else {
+			} 
+			else
+			{
 				m_pCommon->Move_Position(AX_INSPECTION_A, 0);
 				if (gData.bUseCMPress) {
 					m_pCommon->Move_Position(AX_INSPECTION_Z, 1);
