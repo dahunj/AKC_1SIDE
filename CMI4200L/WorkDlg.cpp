@@ -327,7 +327,7 @@ void CWorkDlg::OnShowWindow(BOOL bShow, UINT nStatus)
 		gData.dTrayFirstW = 0; 
 		gData.dTrayFirstL = 0; 
 		gData.dCMSizeW    = pModelData->dCMWSize;
-		gData.nCMUseCount = pModelData->nCMCount;
+		gData.nCMMaxCount = pModelData->nCMCount;
 		m_nDisCnt = 0;
 
 		Display_LotInfo();
@@ -633,11 +633,11 @@ BOOL CWorkDlg::Check_Start()
 		return FALSE;
 	}
 
-	if(gData.nCMJobCount <= 0) {
-		m_rdoWorkStart.SetCheck(FALSE);
-		pCommon->Show_MsgBox(1, "CM Count 를 입력해 주세요.");
-		return FALSE;
-	}
+	//if(gData.nCMJobCount <= 0) {
+	//	m_rdoWorkStart.SetCheck(FALSE);
+	//	pCommon->Show_MsgBox(1, "CM Count 를 입력해 주세요.");
+	//	return FALSE;
+	//}
 
 
 	if (gData.sOperID.GetLength() < 1) {
@@ -741,7 +741,7 @@ void CWorkDlg::OnBnClickedTrayCnt()
 		m_stcLotId2.SetWindowText(strNew);
 		gData.nTrayJobCount = atoi(strNew);
 
-		gData.nCMJobCount = gData.nTrayJobCount * gData.nCMUseCount;
+		gData.nCMJobCount = gData.nTrayJobCount * gData.nCMMaxCount;
 		strOld.Format("%d", gData.nCMJobCount);
 		m_stcCMCnt.SetWindowText(strOld);
 	}
@@ -754,23 +754,30 @@ void CWorkDlg::OnBnClickedCMCnt()
 		pCommon->Show_MsgBox(1, "Run중에는 CM수량 입력을 할수 없습니다........");
 		return;
 	}
+	
+	CDataManager *pDataManager = CDataManager::Get_Instance();
+	EQUIP_DATA *pEquipData = pDataManager->Get_pEquipData();
 
-	CString strOld, strNew;
-	int nCM, nCM1, nCM2; 
-	m_stcCMCnt.GetWindowText(strOld);
-	if (pCommon->Show_NumPad(strOld, strNew) == IDOK) {
-		m_stcCMCnt.SetWindowText(strNew);
-		nCM = atoi(strNew);
-		gData.nCMJobCount = nCM;
+	if(!pEquipData->bUseMES)
+	{
+		CString strOld, strNew;
+		int nCM, nCM1, nCM2; 
+		m_stcCMCnt.GetWindowText(strOld);
+		if (pCommon->Show_NumPad(strOld, strNew) == IDOK) {
+			m_stcCMCnt.SetWindowText(strNew);
+			nCM = atoi(strNew);
 
-		nCM1 = nCM / gData.nCMUseCount;
-		nCM2 = nCM % gData.nCMUseCount;
-		if(nCM2 > 0) nCM1++;
-		gData.nTrayJobCount = nCM1;
-		strNew.Format("%d", gData.nTrayJobCount);
-		m_stcLotId2.SetWindowText(strNew);  
+
+			nCM1 = nCM / gData.nCMMaxCount;
+			nCM2 = nCM % gData.nCMMaxCount;
+			if(nCM2 > 0) nCM1++;
+
+			gData.nCMJobCount = nCM1 * gData.nCMMaxCount;
+			gData.nTrayJobCount = nCM1;
+			strNew.Format("%d", gData.nTrayJobCount);
+			m_stcLotId2.SetWindowText(strNew);  
+		}
 	}
-
 	CString sLog;
 	sLog.Format("[Work Mode] CMCnt push....  LotID[%s] CM[%d]", gData.sLotID, gData.nCMJobCount);
 	pLogFile->Save_HandlerLog(sLog);
@@ -1489,4 +1496,26 @@ void CWorkDlg::OnBnClickedBtnLotRestart()
 {
 	CInspector *pInspector = CInspector::Get_Instance();
 	pInspector->Set_LotStart(INSPECTOR_VISION);
+}
+
+
+void CWorkDlg::UpdateLotInfoFromMES(int nCMCount)
+{
+	CString strOld, strNew;
+	int nTemp, nTemp1, nTemp2; 
+
+	strOld.Format("%d", nCMCount);
+
+	m_stcCMCnt.SetWindowText(strOld);
+	nTemp = nCMCount;
+	gData.nCMJobCount = nTemp;
+
+	nTemp1 = nTemp / gData.nCMMaxCount;
+	nTemp2 = nTemp % gData.nCMMaxCount;
+	if(nTemp2 > 0) nTemp1++;
+	gData.nTrayJobCount = nTemp1;
+	gData.nCMJobCount = nTemp1 * gData.nCMMaxCount;
+	strNew.Format("%d", gData.nTrayJobCount);
+	m_stcLotId2.SetWindowText(strNew);  
+
 }

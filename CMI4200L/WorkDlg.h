@@ -145,6 +145,8 @@ public:
 	void Clear_LotInfo();
 	void Enable_LotInfo(BOOL on);
 
+	void UpdateLotInfoFromMES(int nCMCount);
+
 	void UpdateUph();
 	
 	afx_msg void OnBnClickedChkAllPassFunction();

@@ -483,8 +483,8 @@ void COperatorDlg::OnBnClickedCMCnt()
 		nCM = atoi(strNew);
 		gData.nCMJobCount = nCM;
 
-		nCM1 = nCM / gData.nCMUseCount;
-		nCM2 = nCM % gData.nCMUseCount;
+		nCM1 = nCM / gData.nCMMaxCount;
+		nCM2 = nCM % gData.nCMMaxCount;
 		if(nCM2 > 0) nCM1++;
 		gData.nTrayJobCount = nCM1;
 		strNew.Format("%d", gData.nTrayJobCount);

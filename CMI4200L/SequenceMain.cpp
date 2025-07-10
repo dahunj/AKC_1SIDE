@@ -660,6 +660,7 @@ BOOL CSequenceMain::Load1_Run()
 				if (m_pDX1->iLS_Load1FCheck) {
 					if (m_pCommon->Check_Position(AX_LOAD_TRAY_X1, 0) && m_pCommon->Check_Position(AX_LOAD_TRAY_Z1, 0) ) {
 						if (gData.nStatus==0) Job_LotStart();
+						if (gLot.nTrayCount == gData.nLoadTrayCount) gData.bUseGripCheckPass = TRUE;
 
 						m_nLoad1Case = 110;
 						m_pCommon->Set_LoopTime(AUTO_LOAD1, 10000);
@@ -1045,7 +1046,7 @@ BOOL CSequenceMain::Load2_Run()
 				if (m_pDX1->iLS_Load1FCheck) {
 					if (m_pCommon->Check_Position(AX_LOAD_TRAY_X2, 0) && m_pCommon->Check_Position(AX_LOAD_TRAY_Z2, 0) ) {
 						if (gData.nStatus==0) Job_LotStart();
-
+						if (gLot.nTrayCount == gData.nLoadTrayCount) gData.bUseGripCheckPass = TRUE;
 						m_nLoad2Case = 110;
 						m_pCommon->Set_LoopTime(AUTO_LOAD2, 10000);
 					}
@@ -5952,7 +5953,7 @@ BOOL CSequenceMain::Check_NGTrayEmpty(int nNo)
 			if (nNo == 0 || nNo == 2) { if (gData.NG2TrayInfo[w][l] > 0) return FALSE; }
 
 			nCMCnt++;
-			if(nCMCnt == gData.nCMUseCount) break;
+			if(nCMCnt == gData.nCMMaxCount) break;
 		}
 	}
 	return TRUE;
@@ -6002,7 +6003,7 @@ BOOL CSequenceMain::Check_GoodTrayEmpty(int nLine)
 			if (gData.GoodTrayInfo[w][l] > 0) return FALSE;
 
 			nCMCnt++;
-			if(nCMCnt == gData.nCMUseCount) break;
+			if(nCMCnt == gData.nCMMaxCount) break;
 		}
 	}
 	return TRUE;
@@ -6161,7 +6162,7 @@ BOOL CSequenceMain::Check_LastTray()
 		}
 	}
 
-	if(nCount <= gData.nCMUseCount) return TRUE;
+	if(nCount <= gData.nCMMaxCount) return TRUE;
 	else							return FALSE;
 }
 
@@ -6605,7 +6606,7 @@ void CSequenceMain::Set_LoadTray()
 			for(int l=0; l<gData.nArrayL; l++) {	//x
 				gData.LoadTrayInfo[w][l] = 3;
 				nCMCnt++;
-				if(nCMCnt == gData.nCMUseCount) break;
+				if(nCMCnt == gData.nCMMaxCount) break;
 			}
 		}
 		CInspector *pInspector = CInspector::Get_Instance();
@@ -6613,7 +6614,7 @@ void CSequenceMain::Set_LoadTray()
 		return;
 	}
 
-	nCMxxx = gLot.nCMCount % gData.nCMUseCount;
+	nCMxxx = gLot.nCMCount % gData.nCMMaxCount;
 	for(int w=0; w<gData.nArrayW; w++) {		//y
 		if (w==0 || w==2 || w==4) {
 			for(int l=0; l<gData.nArrayL; l++) {	//x
@@ -6758,7 +6759,7 @@ void CSequenceMain::Job_LotEnd()
 	gLot.lLotEnd = GetTickCount();
 	gLot.sEndTime.Format("%04d%02d%02d_%02d%02d%02d", time.wYear, time.wMonth, time.wDay, time.wHour, time.wMinute, time.wSecond);
 
-	if(gLot.nCMCount < 1) gLot.nCMCount = gLot.nTrayCount * gData.nCMUseCount;
+	if(gLot.nCMCount < 1) gLot.nCMCount = gLot.nTrayCount * gData.nCMMaxCount;
 	lTime = gLot.lLotEnd - gLot.lLotStart;
 	dMESTack = double(lTime/1000);
 	dTack = double(lTime/1000) / double(gLot.nCMCount);
@@ -6810,8 +6811,9 @@ void CSequenceMain::Job_LotEnd()
 	else					gData.nPortNo = 1;
 
 	gData.bLotReady = FALSE; // Lot Ready 상태 FALSE로 변경 
-	
+		
 	CWorkDlg *pWorkDlg = CWorkDlg::Get_Instance();	
+	pWorkDlg->OnBnClickedChkGripCheckPass();
 	pWorkDlg->Enable_LotInfo(TRUE);
 	pWorkDlg->Clear_LotInfo();
 	pWorkDlg->PostMessage(UM_LOT_START_END, (WPARAM)2, NULL);	// LotEnd
@@ -6944,6 +6946,8 @@ BOOL CSequenceMain::Run_Simulation()
 	if (m_nUnload2Case == 170) { pDX6->iUS_Z2Check1 = TRUE; pDX6->iUS_Z2Check2 = TRUE; }
 	if (m_nUnload2Case == 380) { gData.bCapTrayLoad = FALSE; }
 	if (m_nUnload2Case == 413) { pDX6->iUS_Z2Check1 = FALSE; pDX6->iUS_Z2Check2 = FALSE; }
+
+	if (m_nUnload1Case == 480) { pDX6->iUS_Z1Check1 = FALSE; pDX6->iUS_Z1Check2 = FALSE; pDX6->iUS_Z2Check1 = FALSE; pDX6->iUS_Z2Check2 = FALSE; }
 
 	if (m_nInspectCase == 0) { }
 	if (m_nNGPickerCase == 0) { }

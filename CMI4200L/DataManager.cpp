@@ -198,7 +198,7 @@ BOOL CDataManager::Read_ModelData()
 	gData.dTrayFirstW = 0; 
 	gData.dTrayFirstL = 0; 
 	gData.dCMSizeW    = m_ModelData.dCMWSize;
-	gData.nCMUseCount = m_ModelData.nCMCount;
+	gData.nCMMaxCount = m_ModelData.nCMCount;
 
 	return TRUE;
 }
