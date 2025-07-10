@@ -541,16 +541,24 @@ BOOL CSetupMotionTabDlg::Check_Interlock(int nAxis)
 #else
 		if (!pDX3->iNGPicker1Up || !pDX3->iNGPicker2Up || !pDX3->iNGPicker3Up || !pDX3->iNGPicker4Up || !pDX3->iNGPicker5Up ||
 			pDX3->iNGPicker1Down || pDX3->iNGPicker2Down || pDX3->iNGPicker3Down || pDX3->iNGPicker4Down || pDX3->iNGPicker5Down ) {
-			AfxMessageBox(_T("NG Picker Z Up후에 진행하세요....."));
-			return FALSE;
+				AfxMessageBox(_T("NG Picker Z Up후에 진행하세요....."));
+				return FALSE;
 		}
 #endif
-		if (!pCommon->Check_Position(AX_NG_PICKER_Z, 0) ) {
-			AfxMessageBox(_T("NG Picker Z축 Ready Position 위치후에 진행하세요....."));
+		if (!pCommon->Check_Position(AX_NG_PICKER_Z, 1) ) {
+			AfxMessageBox(_T("NG Picker Z축 NG Position 위치후에 진행하세요....."));
 			return FALSE;
 		}
 	}
-	if (nAxis == AX_NG_STAGE_Y) {
+
+
+	if (nAxis == AX_NG_STAGE_Y) 
+	{
+		if(!(pCommon->Check_Position(AX_NG_PICKER_Z, 1) )) {
+			AfxMessageBox(_T("NG Picker Z Axis NG Position 이동후 진행하세요. ...."));
+			return FALSE;
+		}
+
 #ifdef NG_PICKER_3
 		if (!pDX3->iNGPicker1Up || !pDX3->iNGPicker2Up || !pDX3->iNGPicker3Up ||
 			pDX3->iNGPicker1Down || pDX3->iNGPicker2Down || pDX3->iNGPicker3Down ) {
@@ -560,32 +568,42 @@ BOOL CSetupMotionTabDlg::Check_Interlock(int nAxis)
 #else
 		if (!pDX3->iNGPicker1Up || !pDX3->iNGPicker2Up || !pDX3->iNGPicker3Up || !pDX3->iNGPicker4Up || !pDX3->iNGPicker5Up ||
 			pDX3->iNGPicker1Down || pDX3->iNGPicker2Down || pDX3->iNGPicker3Down || pDX3->iNGPicker4Down || pDX3->iNGPicker5Down ) {
-			AfxMessageBox(_T("NG Picker Z Up후에 진행하세요....."));
-			return FALSE;
+				AfxMessageBox(_T("NG Picker Z Up후에 진행하세요....."));
+				return FALSE;
 		}
 #endif
 	}
-	if (nAxis == AX_GOOD_PICKER_Y) {
+
+
+	if (nAxis == AX_GOOD_PICKER_Y) 
+	{
+
+		if (!pCommon->Check_Position(AX_GOOD_PICKER_Z, 0) )
+		{
+			AfxMessageBox(_T("Good Picker Z축 Ready Up 위치후에 진행하세요....."));
+			return FALSE;
+		}
+
 #ifdef PICKER_3
 		if (!pDX4->iGoodPicker1Up || !pDX4->iGoodPicker2Up || !pDX4->iGoodPicker3Up || 
 			pDX4->iGoodPicker1Down || pDX4->iGoodPicker2Down || pDX4->iGoodPicker3Down)
 #endif
 #ifdef PICKER_5
-		if (!pDX4->iGoodPicker1Up || !pDX4->iGoodPicker2Up || !pDX4->iGoodPicker3Up || 
-			!pDX4->iGoodPicker4Up || !pDX4->iGoodPicker5Up ||
-			pDX4->iGoodPicker1Down || pDX4->iGoodPicker2Down || pDX4->iGoodPicker3Down || 
-			pDX4->iGoodPicker4Down || pDX4->iGoodPicker5Down )
+			if (!pDX4->iGoodPicker1Up || !pDX4->iGoodPicker2Up || !pDX4->iGoodPicker3Up || 
+				!pDX4->iGoodPicker4Up || !pDX4->iGoodPicker5Up ||
+				pDX4->iGoodPicker1Down || pDX4->iGoodPicker2Down || pDX4->iGoodPicker3Down || 
+				pDX4->iGoodPicker4Down || pDX4->iGoodPicker5Down )
 #endif
 #ifdef PICKER_6
-		if (!pDX4->iGoodPicker1Up || !pDX4->iGoodPicker2Up || !pDX4->iGoodPicker3Up || 
-			!pDX4->iGoodPicker4Up || !pDX4->iGoodPicker5Up || !pDX4->iGoodPicker6Up ||
-			pDX4->iGoodPicker1Down || pDX4->iGoodPicker2Down || pDX4->iGoodPicker3Down || 
-			pDX4->iGoodPicker4Down || pDX4->iGoodPicker5Down || pDX4->iGoodPicker6Down)
+				if (!pDX4->iGoodPicker1Up || !pDX4->iGoodPicker2Up || !pDX4->iGoodPicker3Up || 
+					!pDX4->iGoodPicker4Up || !pDX4->iGoodPicker5Up || !pDX4->iGoodPicker6Up ||
+					pDX4->iGoodPicker1Down || pDX4->iGoodPicker2Down || pDX4->iGoodPicker3Down || 
+					pDX4->iGoodPicker4Down || pDX4->iGoodPicker5Down || pDX4->iGoodPicker6Down)
 #endif
-		{
-			AfxMessageBox(_T("Good Picker Up후 진행하세요............."));
-			return FALSE;
-		}
+				{
+					AfxMessageBox(_T("Good Picker Up후 진행하세요............."));
+					return FALSE;
+				}
 	}
 	if (nAxis == AX_UNLOAD_PICKER_X1) {
 		if (!pCommon->Check_Position(AX_UNLOAD_PICKER_Z, 0)) {
@@ -616,8 +634,8 @@ BOOL CSetupMotionTabDlg::Check_Interlock(int nAxis)
 #else
 		if (!pDX3->iNGPicker1Up  || !pDX3->iNGPicker2Up  || !pDX3->iNGPicker3Up || !pDX3->iNGPicker4Up  || !pDX3->iNGPicker5Up ||
 			pDX3->iNGPicker1Down || pDX3->iNGPicker2Down || pDX3->iNGPicker3Down || pDX3->iNGPicker4Down || pDX3->iNGPicker5Down ) {
-			AfxMessageBox(_T("NG Picker Up후 진행하세요............."));
-			return FALSE;
+				AfxMessageBox(_T("NG Picker Up후 진행하세요............."));
+				return FALSE;
 		}
 #endif
 
@@ -626,67 +644,158 @@ BOOL CSetupMotionTabDlg::Check_Interlock(int nAxis)
 			pDX4->iGoodPicker1Down || pDX4->iGoodPicker2Down || pDX4->iGoodPicker3Down )
 #endif
 #ifdef PICKER_5
-		if (!pDX4->iGoodPicker1Up || !pDX4->iGoodPicker2Up || !pDX4->iGoodPicker3Up || 
-			!pDX4->iGoodPicker4Up || !pDX4->iGoodPicker5Up ||
-			pDX4->iGoodPicker1Down || pDX4->iGoodPicker2Down || pDX4->iGoodPicker3Down || 
-			pDX4->iGoodPicker4Down || pDX4->iGoodPicker5Down )
+			if (!pDX4->iGoodPicker1Up || !pDX4->iGoodPicker2Up || !pDX4->iGoodPicker3Up || 
+				!pDX4->iGoodPicker4Up || !pDX4->iGoodPicker5Up ||
+				pDX4->iGoodPicker1Down || pDX4->iGoodPicker2Down || pDX4->iGoodPicker3Down || 
+				pDX4->iGoodPicker4Down || pDX4->iGoodPicker5Down )
 #endif
 #ifdef PICKER_6
-		if (!pDX4->iGoodPicker1Up || !pDX4->iGoodPicker2Up || !pDX4->iGoodPicker3Up || 
-			!pDX4->iGoodPicker4Up || !pDX4->iGoodPicker5Up || !pDX4->iGoodPicker6Up ||
-			pDX4->iGoodPicker1Down || pDX4->iGoodPicker2Down || pDX4->iGoodPicker3Down || 
-			pDX4->iGoodPicker4Down || pDX4->iGoodPicker5Down || pDX4->iGoodPicker6Down)
+				if (!pDX4->iGoodPicker1Up || !pDX4->iGoodPicker2Up || !pDX4->iGoodPicker3Up || 
+					!pDX4->iGoodPicker4Up || !pDX4->iGoodPicker5Up || !pDX4->iGoodPicker6Up ||
+					pDX4->iGoodPicker1Down || pDX4->iGoodPicker2Down || pDX4->iGoodPicker3Down || 
+					pDX4->iGoodPicker4Down || pDX4->iGoodPicker5Down || pDX4->iGoodPicker6Down)
 #endif
+				{
+					AfxMessageBox(_T("Good Picker Up후 진행하세요............."));
+					return FALSE;
+				}
+				if (!pCommon->Check_Position(AX_LOAD_PICKER_Z, 0)) {
+					AfxMessageBox(_T("Load Picker Z Ready Position 위치후에 진행하세요....."));
+					return FALSE;
+				}
+				if (!pCommon->Check_Position(AX_UNLOAD_PICKER_Z, 0)) {
+					AfxMessageBox(_T("Unload Picker Z Ready Position 위치후에 진행하세요....."));
+					return FALSE;
+				}
+				if (!pDX2->i_IndexAlignLoad_In || pDX2->i_IndexAlignLoad_Out || !pDX2->i_IndexAlignNG_In || pDX2->i_IndexAlignNG_Out || 
+					!pDX2->i_IndexAlignGood_In || pDX2->i_IndexAlignGood_Out || !pDX2->i_IndexAlignUnload_In || pDX2->i_IndexAlignUnload_Out ) {
+						AfxMessageBox(_T("Index Align 1~4 In후 진행하세요............."));
+						return FALSE;
+				}
+				if (gData.bUseCMPress) {
+					if (!pDX2->iCMPressUp || pDX2->iCMPressDn) {
+						AfxMessageBox(_T("CM Press Block Up후에 진행하세요....."));
+						return FALSE;
+					}
+				}
+	}
+	if (nAxis == AX_LOAD_TRAY_X1)
+	{
+		if(!pCommon->Check_Position(AX_LOAD_PICKER_Z, 0))
 		{
-			AfxMessageBox(_T("Good Picker Up후 진행하세요............."));
+			AfxMessageBox(_T("Load Picker Z Ready Up으로 이동후 진행하세요......."));
 			return FALSE;
 		}
-		if (!pCommon->Check_Position(AX_LOAD_PICKER_Z, 0)) {
-			AfxMessageBox(_T("Load Picker Z Ready Position 위치후에 진행하세요....."));
+
+		if((pCommon->Check_Position(AX_LOAD_TRAY_Z1, 0) && pCommon->Check_Position(AX_LOAD_TRAY_Z2, 1))
+			|| (pCommon->Check_Position(AX_LOAD_TRAY_Z1, 1) && pCommon->Check_Position(AX_LOAD_TRAY_Z2, 0)))
+		{
+			//pass
+		}
+		else
+		{
+			AfxMessageBox(_T("Load Tray Z축 위치 확인하세요 (Up & Down)"));
 			return FALSE;
 		}
-		if (!pCommon->Check_Position(AX_UNLOAD_PICKER_Z, 0)) {
-			AfxMessageBox(_T("Unload Picker Z Ready Position 위치후에 진행하세요....."));
+
+
+		double dPosZ1 = pAJinAXL->Get_pStatus(AX_LOAD_TRAY_Z1)->dPos;
+		double dPosZ2 = pAJinAXL->Get_pStatus(AX_LOAD_TRAY_Z2)->dPos;
+
+		if( abs(dPosZ1 -dPosZ2) < 65 )
+		{
+			AfxMessageBox(_T("Load Tray Z축 단차 확인하세요."));
+			return FALSE;
+		}		
+	}
+
+	if (nAxis == AX_LOAD_TRAY_X2) 
+	{
+		if(!pCommon->Check_Position(AX_LOAD_PICKER_Z, 0))
+		{
+			AfxMessageBox(_T("Load Picker Z Ready Up으로 이동후 진행하세요......."));
 			return FALSE;
 		}
-		if (!pDX2->i_IndexAlignLoad_In || pDX2->i_IndexAlignLoad_Out || !pDX2->i_IndexAlignNG_In || pDX2->i_IndexAlignNG_Out || 
-			!pDX2->i_IndexAlignGood_In || pDX2->i_IndexAlignGood_Out || !pDX2->i_IndexAlignUnload_In || pDX2->i_IndexAlignUnload_Out ) {
-			AfxMessageBox(_T("Index Align 1~4 In후 진행하세요............."));
+
+		if((pCommon->Check_Position(AX_LOAD_TRAY_Z1, 0) && pCommon->Check_Position(AX_LOAD_TRAY_Z2, 1))
+			|| (pCommon->Check_Position(AX_LOAD_TRAY_Z1, 1) && pCommon->Check_Position(AX_LOAD_TRAY_Z2, 0)))
+		{
+			//pass
+		}
+		else
+		{
+			AfxMessageBox(_T("Load Tray Z축 위치 확인하세요 (Up & Down)"));
 			return FALSE;
 		}
-		if (gData.bUseCMPress) {
-			if (!pDX2->iCMPressUp || pDX2->iCMPressDn) {
-				AfxMessageBox(_T("CM Press Block Up후에 진행하세요....."));
-				return FALSE;
-			}
+		double dPosZ1 = pAJinAXL->Get_pStatus(AX_LOAD_TRAY_Z1)->dPos;
+		double dPosZ2 = pAJinAXL->Get_pStatus(AX_LOAD_TRAY_Z2)->dPos;
+
+		if( abs(dPosZ1 -dPosZ2) < 60 )
+		{
+			AfxMessageBox(_T("Load Tray Z축 단차 확인하세요."));
+			return FALSE;
+		}		
+
+
+
+	}
+	if (nAxis == AX_UNLOAD_TRAY_Y1) 
+	{
+		if(!pCommon->Check_Position(AX_UNLOAD_PICKER_Z, 0))
+		{
+			AfxMessageBox(_T("Unload Picker Z Ready Up으로 이동후 진행하세요......."));
+			return FALSE;
+		}		
+
+		if((pCommon->Check_Position(AX_UNLOAD_TRAY_Z1, 0) && pCommon->Check_Position(AX_UNLOAD_TRAY_Z2, 1))
+			|| (pCommon->Check_Position(AX_UNLOAD_TRAY_Z1, 1) && pCommon->Check_Position(AX_UNLOAD_TRAY_Z2, 0)))
+		{
+			//pass
+		}
+		else
+		{
+			AfxMessageBox(_T("Unload Tray Z축 위치 확인하세요 (Up & Down)"));
+			return FALSE;
+		}
+
+
+		double dPosZ1 = pAJinAXL->Get_pStatus(AX_UNLOAD_TRAY_Z1)->dPos;
+		double dPosZ2 = pAJinAXL->Get_pStatus(AX_UNLOAD_TRAY_Z2)->dPos;
+
+		if( abs(dPosZ1 -dPosZ2) < 60 )
+		{
+			AfxMessageBox(_T("Unload Tray Z축 단차 확인하세요."));
+			return FALSE;
 		}
 	}
 
-	if (nAxis == AX_LOAD_TRAY_X1) {
-		if((!pCommon->Check_Position(AX_LOAD_TRAY_Z1, 0) && !pCommon->Check_Position(AX_LOAD_TRAY_Z1, 1)) ) {
-			AfxMessageBox(_T("Load Tray 1 Z1축을 Move Position으로 이동후 진행하세요......."));
+	if (nAxis == AX_UNLOAD_TRAY_Y2)
+	{
+		if(!pCommon->Check_Position(AX_UNLOAD_PICKER_Z, 0))
+		{
+			AfxMessageBox(_T("Unload Picker Z Ready Up으로 이동후 진행하세요......."));
 			return FALSE;
-		}
-	}
-	if (nAxis == AX_LOAD_TRAY_X2) {
-		if((!pCommon->Check_Position(AX_LOAD_TRAY_Z2, 0) && !pCommon->Check_Position(AX_LOAD_TRAY_Z2, 1)) ) {
-			AfxMessageBox(_T("Load Tray 2 Z2축을 Move Position으로 이동후 진행하세요......."));
-			return FALSE;
-		}
-	}
-	if (nAxis == AX_UNLOAD_TRAY_Y1) {
-		if((!pCommon->Check_Position(AX_UNLOAD_TRAY_Z1, 0) && !pCommon->Check_Position(AX_UNLOAD_TRAY_Z1, 1)) ) {
-			AfxMessageBox(_T("Unload Tray 1 Z1축을 Move Position으로 이동후 진행하세요......."));
-			return FALSE;
-		}
-	}
-	if (nAxis == AX_UNLOAD_TRAY_Y2) {
-		if((!pCommon->Check_Position(AX_UNLOAD_TRAY_Z2, 0) && !pCommon->Check_Position(AX_UNLOAD_TRAY_Z2, 1)) ) {
-			AfxMessageBox(_T("Unload Tray 2 Z2축을 Move Position으로 이동후 진행하세요......."));
-			return FALSE;
-		}
-	}
+		}		
 
+		if((pCommon->Check_Position(AX_UNLOAD_TRAY_Z1, 0) && pCommon->Check_Position(AX_UNLOAD_TRAY_Z2, 1))
+			|| (pCommon->Check_Position(AX_UNLOAD_TRAY_Z1, 1) && pCommon->Check_Position(AX_UNLOAD_TRAY_Z2, 0)))
+		{
+			//pass
+		}
+		else
+		{
+			AfxMessageBox(_T("Unload Tray Z축 위치 확인하세요 (Up & Down)"));
+			return FALSE;
+		}
+
+		double dPosZ1 = pAJinAXL->Get_pStatus(AX_UNLOAD_TRAY_Z1)->dPos;
+		double dPosZ2 = pAJinAXL->Get_pStatus(AX_UNLOAD_TRAY_Z2)->dPos;
+
+		if( abs(dPosZ1 -dPosZ2) < 60 )
+		{
+			AfxMessageBox(_T("Unload Tray Z축 단차 확인하세요."));
+			return FALSE;
+		}				
+	}
 	return TRUE;
-
 }
