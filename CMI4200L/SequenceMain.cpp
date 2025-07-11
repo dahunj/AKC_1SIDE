@@ -4209,19 +4209,29 @@ BOOL CSequenceMain::LDPicker_Run()
 	case 100:
 		if((m_nIndexTCase <= 200 && gData.IndexJob[0] == 0) &&
 		  ((m_nLoad1Case == 100 && m_nLoad2Case == 440) ||
-		   (m_nLoad1Case == 440 && m_nLoad2Case == 100)) ) {
+		   (m_nLoad1Case == 440 && m_nLoad2Case == 100)) ) 
+		{
 			m_nLDPickerCase = 101;
 			m_pCommon->Set_LoopTime(AUTO_LDPICKER, 5000);
-		} else 
-		if (gData.bCleanOutMode == TRUE && gData.IndexJob[0] == 0) {
-			m_nLDPickerCase = 102;
-			m_pCommon->Set_LoopTime(AUTO_LDPICKER, 30000);
-		} else 
-		if (gData.nTrayPos[0] > 0 && (gData.bCleanOutMode == FALSE) &&
-		   (m_nLoad1Case == 300 || m_nLoad2Case == 300)) {
-			m_nLDPickerCase = 110;
-			m_pCommon->Set_LoopTime(AUTO_LDPICKER, 30000);
 		}
+		else
+		{
+			if (gData.bCleanOutMode == TRUE && gData.IndexJob[0] == 0) {
+				m_nLDPickerCase = 102;
+				m_pCommon->Set_LoopTime(AUTO_LDPICKER, 30000);
+			} 
+			else
+			{
+				if (gData.nTrayPos[0] > 0 && (gData.bCleanOutMode == FALSE) &&
+					(m_nLoad1Case == 300 || m_nLoad2Case == 300))
+				{
+						m_nLDPickerCase = 110;
+						m_pCommon->Set_LoopTime(AUTO_LDPICKER, 30000);
+				}
+			}
+			
+		}
+		
 		break;
 	case 101:
 		if((m_nIndexTCase <= 200 && gData.IndexJob[0] == 0) &&
@@ -5191,7 +5201,7 @@ BOOL CSequenceMain::IndexT_Run()
 		break;
 
 	case 130:
-		if(m_nLDPickerCase > 210 || Check_IndexEmpty(0))
+		if(m_nLDPickerCase > 210 || (m_nLDPickerCase == 200) || Check_IndexEmpty(0))
 		{
 			if (!m_pCommon->Delay_LoopTime(AUTO_INDEXT, 1200)) break;
 			m_pDY3->oInspVacuumPad1On = FALSE;
