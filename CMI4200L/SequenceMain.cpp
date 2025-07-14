@@ -5190,7 +5190,7 @@ BOOL CSequenceMain::IndexT_Run()
 		break;
 
 	case 130:
-		if(m_nLDPickerCase > 210 || Check_IndexEmpty(0))
+		if(m_nLDPickerCase > 210 || m_nLDPickerCase == 200 || Check_IndexEmpty(0))
 		{
 			if (!m_pCommon->Delay_LoopTime(AUTO_INDEXT, 1200)) break;
 			m_pDY3->oInspVacuumPad1On = FALSE;
