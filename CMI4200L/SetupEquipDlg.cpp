@@ -128,6 +128,7 @@ BEGIN_MESSAGE_MAP(CSetupEquipDlg, CDialogEx)
 
 	ON_BN_CLICKED(IDC_BTN_PSW_READ, &CSetupEquipDlg::OnBnClickedBtnPswRead)
 	ON_BN_CLICKED(IDC_BTN_PSW_SAVE, &CSetupEquipDlg::OnBnClickedBtnPswSave)
+	ON_BN_CLICKED(IDC_ENABLE_LOTINFO, &CSetupEquipDlg::OnBnClickedEnableLotinfo)
 END_MESSAGE_MAP()
 
 // CSetupEquipDlg 메시지 처리기입니다.
@@ -580,4 +581,10 @@ void CSetupEquipDlg::OnBnClickedBtnPswSave()
 	CIniFileCS INI("System/USER_PSW.ini");
 	INI.Set_String("PASSWORD", "PSW", strPassword);
 
+}
+
+void CSetupEquipDlg::OnBnClickedEnableLotinfo()
+{
+		CWorkDlg *pWorkDlg = CWorkDlg::Get_Instance();
+		pWorkDlg->Enable_LotInfo(TRUE);
 }

@@ -308,7 +308,7 @@ void CWorkDlg::OnShowWindow(BOOL bShow, UINT nStatus)
 
 		strText.Format("%d", gData.nTrayJobCount);
 		m_stcLotId2.SetWindowText(strText);
-		strText.Format("%d", gData.nCMJobCount);
+		strText.Format("%d", gData.nCMTempCnt);
 		m_stcCMCnt.SetWindowText(strText);
 
 		EQUIP_DATA *pEquipData = pDataManager->Get_pEquipData();
@@ -766,7 +766,7 @@ void CWorkDlg::OnBnClickedCMCnt()
 		if (pCommon->Show_NumPad(strOld, strNew) == IDOK) {
 			m_stcCMCnt.SetWindowText(strNew);
 			nCM = atoi(strNew);
-
+			gData.nCMTempCnt = nCM;
 
 			nCM1 = nCM / gData.nCMMaxCount;
 			nCM2 = nCM % gData.nCMMaxCount;

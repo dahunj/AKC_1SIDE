@@ -660,8 +660,7 @@ BOOL CSequenceMain::Load1_Run()
 				if (m_pDX1->iLS_Load1FCheck) {
 					if (m_pCommon->Check_Position(AX_LOAD_TRAY_X1, 0) && m_pCommon->Check_Position(AX_LOAD_TRAY_Z1, 0) ) {
 						if (gData.nStatus==0) Job_LotStart();
-						if (gLot.nTrayCount == gData.nLoadTrayCount) gData.bUseGripCheckPass = TRUE;
-
+						
 						m_nLoad1Case = 110;
 						m_pCommon->Set_LoopTime(AUTO_LOAD1, 10000);
 					}
@@ -814,6 +813,7 @@ BOOL CSequenceMain::Load1_Run()
 		break;
 	case 290:
 		if (m_pCommon->Check_Position(AX_LOAD_TRAY_X1, 2)) {
+			if (gLot.nTrayCount == gData.nLoadTrayCount ) gData.bUseGripCheckPass = TRUE;
 			gData.nTrayPos[0] = 1;
 			Set_LoadTray();
 			if(m_nLDPickerCase==100) m_nLDPickerCase=110;
@@ -1046,7 +1046,7 @@ BOOL CSequenceMain::Load2_Run()
 				if (m_pDX1->iLS_Load1FCheck) {
 					if (m_pCommon->Check_Position(AX_LOAD_TRAY_X2, 0) && m_pCommon->Check_Position(AX_LOAD_TRAY_Z2, 0) ) {
 						if (gData.nStatus==0) Job_LotStart();
-						if (gLot.nTrayCount == gData.nLoadTrayCount) gData.bUseGripCheckPass = TRUE;
+						
 						m_nLoad2Case = 110;
 						m_pCommon->Set_LoopTime(AUTO_LOAD2, 10000);
 					}
@@ -1197,6 +1197,7 @@ BOOL CSequenceMain::Load2_Run()
 		break;
 	case 290:
 		if (m_pCommon->Check_Position(AX_LOAD_TRAY_X2, 2)) {
+			if (gLot.nTrayCount == gData.nLoadTrayCount) gData.bUseGripCheckPass = TRUE;
 			gData.nTrayPos[0] = 1;
 			Set_LoadTray();
 			if(m_nLDPickerCase==100) m_nLDPickerCase=110;

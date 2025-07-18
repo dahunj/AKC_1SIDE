@@ -86,6 +86,8 @@ private:
 	void Initial_Controls();
 	void Display_EquipData();
 
+public:
+	afx_msg void OnBnClickedEnableLotinfo();
 };
 
 ///////////////////////////////////////////////////////////////////////////////
