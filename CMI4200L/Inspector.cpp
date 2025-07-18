@@ -574,6 +574,7 @@ void CInspector::Get_InspectComplete(int nInspector, CString strRecv)
 		else if (sData[i] == "F") { nJugdeNo = 13;}					//Lens Fiducial Notch Broken (F24)
 		else if (sData[i] == "H") { nJugdeNo = 14;}					//Shiny Edge (F24)
 		else if (sData[i] == "E") { nJugdeNo = 3;}					//Shiny Edge (F24)
+		else if (sData[i] == "Q") { nJugdeNo = 15;}					//Test NG
 		else					  { nJugdeNo = 2; }
 
 		if		(nJugdeNo == 1) g_objMES.Set_Result(gLot.sLotID, sBarcode[i], "OK", sNGcode[i], sNGText[i], nTrayNo, (cm+i+1), 0,0,0,0);

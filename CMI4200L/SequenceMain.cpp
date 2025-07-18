@@ -2761,7 +2761,7 @@ BOOL CSequenceMain::Inspect_Run()
 						if (nJudge == 2)
 						{
 							nRand = m_pCommon->Get_Random(0, 99);
-							nJudge = (nRand < 50 ? 9 : 2);	// 9:Barrel, 13:Fiducial, 14:Shiny edge
+							nJudge = (nRand < 50 ? 15 : (nRand < 88 ? 9 : 2));	// 9:Barrel, 13:Fiducial, 14:Shiny edge
 							gData.IndexInfo[1][i] = nJudge;
 						}
 						else
@@ -2983,7 +2983,8 @@ BOOL CSequenceMain::NGPicker_Run()
 		break;
 
 	case 130:
-		if (Check_NGPickerAllUp() == TRUE) {
+		if (Check_NGPickerAllUp() == TRUE) 
+		{
 			gData.NGPicNo = gData.NGIdxNo = 0;
 			for(int i=0; i<10; i++) gData.NGJobPic[i]=0;
 			m_pCommon->Move_Position(AX_NG_PICKER_X, 0);
@@ -3312,7 +3313,7 @@ BOOL CSequenceMain::NGPicker_Run()
 				if (Check_NGTrayFull(1) || Check_NGTrayFull(2)) {
 					m_nNGTrayCase = 141;
 				} else {
-					m_nNGPickerCase = 222;
+					m_nNGPickerCase = 223;//222;
 				}
 				m_pCommon->Set_LoopTime(AUTO_NGPICKER, 10000);
 			}
@@ -3320,6 +3321,43 @@ BOOL CSequenceMain::NGPicker_Run()
 		break;
 
 	case 222:
+		if (m_pAJinAXL->Is_MoveDone(AX_NG_PICKER_X, m_dNGPickerX) && Check_NGPickerAllUp() == TRUE) {
+			if (m_nNGTrayCase == 140) {
+				gData.NGPicNo = gData.NGIdxNo = gData.nNGTrayPos = gData.nTrayPos[1] = gData.nTrayPos[2] = 0;
+				if (Check_NGTrayXPickDownSelect()){
+					int nYY = gData.nTrayPos[gData.nNGTrayPos];
+					m_pCommon->PickerNG_DnMove(gData.NGPicNo, gData.NGIdxNo, nYY, gData.nNGTrayPos);
+					m_dNGPickerX = m_pCommon->m_dP3X;
+					//m_dNGPickerZ = m_pCommon->m_dP3Z;
+					m_pAJinAXL->Move_Abs_Accel(AX_NG_PICKER_X, m_dNGPickerX, m_pMoveData->dDNGPickerX[2]);
+					//m_pAJinAXL->Move_Abs_Accel(AX_NG_PICKER_Z, m_dNGPickerZ, m_pMoveData->dDNGPickerZ[2]);
+
+					m_pCommon->PickerNGStageMove(nYY, gData.nNGTrayPos);
+					m_dNGStageY = m_pCommon->m_dP3Y;
+					m_pAJinAXL->Move_Abs_Accel(AX_NG_STAGE_Y, m_dNGStageY, m_pMoveData->dDNGStageY[1]);
+
+					m_nNGPickerCase = 230;
+					m_pCommon->Set_LoopTime(AUTO_NGPICKER, 10000);
+
+					CLogFile *pLogFile = CLogFile::Get_Instance();
+					m_sLog.Format("Sequence NGPicker => LotID[%s] Pno[%d] NGTrayNo[%d] PosXY[%d-%d] PosXYZ[%0.3lf-%0.3lf-%0.3lf]", gLot.sLotID, gData.NGPicNo, gData.nNGTrayPos, gData.NGIdxNo, nYY, m_dNGPickerX, m_dNGStageY, m_dNGPickerZ);
+					pLogFile->Save_HandlerLog(m_sLog);
+
+				} else {
+					if (Check_NGTrayFull(1) || Check_NGTrayFull(2)) m_nNGTrayCase = 141;
+#ifdef NG_PICKER_3
+					if (gData.PickerInfor[1][0] <= 0 && gData.PickerInfor[1][1] <= 0 && gData.PickerInfor[1][2] <= 0) {
+#else
+					if (gData.PickerInfor[1][0] <= 0 && gData.PickerInfor[1][1] <= 0 && gData.PickerInfor[1][2] <= 0 && gData.PickerInfor[1][3] <= 0 && gData.PickerInfor[1][4] <= 0) {
+#endif
+						m_nNGPickerCase = 290;
+						m_pCommon->Set_LoopTime(AUTO_NGPICKER, 5000);
+					}
+				}
+			}
+		}
+		break;
+	case 223:
 		if (m_pAJinAXL->Is_MoveDone(AX_NG_PICKER_X, m_dNGPickerX) && Check_NGPickerAllUp() == TRUE) {
 			if (m_nNGTrayCase == 140) {
 				gData.NGPicNo = gData.NGIdxNo = gData.nNGTrayPos = gData.nTrayPos[1] = gData.nTrayPos[2] = 0;
@@ -5974,8 +6012,18 @@ BOOL CSequenceMain::Check_NGTrayFull(int nNo)
 {
 	for(int w=0; w<gData.nArrayW; w++) {
 		for(int l=0; l<gData.nArrayL; l++) {
-			if (nNo == 0 || nNo == 1) { if (gData.NG1TrayInfo[w][l] == 0) return FALSE; }
+			//if (nNo == 0 || nNo == 1) { if (gData.NG1TrayInfo[w][l] == 0) return FALSE; }
 			if (nNo == 0 || nNo == 2) { if (gData.NG2TrayInfo[w][l] == 0) return FALSE; }
+		}
+	}
+	for(int w=0; w<gData.nArrayW; w++) {
+		for(int l=0; l<gData.nArrayL; l++) {
+			if ( nNo == 1) 
+			{ 
+				if (gData.NG1TrayInfo[1][0] > 0) return TRUE;
+				else if (gData.NG1TrayInfo[3][0] > 0) return TRUE;
+				else return FALSE;
+			}			
 		}
 	}
 	return TRUE;
@@ -6537,42 +6585,86 @@ BOOL CSequenceMain::Check_NGTray2PickDownSelect()
 
 BOOL CSequenceMain::Check_NGTrayXPickDownSelect()
 {
+	
+	int tempPickerInfo;
+
 	gData.NGPicNo = gData.NGIdxNo = gData.nNGTrayPos = gData.nTrayPos[1] = gData.nTrayPos[2] = 0;
 	
 	for(int l=0; l<gData.nPickCnt; l++) {
 		if (gData.PickerInfor[1][l] > 0) {
 			gData.NGPicNo = l + 1;
-			if (gData.PickerInfor[1][l] == 9) gData.nNGTrayPos = 1;	//Barrel ¿À¿°
-			else							  gData.nNGTrayPos = 2;
+			tempPickerInfo = gData.PickerInfor[1][l];
+			if (gData.PickerInfor[1][l] == 9 || gData.PickerInfor[1][l] == 15)
+			{
+					gData.nNGTrayPos = 1; //Barrel ¿À¿°
+			}			
+			else
+			{
+					gData.nNGTrayPos = 2;
+			}
 			break;
 		}
 	}
-	if (gData.NGPicNo == 0 || gData.nNGTrayPos == 0) return FALSE;
+	if (gData.NGPicNo == -1 || gData.nNGTrayPos == -1) return FALSE;
 
-	if (gData.nNGTrayPos == 1) {
-		for(int w=0; w<gData.nArrayW; w++) {		//y=4
-			gData.nTrayPos[1] = w + 1;
+	if (gData.nNGTrayPos == 1) 
+	{
 
-			if (w==0 || w==2 || w==4) {
-				for(int l=0; l<gData.nPickCnt; l++) {	//x=3
-					if (gData.NG1TrayInfo[w][l] == 0) {
-						gData.NGIdxNo = l + 1;
-						gData.nNGTrayCmNo = gData.NGIdxNo;
-						break;
+		if ( tempPickerInfo == 9)
+		{
+			for(int w=0; w < (gData.nArrayW/2); w++) {		//y=4
+				gData.nTrayPos[1] = w + 1;
+
+				if (w==0 || w==2 || w==4) {
+					for(int l=0; l<gData.nPickCnt; l++) {	//x=3
+						if (gData.NG1TrayInfo[w][l] == 0) {
+							gData.NGIdxNo = l + 1;
+							gData.nNGTrayCmNo = gData.NGIdxNo;
+							break;
+						}
+					}
+				} else {
+					for(int l=gData.nPickCnt-1; l>=0; l--) {
+						if(gData.NG1TrayInfo[w][l] == 0) {
+							gData.NGIdxNo = l + 1;
+							gData.nNGTrayCmNo + gData.nPickCnt +gData.NGIdxNo;
+							break;
+						}
 					}
 				}
-			} else {
-				for(int l=gData.nPickCnt-1; l>=0; l--) {
-					if(gData.NG1TrayInfo[w][l] == 0) {
-						gData.NGIdxNo = l + 1;
-						gData.nNGTrayCmNo + gData.nPickCnt +gData.NGIdxNo;
-						break;
-					}
-				}
+				if (gData.NGIdxNo > 0) break;
 			}
-			if (gData.NGIdxNo > 0) break;
 		}
-	} else {
+		else if( tempPickerInfo == 15)
+		{
+			for(int w=2; w < gData.nArrayW; w++) {		//y=4
+				gData.nTrayPos[1] = w + 1;
+
+				if (w==0 || w==2 || w==4) {
+					for(int l=0; l<gData.nPickCnt; l++) {	//x=3
+						if (gData.NG1TrayInfo[w][l] == 0) {
+							gData.NGIdxNo = l + 1;
+							gData.nNGTrayCmNo = gData.NGIdxNo;
+							break;
+						}
+					}
+				} else {
+					for(int l=gData.nPickCnt-1; l>=0; l--) {
+						if(gData.NG1TrayInfo[w][l] == 0) {
+							gData.NGIdxNo = l + 1;
+							gData.nNGTrayCmNo + gData.nPickCnt +gData.NGIdxNo;
+							break;
+						}
+					}
+				}
+				if (gData.NGIdxNo > 0) break;
+			}
+		}
+
+		
+	} 
+	else 
+	{
 		for(int w=0; w<gData.nArrayW; w++) {		//y=4
 			gData.nTrayPos[2] = w + 1;
 
@@ -6597,7 +6689,7 @@ BOOL CSequenceMain::Check_NGTrayXPickDownSelect()
 		}
 	}
 
-	if (gData.NGPicNo == 0 || gData.NGIdxNo == 0) return FALSE;
+	if (gData.NGPicNo == -1 || gData.NGIdxNo == -1) return FALSE;
 	return TRUE;
 }
 

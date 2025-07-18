@@ -1219,6 +1219,8 @@ void CWorkDlg::Display_Tray()
 				else if (yy==12)	pDC.FillSolidRect(ttxs,ttys,ttxe,ttye,RGB(255,0,255));	//Pink  (Lens ¿øÀÚÀç NG)
 				else if (yy==13)	pDC.FillSolidRect(ttxs,ttys,ttxe,ttye,RGB(255,0,255));	//Pink  (Lens Fiducial Notch Broken)
 				else if (yy==14)	pDC.FillSolidRect(ttxs,ttys,ttxe,ttye,RGB(255,128,0));	//Orange(Shiny Edge)
+				else if (yy==15)	pDC.FillSolidRect(ttxs,ttys,ttxe,ttye,RGB(255,255,0));	//Yellow(Test NG)
+				else if (yy==9)		pDC.FillSolidRect(ttxs,ttys,ttxe,ttye,RGB(55,255,0));	//?(Test NG)
 				else				pDC.FillSolidRect(ttxs,ttys,ttxe,ttye,RGB(0,0,0));		//Black (NG-Barcode Reading Fail)
 
 				if      (yy== 0)	pDC.SetTextColor(RGB(0,0,0));
