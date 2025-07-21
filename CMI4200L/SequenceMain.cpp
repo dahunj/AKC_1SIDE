@@ -2873,6 +2873,11 @@ BOOL CSequenceMain::Barcode_Run()
 			m_pCommon->Set_LoopTime(AUTO_BARCODE, 10000);
 		break;
 	case 170:
+		if(gData.bReload)
+		{
+			gData.bReload = FALSE;
+			m_nInspectCase = 130; m_pCommon->Set_LoopTime(AUTO_BARCODE, 5000);
+		}
 		if (m_pAJinAXL->Is_MoveDone(AX_BARCODE_A, m_dBarcodePosA)) {
 			CInspector *pInspector = CInspector::Get_Instance();
 			pInspector->Set_MoveComplete(INSPECTOR_VISION, "B");
