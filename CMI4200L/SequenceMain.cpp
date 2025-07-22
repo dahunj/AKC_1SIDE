@@ -2605,6 +2605,9 @@ BOOL CSequenceMain::Unload2_Run()
 // 5.  (Error : 4100)
 BOOL CSequenceMain::Inspect_Run()
 {
+	static DWORD dStartTick;
+	static DWORD dEndTick;
+
 	switch (m_nInspectCase) {
 	case 100:
 		if (m_nIndexTCase <= 200 && gData.IndexJob[1] == 0) {
@@ -2677,6 +2680,7 @@ BOOL CSequenceMain::Inspect_Run()
 			pInspector->Set_StatusUpdate(INSPECTOR_VISION, 2);
 			pInspector->Set_LoadComplete(INSPECTOR_VISION, gData.IDXTrayNo[1][0], gData.IDXLineNo[1]);
 			m_nInspectCase = 150;
+			dStartTick = GetTickCount();
 			m_pCommon->Set_LoopTime(AUTO_INSPECT, 30000);	// KCS(2024.07.08) 무언정지 수정 (5000 -> 30000)
 		}
 		break;
@@ -2686,7 +2690,8 @@ BOOL CSequenceMain::Inspect_Run()
 			m_nInspectCase = 200;
 			m_pCommon->Set_LoopTime(AUTO_INSPECT, 5000);
 		}
-		if(gData.bReload)
+		dEndTick = GetTickCount();
+		if(gData.bReload || (dEndTick - dStartTick) > 20000)
 		{
 			gData.bReload = FALSE;
 			m_nInspectCase = 130; m_pCommon->Set_LoopTime(AUTO_INSPECT, 5000);
@@ -2699,7 +2704,8 @@ BOOL CSequenceMain::Inspect_Run()
 			m_pCommon->Set_LoopTime(AUTO_INSPECT, 10000);
 		break;
 	case 170:
-		if(gData.bReload)
+		dEndTick = GetTickCount();
+		if(gData.bReload || (dEndTick - dStartTick) > 20000)
 		{
 			gData.bReload = FALSE;
 			m_nInspectCase = 130; m_pCommon->Set_LoopTime(AUTO_INSPECT, 5000);
@@ -2713,7 +2719,8 @@ BOOL CSequenceMain::Inspect_Run()
 		break;
 
 	case 180:
-		if(gData.bReload)
+		dEndTick = GetTickCount();
+		if(gData.bReload || (dEndTick - dStartTick) > 20000)
 		{
 			gData.bReload = FALSE;
 			m_nInspectCase = 130; m_pCommon->Set_LoopTime(AUTO_INSPECT, 5000);
@@ -2725,7 +2732,8 @@ BOOL CSequenceMain::Inspect_Run()
 		}
 		break;
 	case 190:
-		if(gData.bReload)
+		dEndTick = GetTickCount();
+		if(gData.bReload || (dEndTick - dStartTick) > 20000)
 		{
 			gData.bReload = FALSE;
 			m_nInspectCase = 130; m_pCommon->Set_LoopTime(AUTO_INSPECT, 5000);
@@ -2824,6 +2832,9 @@ BOOL CSequenceMain::Inspect_Run()
 // 5.  (Error : 4300)
 BOOL CSequenceMain::Barcode_Run()
 {
+	static DWORD dStartTick;
+	static DWORD dEndTick;
+
 	switch (m_nBarcodeCase) {
 	case 100:
 		if (m_nIndexTCase <= 200 && gData.IndexJob[2] == 0) {
@@ -2855,6 +2866,7 @@ BOOL CSequenceMain::Barcode_Run()
 			} else {
 				//m_nBarcodeCase = 130;
 				m_nBarcodeCase = 150;
+				dStartTick = GetTickCount();
 			}
 			m_pCommon->Set_LoopTime(AUTO_BARCODE, 30000);	// KCS(2024.07.08) 무언정지 수정 (5000 -> 30000)
 		}
@@ -2865,7 +2877,8 @@ BOOL CSequenceMain::Barcode_Run()
 			m_nBarcodeCase = 200;
 			m_pCommon->Set_LoopTime(AUTO_BARCODE, 5000);
 		}
-		if(gData.bReload)
+		dEndTick = GetTickCount();
+		if(gData.bReload || (dEndTick - dStartTick) > 20000)
 		{
 			gData.bReload = FALSE;
 			m_nInspectCase = 130; m_pCommon->Set_LoopTime(AUTO_BARCODE, 5000);
@@ -2878,7 +2891,8 @@ BOOL CSequenceMain::Barcode_Run()
 			m_pCommon->Set_LoopTime(AUTO_BARCODE, 10000);
 		break;
 	case 170:
-		if(gData.bReload)
+		dEndTick = GetTickCount();
+		if(gData.bReload || (dEndTick - dStartTick) > 20000)
 		{
 			gData.bReload = FALSE;
 			m_nInspectCase = 130; m_pCommon->Set_LoopTime(AUTO_BARCODE, 5000);
