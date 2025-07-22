@@ -2865,6 +2865,11 @@ BOOL CSequenceMain::Barcode_Run()
 			m_nBarcodeCase = 200;
 			m_pCommon->Set_LoopTime(AUTO_BARCODE, 5000);
 		}
+		if(gData.bReload)
+		{
+			gData.bReload = FALSE;
+			m_nInspectCase = 130; m_pCommon->Set_LoopTime(AUTO_BARCODE, 5000);
+		}
 		break;
 	case 160://
 //			m_pAJinAXL->Move_Abs_Accel(AX_BARCODE_A, m_dBarcodePosA, m_pMoveData->dDBarCodeA[0]);
