@@ -93,8 +93,8 @@ LRESULT CInspector::OnUdpReceive(WPARAM nPort, LPARAM lParam)
 	CString strRecvSocket;
 	strRecvSocket.Format("%s", byRecv);
 
-	
-	while (!strRecvSocket.IsEmpty() ) 
+	int nLoopMax = 3;
+	while (!strRecvSocket.IsEmpty() && nLoopMax > 0 ) 
 	{
 		int nStart = strRecvSocket.Find("@");
 		int nEnd = strRecvSocket.Find("\n");
@@ -290,7 +290,8 @@ LRESULT CInspector::OnUdpReceive(WPARAM nPort, LPARAM lParam)
 		} else if (strCmd == "APD") {
 			if (strOp == "REPLY")	Get_APDReply(nInspectPC, strRecv);
 
-		}		
+		}	
+		nLoopMax--;
 	}
 	return 1;
 }
