@@ -2691,7 +2691,7 @@ BOOL CSequenceMain::Inspect_Run()
 			m_pCommon->Set_LoopTime(AUTO_INSPECT, 5000);
 		}
 		dEndTick = GetTickCount();
-		if(gData.bReload || (dEndTick - dStartTick) > 20000)
+		if(gData.bReload || (dEndTick - dStartTick) > 15000)
 		{
 			gData.bReload = FALSE;
 			m_nInspectCase = 130; m_pCommon->Set_LoopTime(AUTO_INSPECT, 5000);
@@ -2705,7 +2705,7 @@ BOOL CSequenceMain::Inspect_Run()
 		break;
 	case 170:
 		dEndTick = GetTickCount();
-		if(gData.bReload || (dEndTick - dStartTick) > 20000)
+		if(gData.bReload || (dEndTick - dStartTick) > 15000)
 		{
 			gData.bReload = FALSE;
 			m_nInspectCase = 130; m_pCommon->Set_LoopTime(AUTO_INSPECT, 5000);
@@ -2720,7 +2720,7 @@ BOOL CSequenceMain::Inspect_Run()
 
 	case 180:
 		dEndTick = GetTickCount();
-		if(gData.bReload || (dEndTick - dStartTick) > 20000)
+		if(gData.bReload || (dEndTick - dStartTick) > 15000)
 		{
 			gData.bReload = FALSE;
 			m_nInspectCase = 130; m_pCommon->Set_LoopTime(AUTO_INSPECT, 5000);
@@ -2733,7 +2733,7 @@ BOOL CSequenceMain::Inspect_Run()
 		break;
 	case 190:
 		dEndTick = GetTickCount();
-		if(gData.bReload || (dEndTick - dStartTick) > 20000)
+		if(gData.bReload || (dEndTick - dStartTick) > 15000)
 		{
 			gData.bReload = FALSE;
 			m_nInspectCase = 130; m_pCommon->Set_LoopTime(AUTO_INSPECT, 5000);
@@ -2878,7 +2878,7 @@ BOOL CSequenceMain::Barcode_Run()
 			m_pCommon->Set_LoopTime(AUTO_BARCODE, 5000);
 		}
 		dEndTick = GetTickCount();
-		if(gData.bReload || (dEndTick - dStartTick) > 20000)
+		if(gData.bReload || (dEndTick - dStartTick) > 15000)
 		{
 			gData.bReload = FALSE;
 			m_nInspectCase = 130; m_pCommon->Set_LoopTime(AUTO_BARCODE, 5000);
@@ -2892,7 +2892,7 @@ BOOL CSequenceMain::Barcode_Run()
 		break;
 	case 170:
 		dEndTick = GetTickCount();
-		if(gData.bReload || (dEndTick - dStartTick) > 20000)
+		if(gData.bReload || (dEndTick - dStartTick) > 15000)
 		{
 			gData.bReload = FALSE;
 			m_nInspectCase = 130; m_pCommon->Set_LoopTime(AUTO_BARCODE, 5000);
