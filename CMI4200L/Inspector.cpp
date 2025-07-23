@@ -93,12 +93,20 @@ LRESULT CInspector::OnUdpReceive(WPARAM nPort, LPARAM lParam)
 	CString strRecvSocket;
 	strRecvSocket.Format("%s", byRecv);
 
-	int nLoopMax = 3;
-	while (!strRecvSocket.IsEmpty() && nLoopMax > 0) {
+	
+	while (!strRecvSocket.IsEmpty() ) 
+	{
 		int nStart = strRecvSocket.Find("@");
 		int nEnd = strRecvSocket.Find("\n");
 
-		if (nStart > nEnd) return 0;
+		if (nEnd < 0) break;	// 버퍼에 들어오는 중...
+
+		if (nStart < 0 || nStart > nEnd) {
+			/*strLog.Format("[H<-V%d] : <<Error>> %s : Start(%d), End(%d)", nInspector, m_strRecvCmd, nStart, nEnd);
+			g_objLogFile.Save_InspectorLog(strLog);*/
+			strRecvSocket.Delete(0, nEnd + 1);	// 쓰레기값이 채워져 있어서...
+			continue;
+		}
 
 		CString strRecv = strRecvSocket.Mid(nStart + 1, nEnd - nStart - 1);
 		strRecvSocket.Delete(0, nEnd + 1);
@@ -282,8 +290,7 @@ LRESULT CInspector::OnUdpReceive(WPARAM nPort, LPARAM lParam)
 		} else if (strCmd == "APD") {
 			if (strOp == "REPLY")	Get_APDReply(nInspectPC, strRecv);
 
-		}
-		nLoopMax--;
+		}		
 	}
 	return 1;
 }

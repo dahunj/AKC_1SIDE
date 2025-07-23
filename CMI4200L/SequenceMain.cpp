@@ -2683,7 +2683,7 @@ BOOL CSequenceMain::Inspect_Run()
 			dStartTick = GetTickCount();
 			m_pCommon->Set_LoopTime(AUTO_INSPECT, 30000);	// KCS(2024.07.08) 무언정지 수정 (5000 -> 30000)
 		}
-		break;
+		return TRUE;
 
 	case 150:	// Wait
 		if (!m_pEquipData->bUseVisionInspect) {		// KCS(2024.07.09) 무언정지 수정
@@ -2696,7 +2696,7 @@ BOOL CSequenceMain::Inspect_Run()
 			gData.bReload = FALSE;
 			m_nInspectCase = 130; m_pCommon->Set_LoopTime(AUTO_INSPECT, 5000);
 		}
-		break;
+		return TRUE;
 	case 160:
 			m_pAJinAXL->Move_Abs_Accel(AX_INSPECTION_A, m_dVisionPosA, m_pMoveData->dDInspectionA[0]);
 			m_pCommon->Move_Position(AX_INSPECTION_Z, 0);
@@ -2937,10 +2937,14 @@ BOOL CSequenceMain::Barcode_Run()
 // 6.  (Error : 5100)
 BOOL CSequenceMain::NGPicker_Run()
 {
+	static DWORD dStartTick;
+	static DWORD dEndTick; 
+
 	switch (m_nNGPickerCase) 
 	{
 	case 100:
 		if (m_nIndexTCase <= 200 && gData.IndexJob[3] == 0) {
+			dStartTick = GetTickCount();
 			m_nNGPickerCase = 101;
 			m_pCommon->Set_LoopTime(AUTO_NGPICKER, 30000);	// KCS(2024.07.09) 무언정지 개선
 		}
@@ -2955,7 +2959,12 @@ BOOL CSequenceMain::NGPicker_Run()
 			m_nNGPickerCase = 110;
 			m_pCommon->Set_LoopTime(AUTO_NGPICKER, 5000);
 		}
-		break;
+		else if((GetTickCount() - dStartTick) > 15000)
+		{
+			gData.bReload = FALSE;
+			m_nInspectCase = 130; m_pCommon->Set_LoopTime(AUTO_NGPICKER, 5000);
+		}
+		return TRUE;
 
 	case 110:
 		if (m_nIndexTCase <= 200 && gData.IndexJob[3] == 0) {
@@ -3225,7 +3234,9 @@ BOOL CSequenceMain::NGPicker_Run()
 					/*if (gData.PickerInfor[1][i] > 0) {
 						gLot.nCmJigNo[gData.PickerNGTrayNo-1][cm+i][4] = i+1;
 					}		*/		
-				} else {
+				} 
+				else
+				{
 					gData.PickerInfor[1][i] = 0;
 					gData.PickerNGPoNo[i] = 0;
 				}
