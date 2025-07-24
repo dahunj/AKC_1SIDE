@@ -592,11 +592,25 @@ void CInspector::Get_InspectComplete(int nInspector, CString strRecv)
 		gLot.sNGCode[nTrayNo-1][cm+i] = sNGcode[i];
 		gLot.sNGText[nTrayNo-1][cm+i] = sNGText[i];
 		gData.IDXPoNo[x][i] = cm+i+1;	//Pocket No Set
+
+		int temp  = gData.nCMJobCount - gData.nCMTempCnt;
+		temp = gData.nCMMaxCount - temp;
+		if(nTrayNo == gData.nTrayJobCount)
+		{
+			if(gData.IDXPoNo[x][i] > temp)
+			{
+				gLot.nInsResult[nTrayNo-1][cm+i] = gLot.nBarResult[nTrayNo-1][cm+i] = 2;
+			}
+		}
+
 	}
 	gData.nInsTrayNo = nTrayNo;
 	gData.nInsLineNo = nLineNo;
 	gData.IDXInspec[x] = 1;
 	Set_InspectReply(nInspector, nErr);
+
+
+	
 
 	for (int i=0; i<gData.nPickCnt; i++) {	// SBC 불량 발생 Log 
 		if (atoi(sNGcode[i]) == 16) {
