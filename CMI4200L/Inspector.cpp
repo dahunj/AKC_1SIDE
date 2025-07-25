@@ -49,6 +49,8 @@ void CInspector::Delete_Instance()
 
 CInspector::CInspector()
 {
+	pLogFile = CLogFile::Get_Instance();
+
 	Set_Position(0, 0, 0, 0);
 
 	m_bConnectedVision = FALSE;
@@ -94,6 +96,7 @@ LRESULT CInspector::OnUdpReceive(WPARAM nPort, LPARAM lParam)
 	strRecvSocket.Format("%s", byRecv);
 
 	int nLoopMax = 3;
+	CString strLog;
 	while (!strRecvSocket.IsEmpty() && nLoopMax > 0 ) 
 	{
 		int nStart = strRecvSocket.Find("@");
@@ -102,8 +105,8 @@ LRESULT CInspector::OnUdpReceive(WPARAM nPort, LPARAM lParam)
 		if (nEnd < 0) break;	// 버퍼에 들어오는 중...
 
 		if (nStart < 0 || nStart > nEnd) {
-			/*strLog.Format("[H<-V%d] : <<Error>> %s : Start(%d), End(%d)", nInspector, m_strRecvCmd, nStart, nEnd);
-			g_objLogFile.Save_InspectorLog(strLog);*/
+			strLog.Format("[H<-V%d] : <<Error>> %s : Start(%d), End(%d)", 0, strRecvSocket, nStart, nEnd);
+			pLogFile->Save_InspectorLog(strLog);
 			strRecvSocket.Delete(0, nEnd + 1);	// 쓰레기값이 채워져 있어서...
 			continue;
 		}
@@ -593,7 +596,7 @@ void CInspector::Get_InspectComplete(int nInspector, CString strRecv)
 		gLot.sNGText[nTrayNo-1][cm+i] = sNGText[i];
 		gData.IDXPoNo[x][i] = cm+i+1;	//Pocket No Set
 
-		int temp  = gData.nCMJobCount - gData.nCMTempCnt;
+		/*int temp  = gData.nCMJobCount - gData.nCMTempCnt;
 		temp = gData.nCMMaxCount - temp;
 		if(nTrayNo == gData.nTrayJobCount)
 		{
@@ -601,7 +604,7 @@ void CInspector::Get_InspectComplete(int nInspector, CString strRecv)
 			{
 				gLot.nInsResult[nTrayNo-1][cm+i] = gLot.nBarResult[nTrayNo-1][cm+i] = 2;
 			}
-		}
+		}*/
 
 	}
 	gData.nInsTrayNo = nTrayNo;

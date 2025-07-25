@@ -1,6 +1,7 @@
 // Inspector.h : 헤더 파일
 //
 #pragma once
+#include "LogFile.h"
 
 const int INSPECTOR_VISION	= 1;
 
@@ -35,6 +36,8 @@ protected:
 
 private:
 	CUdpSocketCS m_UdpVision;
+
+	
 
 	BOOL	m_bConnectedVision;
 	int		m_nStatusRequestLoop;
@@ -90,6 +93,8 @@ protected:
 	static UINT Thread_AdrDataCopy(LPVOID lpVoid);
 
 public:
+	CLogFile *pLogFile;
+
 	void Initialize_Inspector();
 	void Terminate_Inspector();
 	

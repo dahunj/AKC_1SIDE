@@ -1508,7 +1508,7 @@ void CWorkDlg::UpdateLotInfoFromMES(int nCMCount)
 
 	m_stcCMCnt.SetWindowText(strOld);
 	nTemp = nCMCount;
-	gData.nCMJobCount = nTemp;
+	gData.nCMTempCnt = nTemp;
 
 	nTemp1 = nTemp / gData.nCMMaxCount;
 	nTemp2 = nTemp % gData.nCMMaxCount;
