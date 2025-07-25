@@ -2683,7 +2683,7 @@ BOOL CSequenceMain::Inspect_Run()
 			dStartTick = GetTickCount();
 			m_pCommon->Set_LoopTime(AUTO_INSPECT, 30000);	// KCS(2024.07.08) 무언정지 수정 (5000 -> 30000)
 		}
-		return TRUE;
+		break;
 
 	case 150:	// Wait
 		if (!m_pEquipData->bUseVisionInspect) {		// KCS(2024.07.09) 무언정지 수정
@@ -2964,7 +2964,7 @@ BOOL CSequenceMain::NGPicker_Run()
 			gData.bReload = FALSE;
 			m_nInspectCase = 130; m_pCommon->Set_LoopTime(AUTO_NGPICKER, 5000);
 		}
-		return TRUE;
+		break;
 
 	case 110:
 		if (m_nIndexTCase <= 200 && gData.IndexJob[3] == 0) {
