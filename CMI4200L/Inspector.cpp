@@ -596,15 +596,7 @@ void CInspector::Get_InspectComplete(int nInspector, CString strRecv)
 		gLot.sNGText[nTrayNo-1][cm+i] = sNGText[i];
 		gData.IDXPoNo[x][i] = cm+i+1;	//Pocket No Set
 
-		/*int temp  = gData.nCMJobCount - gData.nCMTempCnt;
-		temp = gData.nCMMaxCount - temp;
-		if(nTrayNo == gData.nTrayJobCount)
-		{
-			if(gData.IDXPoNo[x][i] > temp)
-			{
-				gLot.nInsResult[nTrayNo-1][cm+i] = gLot.nBarResult[nTrayNo-1][cm+i] = 2;
-			}
-		}*/
+	
 
 	}
 	gData.nInsTrayNo = nTrayNo;

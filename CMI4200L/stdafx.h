@@ -72,11 +72,11 @@
 #define EQ_TYPE_C2		//R44C
 
 #if defined(EQ_TYPE_C1)		//R44C
-	#define MAIN_VERSION	"V 1.1.10.c1"
+	#define MAIN_VERSION	"V 1.1.13.c1"
 	#define PICKER_3		// Load/Good/Unload Picker 3
 	#define NG_PICKER_3
 #elif defined(EQ_TYPE_C2)	//R44C
-	#define MAIN_VERSION	"V 1.1.11.c2"
+	#define MAIN_VERSION	"V 1.1.13.c2"
 	#define ALIGN_NEW		// Main Air 2개 (기본 1개), 스테이지 Master/Slave I/O 순서 뒤바뀌어 있음.
 	#define TRAY_CHECK2		// Tray Check Sensor 2개 (기본 1개)
 	#define PICKER_3		// Load/Good/Unload Picker 3
@@ -254,6 +254,9 @@ typedef struct {
 
 	BOOL	bReload;
 	BOOL	bLotReady;
+
+	DWORD	dwReloadStartTick;
+	DWORD	dwReloadEndTick;
 } GLOVAL_DATA;
 extern  GLOVAL_DATA	gData;
 
