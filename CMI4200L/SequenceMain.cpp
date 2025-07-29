@@ -2688,12 +2688,12 @@ BOOL CSequenceMain::Inspect_Run()
 			m_pCommon->Set_LoopTime(AUTO_INSPECT, 5000);
 		}
 
-		gData.dwReloadEndTick = GetTickCount();
+		/*gData.dwReloadEndTick = GetTickCount();
 		if(gData.bReload || (gData.dwReloadEndTick - gData.dwReloadStartTick) > 15000)
 		{
 			gData.bReload = FALSE;
 			m_nInspectCase = 130; m_pCommon->Set_LoopTime(AUTO_INSPECT, 5000);
-		}
+		}*/
 		return TRUE;
 	case 160:
 			m_pAJinAXL->Move_Abs_Accel(AX_INSPECTION_A, m_dVisionPosA, m_pMoveData->dDInspectionA[0]);
@@ -2702,12 +2702,12 @@ BOOL CSequenceMain::Inspect_Run()
 			m_pCommon->Set_LoopTime(AUTO_INSPECT, 10000);
 		break;
 	case 170:
-		gData.dwReloadEndTick = GetTickCount();
+		/*gData.dwReloadEndTick = GetTickCount();
 		if(gData.bReload || (gData.dwReloadEndTick - gData.dwReloadStartTick) > 15000)
 		{
-			gData.bReload = FALSE;
-			m_nInspectCase = 130; m_pCommon->Set_LoopTime(AUTO_INSPECT, 5000);
-		}
+		gData.bReload = FALSE;
+		m_nInspectCase = 130; m_pCommon->Set_LoopTime(AUTO_INSPECT, 5000);
+		}*/
 		if (m_pAJinAXL->Is_MoveDone(AX_INSPECTION_A, m_dVisionPosA) && m_pCommon->Check_Position(AX_INSPECTION_Z, 0)) {
 			CInspector *pInspector = CInspector::Get_Instance();
 			pInspector->Set_MoveComplete(INSPECTOR_VISION, "I");
@@ -2717,12 +2717,12 @@ BOOL CSequenceMain::Inspect_Run()
 		break;
 
 	case 180:
-		gData.dwReloadEndTick = GetTickCount();
+		/*gData.dwReloadEndTick = GetTickCount();
 		if(gData.bReload || (gData.dwReloadEndTick - gData.dwReloadStartTick) > 15000)
 		{
 			gData.bReload = FALSE;
 			m_nInspectCase = 130; m_pCommon->Set_LoopTime(AUTO_INSPECT, 5000);
-		}
+		}*/
 		if (m_pAJinAXL->Is_Done(AX_INSPECTION_Z)) {
 			m_pAJinAXL->Move_Abs_Accel(AX_INSPECTION_Z, m_dVisionPosZ, m_pMoveData->dDInspectionZ[0]);
 			m_nInspectCase = 190;
@@ -2730,12 +2730,12 @@ BOOL CSequenceMain::Inspect_Run()
 		}
 		break;
 	case 190:
-		gData.dwReloadEndTick = GetTickCount();
+		/*gData.dwReloadEndTick = GetTickCount();
 		if(gData.bReload || (gData.dwReloadEndTick - gData.dwReloadStartTick) > 15000)
 		{
 			gData.bReload = FALSE;
 			m_nInspectCase = 130; m_pCommon->Set_LoopTime(AUTO_INSPECT, 5000);
-		}
+		}*/
 		if (m_pAJinAXL->Is_MoveDone(AX_INSPECTION_Z, m_dVisionPosZ)) {
 			CInspector *pInspector = CInspector::Get_Instance();
 			pInspector->Set_MoveComplete(INSPECTOR_VISION, "I");
@@ -2889,12 +2889,12 @@ BOOL CSequenceMain::Barcode_Run()
 			m_nBarcodeCase = 200;
 			m_pCommon->Set_LoopTime(AUTO_BARCODE, 5000);
 		}
-		gData.dwReloadEndTick = GetTickCount();
+		/*gData.dwReloadEndTick = GetTickCount();
 		if(gData.bReload || (gData.dwReloadEndTick - gData.dwReloadStartTick) > 15000)
 		{
 			gData.bReload = FALSE;
 			m_nInspectCase = 130; m_pCommon->Set_LoopTime(AUTO_BARCODE, 5000);
-		}
+		}*/
 		break;
 	case 160://
 //			m_pAJinAXL->Move_Abs_Accel(AX_BARCODE_A, m_dBarcodePosA, m_pMoveData->dDBarCodeA[0]);
@@ -2903,12 +2903,12 @@ BOOL CSequenceMain::Barcode_Run()
 			m_pCommon->Set_LoopTime(AUTO_BARCODE, 10000);
 		break;
 	case 170:
-		gData.dwReloadEndTick = GetTickCount();
+		/*gData.dwReloadEndTick = GetTickCount();
 		if(gData.bReload || (gData.dwReloadEndTick - gData.dwReloadStartTick) > 15000)
 		{
 			gData.bReload = FALSE;
 			m_nInspectCase = 130; m_pCommon->Set_LoopTime(AUTO_BARCODE, 5000);
-		}
+		}*/
 		if (m_pAJinAXL->Is_MoveDone(AX_BARCODE_A, m_dBarcodePosA)) {
 			CInspector *pInspector = CInspector::Get_Instance();
 			pInspector->Set_MoveComplete(INSPECTOR_VISION, "B");
@@ -4633,7 +4633,7 @@ BOOL CSequenceMain::ULPicker_Run()
 			m_pDY2->oInspCMAlign4In = FALSE;
 			m_pDY2->oInspCMAlign4Out = TRUE;
 			m_pAJinAXL->Write_Output(2);
-			
+
 			m_nULPickerCase = 130;
 			m_pCommon->Set_LoopTime(AUTO_ULPICKER, 30000);
 		}
