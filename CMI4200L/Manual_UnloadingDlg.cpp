@@ -331,7 +331,9 @@ void CManual_UnloadingDlg::OnBtnTR1YClick(UINT nID)
 		} else if (nID == IDC_BTN_TR1_Y_2) {
 			pCommon->Move_Position(AX_UNLOAD_TRAY_Y1, 3);
 		}
-	} else {
+	} 
+	else
+	{
 		AfxMessageBox(_T("Unload Tray 1 Z1 - Z2 Axis Position Error...."));
 		return;
 	}

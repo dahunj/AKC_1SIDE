@@ -4609,19 +4609,26 @@ BOOL CSequenceMain::LDPicker_Run()
 // 9.  (Error : 8100)
 BOOL CSequenceMain::ULPicker_Run()
 {
-	switch (m_nULPickerCase) {
+	switch (m_nULPickerCase) 
+	{
 	case 100:
-		if (m_nIndexTCase <= 200 && gData.IndexJob[5] == 0) {
+		if (m_nIndexTCase <= 200 && gData.IndexJob[5] == 0) 
+		{
 			m_nULPickerCase = 110;
 			m_pCommon->Set_LoopTime(AUTO_ULPICKER, 5000);
 		}
 		break;
 	case 110:
-		if (m_nIndexTCase <= 200 && gData.IndexJob[5] == 0) {
-			if (Check_IndexEmpty(6) == TRUE) {
+		if (m_nIndexTCase <= 200 && gData.IndexJob[5] == 0) 
+		{
+			if (Check_IndexEmpty(6) == TRUE) 
+			{
 				gData.IndexJob[5] = 1;
 				m_nULPickerCase = 100;
-			} else {
+			} 
+			else
+			{
+				m_sLog.Format("m_nULPickerCase,%d",m_nULPickerCase); pLogFile->Save_MCCLog(m_sLog);
 				m_nULPickerCase = 120;
 			}
 			m_pCommon->Set_LoopTime(AUTO_ULPICKER, 5000);
@@ -4634,6 +4641,8 @@ BOOL CSequenceMain::ULPicker_Run()
 			m_pDY2->oInspCMAlign4Out = TRUE;
 			m_pAJinAXL->Write_Output(2);
 
+
+			m_sLog.Format("m_nULPickerCase,%d",m_nULPickerCase); pLogFile->Save_MCCLog(m_sLog);
 			m_nULPickerCase = 130;
 			m_pCommon->Set_LoopTime(AUTO_ULPICKER, 30000);
 		}
@@ -4644,6 +4653,8 @@ BOOL CSequenceMain::ULPicker_Run()
 		{
 			if (!m_pCommon->Delay_LoopTime(AUTO_ULPICKER, 500)) break;
 			m_pCommon->Move_Position(AX_UNLOAD_PICKER_Z, 1);
+
+			m_sLog.Format("m_nULPickerCase,%d",m_nULPickerCase); pLogFile->Save_MCCLog(m_sLog);
 			m_nULPickerCase = 140;
 			m_pCommon->Set_LoopTime(AUTO_ULPICKER, 5000);
 		}
@@ -4673,6 +4684,8 @@ BOOL CSequenceMain::ULPicker_Run()
 			m_pDY5->oMUPicker6Close = TRUE;
 #endif
 			m_pAJinAXL->Write_Output(5);
+
+			m_sLog.Format("m_nULPickerCase,%d",m_nULPickerCase); pLogFile->Save_MCCLog(m_sLog);
 			m_nULPickerCase = 142;
 			m_pCommon->Set_LoopTime(AUTO_ULPICKER, 5000);
 		}
@@ -4681,6 +4694,7 @@ BOOL CSequenceMain::ULPicker_Run()
 		if (!m_pDX2->i_IndexAlignUnload_In && m_pDX2->i_IndexAlignUnload_Out ) {
 			m_nULPickerCase = 142;
 			m_pCommon->Set_LoopTime(AUTO_ULPICKER, 10000);
+			m_sLog.Format("m_nULPickerCase,%d",m_nULPickerCase); pLogFile->Save_MCCLog(m_sLog);
 		}
 		break;
 	case 142:
@@ -4700,6 +4714,7 @@ BOOL CSequenceMain::ULPicker_Run()
 			m_pCommon->Move_Position(AX_UNLOAD_PICKER_Z, 0);
 			m_nULPickerCase = 150;
 			m_pCommon->Set_LoopTime(AUTO_ULPICKER, 10000);
+			m_sLog.Format("m_nULPickerCase,%d",m_nULPickerCase); pLogFile->Save_MCCLog(m_sLog);
 		}
 		break;
 
@@ -4717,7 +4732,8 @@ BOOL CSequenceMain::ULPicker_Run()
 				m_pDY2->oInspCMAlign4Out = FALSE;
 				m_pAJinAXL->Write_Output(2);
 
-				for(int i=0; i<6; i++) {
+				for(int i=0; i<6; i++) 
+				{
 					if (gData.IndexInfo[6][i] > 0) {
 						gLot.nCmJigNo[gData.IDXTrayNo[6][i]-1][gData.IDXPoNo[6][i]-1][3] = i+1;
 					}
@@ -4726,6 +4742,8 @@ BOOL CSequenceMain::ULPicker_Run()
 					gData.PickerInfor[3][i] = gData.IndexInfo[6][i]; gData.IndexInfo[6][i] = 0;
 					gData.PickerUnPoNo[i]   = gData.IDXPoNo[6][i];   gData.IDXPoNo[6][i] = 0;
 
+					m_sLog.Format("m_nULPickerCase,%d, TrayNo:%d, Info:%d, PocketNo:%d, LineNo:%d",m_nULPickerCase, gData.PickerUnTrayNo[i], gData.PickerInfor[3][i], gData.PickerUnPoNo[i], gData.IDXLineNo[6]); pLogFile->Save_MCCLog(m_sLog);
+					
 					if (gData.PickerInfor[3][i] > 0) {
 						gLot.nCmJigNo[gData.PickerUnTrayNo[i]-1][gData.PickerUnPoNo[i]-1][6] = i+1;
 					}
@@ -4747,6 +4765,7 @@ BOOL CSequenceMain::ULPicker_Run()
 			if (m_pCommon->Check_Position(AX_UNLOAD_PICKER_X2, 1) ) {
 				m_nULPickerCase = 170;
 				m_pCommon->Set_LoopTime(AUTO_ULPICKER, 5000);
+				m_sLog.Format("m_nULPickerCase,%d",m_nULPickerCase); pLogFile->Save_MCCLog(m_sLog);
 			}
 		}
 		break;
@@ -4761,15 +4780,19 @@ BOOL CSequenceMain::ULPicker_Run()
 			 ((gData.PickerInfor[3][5]>0 && m_pDX5->iMUPicker6CMCheck) || gData.PickerInfor[3][5]==0)) ) {
 			m_nULPickerCase = 200;
 			m_pCommon->Set_LoopTime(AUTO_ULPICKER, 30000);
+			m_sLog.Format("m_nULPickerCase,%d",m_nULPickerCase); pLogFile->Save_MCCLog(m_sLog);
 		}
 		break;
 
 	case 200:
 		if (gData.nTrayPos[3] > 0 &&
-		   (m_nUnload1Case == 300 || m_nUnload2Case == 300)) {
+		   (m_nUnload1Case == 300 || m_nUnload2Case == 300)) 
+		{
 			m_nULPickerCase = 201;
 			m_pCommon->Set_LoopTime(AUTO_ULPICKER, 10000);
-		} else if ((m_nUnload1Case==100 && m_nUnload2Case==440) ||
+			m_sLog.Format("m_nULPickerCase,%d",m_nULPickerCase); pLogFile->Save_MCCLog(m_sLog);
+		} 
+		else if ((m_nUnload1Case==100 && m_nUnload2Case==440) ||
 				   (m_nUnload1Case==440 && m_nUnload2Case==100) ) {
 					if (!m_pCommon->Delay_LoopTime(AUTO_ULPICKER, 1000)) break;
 					m_pCommon->Show_Error(3600);
@@ -4799,11 +4822,15 @@ BOOL CSequenceMain::ULPicker_Run()
 				if (m_nUnload2Case == 300) m_pCommon->Move_Position(AX_UNLOAD_PICKER_X1, 2);
 				m_nULPickerCase = 202;
 				m_pCommon->Set_LoopTime(AUTO_ULPICKER, 30000);
-			} else {
+				m_sLog.Format("m_nULPickerCase,%d",m_nULPickerCase); pLogFile->Save_MCCLog(m_sLog);
+			} 
+			else
+			{
 				if (m_nUnload1Case==300) m_nUnload1Case = 310;
 				if (m_nUnload2Case==300) m_nUnload2Case = 310;
 				m_nULPickerCase = 160;
 				m_pCommon->Set_LoopTime(AUTO_ULPICKER, 30000);
+				m_sLog.Format("m_nULPickerCase,%d",m_nULPickerCase); pLogFile->Save_MCCLog(m_sLog);
 			}
 		}
 		break;
@@ -4813,6 +4840,7 @@ BOOL CSequenceMain::ULPicker_Run()
 			m_pCommon->Move_Position(AX_UNLOAD_PICKER_Z, 2);
 			m_nULPickerCase = 203;
 			m_pCommon->Set_LoopTime(AUTO_ULPICKER, 30000);
+			m_sLog.Format("m_nULPickerCase,%d",m_nULPickerCase); pLogFile->Save_MCCLog(m_sLog);
 		}
 		break;
 	case 203:
@@ -4826,6 +4854,7 @@ BOOL CSequenceMain::ULPicker_Run()
 		{
 			m_nULPickerCase = 210;
 			m_pCommon->Set_LoopTime(AUTO_ULPICKER, 30000);
+			m_sLog.Format("m_nULPickerCase,%d",m_nULPickerCase); pLogFile->Save_MCCLog(m_sLog);
 		}
 		break;
 
@@ -4856,6 +4885,7 @@ BOOL CSequenceMain::ULPicker_Run()
 
 			m_nULPickerCase = 220;
 			m_pCommon->Set_LoopTime(AUTO_ULPICKER, 5000);
+			m_sLog.Format("m_nULPickerCase,%d",m_nULPickerCase); pLogFile->Save_MCCLog(m_sLog);
 		}
 		break;
 	case 220:
@@ -4875,12 +4905,14 @@ BOOL CSequenceMain::ULPicker_Run()
 			m_pCommon->Move_Position(AX_UNLOAD_PICKER_Z, 0);
 			m_nULPickerCase = 221;
 			m_pCommon->Set_LoopTime(AUTO_ULPICKER, 10000);
+			m_sLog.Format("m_nULPickerCase,%d",m_nULPickerCase); pLogFile->Save_MCCLog(m_sLog);
 		}
 		break;
 	case 221:
 		if (m_pCommon->Check_Position(AX_UNLOAD_PICKER_Z, 0) ) {
 			m_nULPickerCase = 230;
 			m_pCommon->Set_LoopTime(AUTO_ULPICKER, 5000);
+			m_sLog.Format("m_nULPickerCase,%d",m_nULPickerCase); pLogFile->Save_MCCLog(m_sLog);
 		}
 		break;
 	case 230:
@@ -4921,6 +4953,7 @@ BOOL CSequenceMain::ULPicker_Run()
 
 				m_nULPickerCase = 240;
 				m_pCommon->Set_LoopTime(AUTO_ULPICKER, 30000);
+				m_sLog.Format("m_nULPickerCase,%d",m_nULPickerCase); pLogFile->Save_MCCLog(m_sLog);
 			}
 		}
 		break;
@@ -4928,6 +4961,7 @@ BOOL CSequenceMain::ULPicker_Run()
 		if (m_pCommon->Check_Position(AX_UNLOAD_PICKER_X1, 0) && m_pCommon->Check_Position(AX_UNLOAD_PICKER_X2, 0) ) {
 			m_nULPickerCase = 250;
 			m_pCommon->Set_LoopTime(AUTO_ULPICKER, 5000);
+			m_sLog.Format("m_nULPickerCase,%d",m_nULPickerCase); pLogFile->Save_MCCLog(m_sLog);
 		}
 		break;
 	case 250:
@@ -4950,6 +4984,7 @@ BOOL CSequenceMain::ULPicker_Run()
 
 			m_nULPickerCase = 100;
 			m_pCommon->Set_LoopTime(AUTO_ULPICKER, 5000);
+			m_sLog.Format("m_nULPickerCase,%d",m_nULPickerCase); pLogFile->Save_MCCLog(m_sLog);
 		}
 		break;
 
@@ -4963,7 +4998,10 @@ BOOL CSequenceMain::ULPicker_Run()
 					if (m_nUnload2Case == 300) m_pCommon->Move_Position(AX_UNLOAD_PICKER_X1, 2);
 					m_nULPickerCase = 310;
 					m_pCommon->Set_LoopTime(AUTO_ULPICKER, 5000);
-				} else {
+					m_sLog.Format("m_nULPickerCase,%d",m_nULPickerCase); pLogFile->Save_MCCLog(m_sLog);
+				} 
+				else
+				{
 					
 					
 					gData.nTrayPos[3] = gData.nArrayW;
@@ -4974,6 +5012,7 @@ BOOL CSequenceMain::ULPicker_Run()
 
 					m_nULPickerCase = 240;
 					m_pCommon->Set_LoopTime(AUTO_ULPICKER, 30000);
+					m_sLog.Format("m_nULPickerCase,%d",m_nULPickerCase); pLogFile->Save_MCCLog(m_sLog);
 				}
 			}
 		}
@@ -4983,19 +5022,26 @@ BOOL CSequenceMain::ULPicker_Run()
 		if((m_nUnload1Case == 300 && m_pCommon->Check_Position(AX_UNLOAD_PICKER_X1, 1)) ||
 		   (m_nUnload2Case == 300 && m_pCommon->Check_Position(AX_UNLOAD_PICKER_X1, 2)) ) {
 			gData.nUpNo = gData.nDownNo = 0;
-			if (Check_UnloadTraySortJob()==TRUE) {
+			if (Check_UnloadTraySortJob()==TRUE)
+			{
 				m_nULPickerCase = 320;
 				m_pCommon->Set_LoopTime(AUTO_ULPICKER, 5000);
-			} else {
+				m_sLog.Format("m_nULPickerCase,%d",m_nULPickerCase); pLogFile->Save_MCCLog(m_sLog);
+			} 
+			else
+			{
 				m_nULPickerCase = 300;
 				m_pCommon->Set_LoopTime(AUTO_ULPICKER, 5000);
+				m_sLog.Format("m_nULPickerCase,%d",m_nULPickerCase); pLogFile->Save_MCCLog(m_sLog);
 			}
 		}
 		break;
 #pragma region UnloadTraySort
 	case 320:	//Up위치이동
-		if (m_pCommon->Check_Position(AX_UNLOAD_PICKER_Z, 0) ) {
-			if (m_nUnload1Case == 300) {
+		if (m_pCommon->Check_Position(AX_UNLOAD_PICKER_Z, 0) ) 
+		{
+			if (m_nUnload1Case == 300) 
+			{
 				m_pCommon->PickerUnload_Move(3, Get_TrayLineConvert(gData.nUpNo), 1);
 				m_dUnloadTrayY[0] = m_pCommon->m_dP2Y[0];
 				m_pAJinAXL->Move_Abs_Accel(AX_UNLOAD_TRAY_Y1, m_dUnloadTrayY[0], m_pMoveData->dDUnloadTrayY1[2]);
@@ -5007,6 +5053,7 @@ BOOL CSequenceMain::ULPicker_Run()
 			}
 			m_nULPickerCase = 330;
 			m_pCommon->Set_LoopTime(AUTO_ULPICKER, 5000);
+			m_sLog.Format("m_nULPickerCase,%d",m_nULPickerCase); pLogFile->Save_MCCLog(m_sLog);
 		}
 		break;
 	case 330:
@@ -5015,6 +5062,7 @@ BOOL CSequenceMain::ULPicker_Run()
 			m_pCommon->Move_Position(AX_UNLOAD_PICKER_Z, 3);
 			m_nULPickerCase = 340;
 			m_pCommon->Set_LoopTime(AUTO_ULPICKER, 5000);
+			m_sLog.Format("m_nULPickerCase,%d",m_nULPickerCase); pLogFile->Save_MCCLog(m_sLog);
 		}
 		break;
 	case 340:
@@ -5022,6 +5070,7 @@ BOOL CSequenceMain::ULPicker_Run()
 			Set_UnloadPickerOpen(0);	//Close
 			m_nULPickerCase = 350;
 			m_pCommon->Set_LoopTime(AUTO_ULPICKER, 5000);
+			m_sLog.Format("m_nULPickerCase,%d",m_nULPickerCase); pLogFile->Save_MCCLog(m_sLog);
 		}
 		break;
 	case 350:
@@ -5030,12 +5079,14 @@ BOOL CSequenceMain::ULPicker_Run()
 			m_pCommon->Move_Position(AX_UNLOAD_PICKER_Z, 0);
 			m_nULPickerCase = 360;
 			m_pCommon->Set_LoopTime(AUTO_ULPICKER, 5000);
+			m_sLog.Format("m_nULPickerCase,%d",m_nULPickerCase); pLogFile->Save_MCCLog(m_sLog);
 		}
 		break;
 	case 360:
 		if (m_pCommon->Check_Position(AX_UNLOAD_PICKER_Z, 0) ) {
 			m_nULPickerCase = 370;
 			m_pCommon->Set_LoopTime(AUTO_ULPICKER, 5000);
+			m_sLog.Format("m_nULPickerCase,%d",m_nULPickerCase); pLogFile->Save_MCCLog(m_sLog);
 		}
 		break;
 	case 370:
@@ -5047,6 +5098,7 @@ BOOL CSequenceMain::ULPicker_Run()
 			}
 			m_nULPickerCase = 380;
 			m_pCommon->Set_LoopTime(AUTO_ULPICKER, 5000);
+			m_sLog.Format("m_nULPickerCase,%d",m_nULPickerCase); pLogFile->Save_MCCLog(m_sLog);
 		}
 		break;
 		
@@ -5064,6 +5116,7 @@ BOOL CSequenceMain::ULPicker_Run()
 			}
 			m_nULPickerCase = 390;
 			m_pCommon->Set_LoopTime(AUTO_ULPICKER, 5000);
+			m_sLog.Format("m_nULPickerCase,%d",m_nULPickerCase); pLogFile->Save_MCCLog(m_sLog);
 		}
 		break;
 	case 390:
@@ -5072,6 +5125,7 @@ BOOL CSequenceMain::ULPicker_Run()
 			m_pCommon->Move_Position(AX_UNLOAD_PICKER_Z, 2);
 			m_nULPickerCase = 400;
 			m_pCommon->Set_LoopTime(AUTO_ULPICKER, 5000);
+			m_sLog.Format("m_nULPickerCase,%d",m_nULPickerCase); pLogFile->Save_MCCLog(m_sLog);
 		}
 		break;
 	case 400:
@@ -5079,6 +5133,7 @@ BOOL CSequenceMain::ULPicker_Run()
 			Set_UnloadPickerOpen(1);	//Open
 			m_nULPickerCase = 410;
 			m_pCommon->Set_LoopTime(AUTO_ULPICKER, 5000);
+			m_sLog.Format("m_nULPickerCase,%d",m_nULPickerCase); pLogFile->Save_MCCLog(m_sLog);
 		}
 		break;
 	case 410:
@@ -5087,12 +5142,14 @@ BOOL CSequenceMain::ULPicker_Run()
 			m_pCommon->Move_Position(AX_UNLOAD_PICKER_Z, 0);
 			m_nULPickerCase = 420;
 			m_pCommon->Set_LoopTime(AUTO_ULPICKER, 5000);
+			m_sLog.Format("m_nULPickerCase,%d",m_nULPickerCase); pLogFile->Save_MCCLog(m_sLog);
 		}
 		break;
 	case 420:
 		if (m_pCommon->Check_Position(AX_UNLOAD_PICKER_Z, 0) ) {
 			m_nULPickerCase = 430;
 			m_pCommon->Set_LoopTime(AUTO_ULPICKER, 5000);
+			m_sLog.Format("m_nULPickerCase,%d",m_nULPickerCase); pLogFile->Save_MCCLog(m_sLog);
 		}
 		break;
 	case 430:
@@ -5103,6 +5160,7 @@ BOOL CSequenceMain::ULPicker_Run()
 
 			m_nULPickerCase = 300;
 			m_pCommon->Set_LoopTime(AUTO_ULPICKER, 5000);
+			m_sLog.Format("m_nULPickerCase,%d",m_nULPickerCase); pLogFile->Save_MCCLog(m_sLog);
 		break;
 #pragma endregion UnloadTraySort
 	}
