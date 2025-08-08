@@ -3996,6 +3996,7 @@ BOOL CSequenceMain::GDPicker_Run()
 			m_pAJinAXL->Write_Output(4);
 			m_nGDPickerCase = 240;
 			m_pCommon->Set_LoopTime(AUTO_GDPICKER, 5000);
+			m_sLog.Format("m_nGDPickerCase,%d, Index Pos : %d",m_nGDPickerCase, gData.nIndexPos); pLogFile->Save_MCCLog(m_sLog);
 		}
 		break;
 	case 240:
@@ -4025,6 +4026,7 @@ BOOL CSequenceMain::GDPicker_Run()
 			}
 			m_nGDPickerCase = 250;
 			m_pCommon->Set_LoopTime(AUTO_GDPICKER, 5000);
+			m_sLog.Format("m_nGDPickerCase,%d, Index Pos : %d",m_nGDPickerCase, gData.nIndexPos); pLogFile->Save_MCCLog(m_sLog);
 		}
 		break;
 	case 250:
@@ -4047,6 +4049,7 @@ BOOL CSequenceMain::GDPicker_Run()
 			
 			m_nGDPickerCase = 251;
 			m_pCommon->Set_LoopTime(AUTO_GDPICKER, 5000);
+			m_sLog.Format("m_nGDPickerCase,%d, Index Pos : %d",m_nGDPickerCase, gData.nIndexPos); pLogFile->Save_MCCLog(m_sLog);
 		}
 		break;
 	case 251:
@@ -4370,6 +4373,7 @@ BOOL CSequenceMain::LDPicker_Run()
 			m_pCommon->Move_Position(AX_LOAD_PICKER_Z, 0);
 			m_nLDPickerCase = 150;
 			m_pCommon->Set_LoopTime(AUTO_LDPICKER, 10000);
+			
 		}
 		break;
 	case 150:
@@ -4479,6 +4483,7 @@ BOOL CSequenceMain::LDPicker_Run()
 
 			m_nLDPickerCase = 220;
 			m_pCommon->Set_LoopTime(AUTO_LDPICKER, 5000);
+			m_sLog.Format("m_nLDPickerCase,%d, Index Pos : %d",m_nLDPickerCase, gData.nIndexPos); pLogFile->Save_MCCLog(m_sLog);
 		}
 		break;
 	case 220:
@@ -4498,6 +4503,7 @@ BOOL CSequenceMain::LDPicker_Run()
 			m_pCommon->Move_Position(AX_LOAD_PICKER_Z, 0);
 			m_nLDPickerCase = 221;
 			m_pCommon->Set_LoopTime(AUTO_LDPICKER, 5000);
+			m_sLog.Format("m_nLDPickerCase,%d, Index Pos : %d",m_nLDPickerCase, gData.nIndexPos); pLogFile->Save_MCCLog(m_sLog);
 		}
 		break;
 	case 221:
@@ -4509,6 +4515,7 @@ BOOL CSequenceMain::LDPicker_Run()
 
 			m_nLDPickerCase = 230;
 			m_pCommon->Set_LoopTime(AUTO_LDPICKER, 30000);
+			m_sLog.Format("m_nLDPickerCase,%d, Index Pos : %d",m_nLDPickerCase, gData.nIndexPos); pLogFile->Save_MCCLog(m_sLog);
 		}
 		break;
 
@@ -4684,17 +4691,17 @@ BOOL CSequenceMain::ULPicker_Run()
 			m_pDY5->oMUPicker6Close = TRUE;
 #endif
 			m_pAJinAXL->Write_Output(5);
-
-			m_sLog.Format("m_nULPickerCase,%d",m_nULPickerCase); pLogFile->Save_MCCLog(m_sLog);
+						
 			m_nULPickerCase = 142;
 			m_pCommon->Set_LoopTime(AUTO_ULPICKER, 5000);
+			m_sLog.Format("m_nULPickerCase,%d ,Index Pos:%d",m_nULPickerCase, gData.nIndexPos ); pLogFile->Save_MCCLog(m_sLog);
 		}
 		break;
 	case 141:
 		if (!m_pDX2->i_IndexAlignUnload_In && m_pDX2->i_IndexAlignUnload_Out ) {
 			m_nULPickerCase = 142;
 			m_pCommon->Set_LoopTime(AUTO_ULPICKER, 10000);
-			m_sLog.Format("m_nULPickerCase,%d",m_nULPickerCase); pLogFile->Save_MCCLog(m_sLog);
+			m_sLog.Format("m_nULPickerCase,%d ,Index Pos:%d",m_nULPickerCase, gData.nIndexPos); pLogFile->Save_MCCLog(m_sLog);
 		}
 		break;
 	case 142:
@@ -4714,12 +4721,13 @@ BOOL CSequenceMain::ULPicker_Run()
 			m_pCommon->Move_Position(AX_UNLOAD_PICKER_Z, 0);
 			m_nULPickerCase = 150;
 			m_pCommon->Set_LoopTime(AUTO_ULPICKER, 10000);
-			m_sLog.Format("m_nULPickerCase,%d",m_nULPickerCase); pLogFile->Save_MCCLog(m_sLog);
+			m_sLog.Format("m_nULPickerCase,%d ,Index Pos:%d",m_nULPickerCase, gData.nIndexPos); pLogFile->Save_MCCLog(m_sLog);
 		}
 		break;
 
 	case 150:
-		if (m_pCommon->Check_Position(AX_UNLOAD_PICKER_Z, 0) ) {
+		if (m_pCommon->Check_Position(AX_UNLOAD_PICKER_Z, 0) ) 
+		{
 //			if((!m_pEquipData->bUseCMCheck) ||
 			if((gData.bUseDryRun) || gData.bUseGripCheckPass ||
 			   (((gData.IndexInfo[6][0]>0 && m_pDX5->iMUPicker1CMCheck) || gData.IndexInfo[6][0]==0) &&
@@ -4727,7 +4735,8 @@ BOOL CSequenceMain::ULPicker_Run()
 			    ((gData.IndexInfo[6][2]>0 && m_pDX5->iMUPicker3CMCheck) || gData.IndexInfo[6][2]==0) &&
 			    ((gData.IndexInfo[6][3]>0 && m_pDX5->iMUPicker4CMCheck) || gData.IndexInfo[6][3]==0) &&
 				((gData.IndexInfo[6][4]>0 && m_pDX5->iMUPicker5CMCheck) || gData.IndexInfo[6][4]==0)  &&
-				((gData.IndexInfo[6][5]>0 && m_pDX5->iMUPicker6CMCheck) || gData.IndexInfo[6][5]==0)) ) {
+				((gData.IndexInfo[6][5]>0 && m_pDX5->iMUPicker6CMCheck) || gData.IndexInfo[6][5]==0)) )
+			{
 				m_pDY2->oInspCMAlign4In = TRUE;
 				m_pDY2->oInspCMAlign4Out = FALSE;
 				m_pAJinAXL->Write_Output(2);
